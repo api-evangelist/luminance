@@ -1,0 +1,199 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  Derived from components.schemas and path nesting in
+  openapi/luminance-api-v1-4-openapi-original.yml and
+  openapi/luminance-public-api-v2-openapi-original.yml. Every entity, field name and
+  relationship below appears verbatim in a published Luminance schema or path parameter —
+  nothing is inferred beyond joining a foreign-key field to the entity it names.
+docs: https://api.luminance.com/swagger-docsv150
+notation: >-
+  relationships use has_one / has_many / belongs_to with the foreign-key field name; the
+  direction is from the entity that owns the reference. Ids are integers (int32) across the
+  whole model — Luminance uses no prefixed or opaque identifiers.
+id_convention:
+  type: integer (int32, minimum 0)
+  prefixes: none — unlike prefixed-id APIs, a bare Luminance id carries no type information,
+    so ids are only meaningful inside their parent project scope.
+tenancy:
+  root: instance
+  detail: >-
+    Every customer runs a dedicated instance addressed by its moniker subdomain. Inside an
+    instance, Project is the primary containment boundary — folders, documents, matters,
+    tasks, workflows, document templates and user permissions are all project-scoped, and
+    almost every v1.5 path begins /api2/projects/{project_id}/.
+
+entities:
+- name: System
+  domain: platform
+  fields: [version, api2_version, product]
+  description: Instance version banner returned by GET /api2/ — reports the Luminance product
+    version and the API2 version, which is how a client discovers which API contract applies.
+- name: User
+  domain: identity
+  fields: [id, created_at, username, name, email, account_id, state, multi_factor_auth_enabled]
+  description: A platform user. `state` is active|disabled. Service Users (used for API
+    client credentials) are users of this type.
+- name: Account
+  domain: identity
+  description: The account a user belongs to. Referenced by User.account_id and
+    Project.account_id but not itself exposed as a collection endpoint.
+- name: Project
+  domain: workspace
+  fields: [id, created_at, created_by, moniker, name, account_id, state, permissions, settings, type, features]
+  description: The top-level container and permission boundary. `type` is
+    diligence|discovery|corporate; `permissions` controls document download rights
+    (none|preview|native); `settings` enumerates enabled annotation types.
+- name: ProjectUsers
+  domain: identity
+  fields: [id, created_at, project_id, user_id, type, roles]
+  description: The join object granting a user roles within a project. `type` is
+    admin|standard; `roles` is an array — a user may hold several roles in one project.
+- name: Folder
+  domain: content
+  fields: [id, created_at, created_by, parent_id, name, media_type, project_id, state, type]
+  description: A hierarchical container for documents. `type` is folder|custodian
+    (custodian records document provenance). Self-nesting via parent_id.
+- name: Document
+  domain: content
+  fields: [id, created_at, created_by, folder_id, parent_id, project_id, name, media_type,
+    state, version_group, version, version_state]
+  description: >-
+    An uploaded file. `state` tracks ingestion (import_pending, import_complete,
+    import_failure, upload_failure, import_extracted, upload_cancelled). Re-uploading the
+    same filename into a folder groups documents by version_group and increments `version`;
+    version_state is active|draft|replaced. parent_id links attachments (e.g. a file embedded
+    in a PDF or attached to an email) to their carrier document.
+- name: DocumentTemplates
+  domain: contract-creation
+  fields: [id, created_at, created_by, name, default_folder_id, media_type, project_id, state, options]
+  description: A Word template used to generate new contracts. default_folder_id is where
+    generated documents land.
+- name: DocumentTemplateFields
+  domain: contract-creation
+  fields: [id, created_at, created_by, name, key, field_order, document_template_id,
+    parent_data_field_id, datatype, options, type, conditions]
+  description: A merge field on a template. parent_data_field_id nests fields (e.g. inside a
+    repeating loop); datatype is usually generic:text.
+- name: Matters
+  domain: contract
+  fields: [id, created_at, created_by, project_id, name, state, info]
+  description: A contract/matter — the unit of legal work that documents, versions,
+    annotations and relations hang off.
+- name: MatterVersion
+  domain: contract
+  fields: [id, created_at, created_by, updated_at, updated_by, group_id, workflow_stage_id,
+    type, state, assigned_to, assigned_at, info]
+  description: A version within a matter's history. `type` is attachment|draft|version — an
+    attachment sits outside the version history as supporting material. workflow_stage_id
+    binds the version to a stage of a workflow; assigned_to routes it to a user.
+- name: MatterRelation
+  domain: contract
+  fields: [id, created_at, created_by, source_id, target_id]
+  description: A directed link between two matters (source_id -> target_id), e.g. an
+    amendment or a parent agreement.
+- name: MatterAnnotation
+  domain: intelligence
+  fields: [id, created_at, created_by, matter_id, annotation_type_id, content, state]
+  description: A typed tag/value attached to a matter — the structured contract-intelligence
+    layer over the repository.
+- name: Annotation
+  domain: intelligence
+  fields: [id, created_at, created_by, document_id, type, roles, content, state]
+  description: A typed tag/value located in a document, produced by Luminance's ML or by a
+    user. Retrievable as text via the annotationText endpoints (optionally widened to the
+    whole paragraph with fullParagraph=true).
+- name: AnnotationType
+  domain: intelligence
+  fields: [id, created_at, created_by, type, key, pre_built, name, options]
+  description: >-
+    The vocabulary of the intelligence layer. pre_built distinguishes out-of-the-box
+    Luminance concepts from concepts defined in the customer's instance; `type` values
+    include contract:state, contracttype, definedterm:definition, definedterm:use, language,
+    alert, alias and generic:enum (whose permitted values live in `options`).
+- name: AnnotationSource
+  domain: intelligence
+  fields: [id, created_at, created_by, annotation_type_id, project_id, workflow_id, content, state]
+  description: A selectable value made available to users choosing a value for an annotation
+    type, optionally scoped to a project and workflow.
+- name: AnnotationSourceRelation
+  domain: intelligence
+  description: Links annotation sources to each other (v1.5 only). Documented as "not
+    currently an interactable element via the API" beyond CRUD.
+- name: Task
+  domain: review
+  fields: [id, created_at, created_by, moniker, name, project_id, parent_id, description,
+    workspace_id, settings, filter, full_families, auto_sync, type, tags]
+  description: A unit of review work. `type` is task|precedent|alert|comparison — a
+    "precedent" task is a Knowledge Bank in the UI. auto_sync controls whether matching
+    documents flow in automatically or are staged.
+- name: Review
+  domain: review
+  fields: [id, created_at, created_by, document_id, state, review_state, assigned_to,
+    assigned_at, outcome]
+  description: One document's passage through one task. review_state is pending|complete;
+    `outcome` carries the approval decision for precedent (Knowledge Bank) tasks.
+- name: Workflow
+  domain: workflow
+  fields: [id, created_at, created_by, moniker, name, project_id]
+  description: A named stage machine that matter versions move through (referenced by
+    MatterVersion.workflow_stage_id).
+- name: TrafficLightAnalysis
+  domain: intelligence
+  description: >-
+    Not a stored schema — an asynchronous ML job started with POST
+    /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis, which returns
+    202 and surfaces its output through the document's annotations. Included here because it
+    is the machine-learning entry point of the model.
+
+relationships:
+- {from: User, to: Account, kind: belongs_to, via: account_id}
+- {from: Project, to: Account, kind: belongs_to, via: account_id}
+- {from: Project, to: User, kind: belongs_to, via: created_by}
+- {from: Project, to: ProjectUsers, kind: has_many, via: project_id}
+- {from: ProjectUsers, to: User, kind: belongs_to, via: user_id}
+- {from: ProjectUsers, to: Project, kind: belongs_to, via: project_id}
+- {from: Project, to: Folder, kind: has_many, via: project_id}
+- {from: Folder, to: Folder, kind: has_many, via: parent_id, note: self-nesting hierarchy}
+- {from: Folder, to: Document, kind: has_many, via: folder_id}
+- {from: Document, to: Folder, kind: belongs_to, via: folder_id}
+- {from: Document, to: Project, kind: belongs_to, via: project_id}
+- {from: Document, to: Document, kind: has_many, via: parent_id, note: attachment family}
+- {from: Document, to: Document, kind: has_many, via: version_group, note: filename version chain}
+- {from: Document, to: Annotation, kind: has_many, via: document_id}
+- {from: Annotation, to: Document, kind: belongs_to, via: document_id}
+- {from: Project, to: Matters, kind: has_many, via: project_id}
+- {from: Matters, to: MatterVersion, kind: has_many, via: matter_id (path scope)}
+- {from: Matters, to: MatterAnnotation, kind: has_many, via: matter_id}
+- {from: MatterAnnotation, to: Matters, kind: belongs_to, via: matter_id}
+- {from: MatterAnnotation, to: AnnotationType, kind: belongs_to, via: annotation_type_id}
+- {from: Matters, to: MatterRelation, kind: has_many, via: source_id}
+- {from: MatterRelation, to: Matters, kind: belongs_to, via: source_id}
+- {from: MatterRelation, to: Matters, kind: belongs_to, via: target_id}
+- {from: MatterVersion, to: Workflow, kind: belongs_to, via: workflow_stage_id}
+- {from: MatterVersion, to: User, kind: belongs_to, via: assigned_to}
+- {from: AnnotationSource, to: AnnotationType, kind: belongs_to, via: annotation_type_id}
+- {from: AnnotationSource, to: Project, kind: belongs_to, via: project_id}
+- {from: AnnotationSource, to: Workflow, kind: belongs_to, via: workflow_id}
+- {from: AnnotationSourceRelation, to: AnnotationSource, kind: belongs_to, via: annotation_source_id}
+- {from: Project, to: Task, kind: has_many, via: project_id}
+- {from: Task, to: Task, kind: has_many, via: parent_id}
+- {from: Task, to: Review, kind: has_many, via: task_id (path scope)}
+- {from: Review, to: Document, kind: belongs_to, via: document_id}
+- {from: Review, to: User, kind: belongs_to, via: assigned_to}
+- {from: Project, to: Workflow, kind: has_many, via: project_id}
+- {from: Project, to: DocumentTemplates, kind: has_many, via: project_id}
+- {from: DocumentTemplates, to: Folder, kind: belongs_to, via: default_folder_id}
+- {from: DocumentTemplates, to: DocumentTemplateFields, kind: has_many, via: document_template_id}
+- {from: DocumentTemplateFields, to: DocumentTemplateFields, kind: has_many, via: parent_data_field_id}
+- {from: AnnotationType, to: Annotation, kind: has_many, via: type/roles key}
+
+notes:
+- Account is referenced by two entities but has no collection endpoint of its own — it is a
+  dangling reference in the published contract.
+- >-
+  Matter and Document are parallel content spines. Documents live in Folders; Matters organise
+  contract work and reference documents through MatterVersions and attachments.
+- The intelligence layer (AnnotationType -> Annotation / MatterAnnotation -> AnnotationSource)
+  is the customer-extensible part of the model and the surface Traffic Light Analysis writes
+  into.

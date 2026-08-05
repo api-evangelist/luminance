@@ -1,0 +1,95 @@
+generated: '2026-08-04'
+method: derived
+status: candidate
+published: false
+pointer_wired: false
+pointer_note: >-
+  Deliberately NOT wired as `type: MCPServer` in apis.yml. Luminance operates no MCP server —
+  this is an API Evangelist candidate tool surface derived from the published OpenAPI, and
+  emitting the canonical pointer would credit the provider with an agent surface it does not
+  ship.
+source: openapi/luminance-public-api-v2-openapi-original.yml
+search_evidence:
+- no MCP server referenced anywhere on www.luminance.com, api.luminance.com or
+  help.luminance.com
+- no mcp.luminance.com host (does not resolve)
+- no first-party package on npm (searched "luminance" — every hit is an unrelated
+  colour-luminance utility), PyPI, or a Luminance GitHub organization (github.com/luminance and
+  github.com/LuminanceAI both exist but hold zero public repositories)
+- no /.well-known/oauth-protected-resource, which a hosted MCP server would normally publish
+server:
+  name: luminance
+  transport: http
+  url: null
+  note: >-
+    Any MCP server for Luminance must be per-instance
+    (https://{moniker}.app.luminance.com), because Luminance has no shared multi-tenant data
+    plane. Authentication would be the OAuth2 client-credentials exchange at
+    /auth/oauth2/token, which maps cleanly onto MCP's OAuth flow.
+tools:
+- name: get_system_info
+  description: Report the instance's Luminance product version and API2 version.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/
+- name: list_projects
+  description: List the projects the credential can access.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects
+- name: search_matters
+  description: Search contracts/matters across the repository.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/search/matters
+- name: search_documents
+  description: Search documents across the repository.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/search/documents
+- name: get_matter
+  description: Retrieve a single matter.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/matters/{matter_id}
+- name: list_matter_annotations
+  description: Read the typed contract intelligence attached to a matter.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/matters/{matter_id}/annotations
+- name: list_matter_relations
+  description: Follow the directed relationship graph between matters.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/matters/{matter_id}/relations
+- name: list_annotation_types
+  description: Resolve annotation type ids to their keys, names and permitted options.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/annotation_types
+- name: get_annotation_text
+  description: Retrieve the underlying document wording behind an annotation, optionally the
+    whole paragraph.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/documents/{document_id}/annotations/annotationText
+- name: list_documents
+  description: List documents in a project or folder.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/documents
+- name: start_traffic_light_analysis
+  description: Start Traffic Light Analysis on a document (asynchronous, returns 202).
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#POST /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis
+  write: true
+- name: create_contract_from_template
+  description: Generate a matter and document from a document template.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#POST /api2/projects/{project_id}/document_templates/create
+  write: true
+- name: list_tasks
+  description: List review tasks and Knowledge Banks in a project.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/tasks
+- name: get_review_analysis
+  description: Read Luminance's analysis results for one document within one review task.
+  source_operation: openapi/luminance-public-api-v2-openapi-original.yml#GET /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis
+excluded_from_candidate_surface:
+- reason: filter-scoped bulk PATCH/DELETE operations act on an entire matched set with no
+    dry-run, no returned count and no idempotency key; they are unsafe to expose as agent
+    tools without an explicit human-in-the-loop gate.
+  operations:
+  - PATCH /api2/projects/{project_id}/folders
+  - DELETE /api2/projects/{project_id}/folders
+  - DELETE /api2/projects/{project_id}/documents
+  - PATCH /api2/projects/{project_id}/matters
+  - DELETE /api2/projects/{project_id}/matters
+  - DELETE /api2/projects/{project_id}/matters/{matter_id}/annotations
+  - PATCH /api2/projects/{project_id}/tasks/{task_id}/reviews
+  - DELETE /api2/projects/{project_id}/tasks/{task_id}/reviews/documents
+notes:
+- Operations are addressed by method + path because Luminance publishes no operationId on any
+  of the 94 v1.5 operations.
+- Tool input schemas would inherit directly from each operation's parameters in
+  openapi/luminance-public-api-v2-openapi-original.yml.
+- >-
+  No tool crosswalk artifact is emitted. A crosswalk binds a REAL MCP (or GraphQL) surface to
+  OpenAPI operations, and Luminance publishes neither.

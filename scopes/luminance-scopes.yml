@@ -1,0 +1,15 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/luminance-api-v1-3-openapi-original.yml, openapi/luminance-api-v1-4-openapi-original.yml
+schemes:
+- name: OAuth2
+  source: openapi/luminance-api-v1-3-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+- name: OAuth2
+  source: openapi/luminance-api-v1-4-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+scopes: []

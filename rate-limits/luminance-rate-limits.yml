@@ -1,0 +1,48 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Luminance
+providerId: luminance
+generated: '2026-08-04'
+method: searched
+created: '2026-08-04'
+modified: '2026-08-04'
+tags:
+- Rate Limiting
+- Legal
+- Contracts
+description: >-
+  Luminance publishes a single flat API rate limit that applies to the whole API surface,
+  stated in the OpenAPI info.description of every published version: "API requests are rate
+  limited for security reasons to 100 requests every 10 minutes." The limit is not tiered by
+  plan, not split by read/write, and is not signalled in response headers — the only runtime
+  indication of throttling is a 429, whose declared description directs the caller to contact
+  Luminance support rather than to retry after an interval.
+sources:
+- https://api.luminance.com/swagger-docsv150
+- https://api.luminance.com/swagger-docsv140
+- https://api.luminance.com/swagger-docsv130
+- openapi/luminance-public-api-v2-openapi-original.yml
+headers:
+  remaining: null
+  limit: null
+  reset: null
+  retryAfter: null
+  requestId: null
+responseCodes:
+  throttled: 429
+limits:
+- name: All API requests
+  scope: instance
+  metric: requests
+  limit: 100
+  timeFrame: 10 minutes
+  applies_to: every operation in v1.3.0, v1.4.0 and v1.5 (Public API v2)
+  source: OpenAPI info.description
+notes:
+- No X-RateLimit-* headers and no Retry-After are declared in any spec, so a client cannot
+  read remaining quota or a server-supplied backoff interval.
+- The 429 shared response reads "Too many requests have been sent to the server over a given
+  time period. Please contact Luminance's support team." — i.e. the documented remediation is
+  a support ticket, not automatic backoff.
+- No published mechanism to request a raised limit, and no separate sandbox/test-mode quota.

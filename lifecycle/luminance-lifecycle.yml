@@ -1,0 +1,82 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://api.luminance.com/swagger-docs (the version-selector landing page) plus the
+  info.description of each published version. Luminance publishes no separate versioning
+  policy, deprecation policy, SLA or status page.
+versioning:
+  scheme: uri-path + product-release coupling
+  current: '1.5'
+  current_label: Public API v2
+  path_prefix: /api2
+  docs: https://api.luminance.com/swagger-docs
+  detail: >-
+    The API version a customer can call is a function of the Luminance product version
+    deployed to their instance, not a client-selected header or path. Luminance states this
+    explicitly in each spec: v1.3.0 "is deployed by standard to Luminance product versions
+    1.37.0 to 1.42.0 inclusive"; v1.5 "is deployed by standard to Luminance product versions
+    1.43.0 onwards". A caller must therefore know their instance's product version to know
+    which contract applies.
+  published_versions:
+  - version: 1.3.0
+    docs: https://api.luminance.com/swagger-docsv130
+    spec: openapi/luminance-api-v1-3-openapi-original.yml
+    product_versions: 1.37.0 - 1.42.0 inclusive
+    paths: 49
+    operations: 67
+    auth: oauth2 clientCredentials
+  - version: 1.4.0
+    docs: https://api.luminance.com/swagger-docsv140
+    spec: openapi/luminance-api-v1-4-openapi-original.yml
+    product_versions: not stated in the spec
+    paths: 53
+    operations: 74
+    auth: oauth2 clientCredentials
+    changes_vs_1_3_0: adds the Workflows tag and the annotation_sources collection; drops
+      the Root tag.
+  - version: '1.5'
+    docs: https://api.luminance.com/swagger-docsv150
+    spec: openapi/luminance-public-api-v2-openapi-original.yml
+    product_versions: 1.43.0 onwards
+    paths: 62
+    operations: 94
+    auth: http bearer (JWT) obtained from the same OAuth2 client-credentials exchange
+    changes_vs_1_4_0: >-
+      Rebranded "Public API v2" and moved under the /api2 prefix; adds Search (aggregated,
+      documents, matters), Document Templates, Annotation Source Relations and filter-scoped
+      bulk PATCH/DELETE; adds limit+offset paging; restates the auth scheme as http/bearer
+      with an inline how-to-get-a-token guide in info.description.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no sunset schedule and no end-of-life dates are published, and no
+    operation in any of the three specs carries `deprecated: true`. Older versions remain
+    documented and reachable from the version selector with no deprecation notice attached,
+    so a consumer on v1.3.0 has no published signal about how long that contract survives.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  note: No status.luminance.com and no status page linked from the site, the API docs or the
+    help centre; status.luminance.com does not resolve.
+changelog:
+  url: null
+  published: false
+  note: >-
+    No dated API changelog or release-notes feed is published. Version-to-version change is
+    only discoverable by diffing the three OpenAPI documents, which is what the
+    `changes_vs_*` fields above record.
+support:
+  help_center: https://help.luminance.com/en/
+  contact: https://www.luminance.com/contact/
+gaps:
+- No status page (operational transparency).
+- No deprecation or sunset policy despite maintaining three concurrent API versions.
+- No published API changelog.
+- No SLA or uptime commitment on the public surface.

@@ -1,0 +1,100 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  Derived from the shared components.responses blocks and per-operation responses of
+  openapi/luminance-api-v1-3-openapi-original.yml,
+  openapi/luminance-api-v1-4-openapi-original.yml and
+  openapi/luminance-public-api-v2-openapi-original.yml. Luminance publishes no separate
+  error reference page, so every title below is the provider's own response description
+  verbatim — nothing is invented.
+format: undocumented
+format_note: >-
+  NOT RFC 9457. No error response in any Luminance spec declares a media type, a schema or
+  an example body — each 4xx/5xx is a bare `description` string. There is therefore no
+  documented error envelope, no stable machine-readable error code, and no `type` URI. An
+  agent or SDK cannot branch on anything more specific than the HTTP status code.
+coverage:
+  v1_3_0: 401, 403, 405, 422, 429, 500 applied to essentially every operation (66 of 67
+    operations carry the full set); 404 on 2 operations.
+  v1_4_0: same shape — 401, 403, 405, 422, 429, 500 on 73 of 74 operations; 404 on 2.
+  v1_5_public_api_v2: leaner and inconsistent — 404 on 15 operations, 422 on 11, 403 on 1,
+    and NO 401/429/500 declared anywhere. The newest version documents fewer failure modes
+    than the versions it replaces.
+problems:
+- status: 400
+  title: Bad Request - the request was malformed
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+  note: Defined as a shared component but not referenced by any operation.
+- status: 401
+  title: Unauthorized - the authentication provided was invalid
+  remediation: Re-run the OAuth2 client-credentials exchange against
+    https://{moniker}.app.luminance.com/auth/oauth2/token and resend with a fresh bearer token.
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+- status: 403
+  title: Forbidden - the authenticated user does not have sufficient permissions to perform
+    this action
+  remediation: >-
+    Authorization is by Luminance platform permission, not OAuth scope. Administrator-level
+    Service Users are required for account-wide collections (for example listing all users);
+    project-scoped actions require the matching project role.
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+  - openapi/luminance-public-api-v2-openapi-original.yml
+- status: 404
+  title: Not Found
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+  - openapi/luminance-public-api-v2-openapi-original.yml
+- status: 405
+  title: Method not allowed (calling api with wrong method)
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+- status: 422
+  title: Unprocessable Entity - the request was well formed, but not processable
+  remediation: >-
+    The dominant validation failure mode. Because no body schema is published, the caller
+    cannot tell which field failed — check enumerated parameters (document state, matter
+    version state, task type, annotation state) against the values declared in the spec.
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+  - openapi/luminance-public-api-v2-openapi-original.yml
+- status: 429
+  title: Too many requests have been sent to the server over a given time period. Please
+    contact Luminance's support team.
+  remediation: >-
+    The documented limit is 100 requests per 10 minutes. No Retry-After or X-RateLimit-*
+    header is declared, so a client must implement blind exponential backoff; the provider's
+    own stated remediation is to contact support.
+  see_also: rate-limits/luminance-rate-limits.yml
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+- status: 500
+  title: Internal server error
+  declared_in:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+success_semantics:
+- status: 201
+  title: Request was successfully fulfilled and resulted in one or possibly multiple new
+    resources being created
+- status: 202
+  title: Request accepted for processing, but the processing has not been finished yet
+    (initiation of traffic light analysis)
+  note: Also returned when creating a Knowledge Bank from a template asynchronously. There
+    is no callback — completion must be discovered by polling the resource.
+- status: 204
+  title: Request completed, but no response payload body will be present (attributed to a
+    successful deletion request)
+gaps:
+- No error body schema or example anywhere in three published versions.
+- No stable error code or error type URI — status code is the only discriminator.
+- v1.5 ("Public API v2") declares no 401, 429 or 500 at all, a regression against v1.4.0.

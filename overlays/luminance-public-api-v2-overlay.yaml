@@ -1,0 +1,308 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Luminance Public API v2
+  version: 1.0.0
+extends: openapi/luminance-public-api-v2-openapi-original.yml
+x-generated: '2026-08-04'
+x-method: generated
+x-source: openapi/luminance-public-api-v2-openapi-original.yml
+x-description: Luminance ships all 94 operations of the v1.5 "Public API v2" without an operationId, which makes
+  the spec un-referenceable by SDK generators, Arazzo workflows and agent tooling. This overlay adds a deterministic
+  verb+path operationId to every operation and annotates info with the harvest provenance and the contract gaps.
+  It is API Evangelist metadata, not a Luminance claim, and the harvested spec is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/luminance
+    x-apievangelist-harvested-from: https://api.luminance.com/swagger-docsv150
+    x-apievangelist-harvest-note: Extracted verbatim from the swaggerDoc object embedded in the provider-served
+      Swagger UI bundle at /swagger-docsv150/swagger-ui-init.js; the spec is not published at a standalone URL.
+    x-apievangelist-gaps:
+    - no-operationids
+    - no-error-schemas
+    - no-idempotency
+    - no-rate-limit-headers
+    - no-webhooks
+    - no-examples
+- target: $.paths['/api2/'].get
+  update:
+    operationId: getSystem
+- target: $.paths['/api2/users'].get
+  update:
+    operationId: getUsers
+- target: $.paths['/api2/users/{id}'].get
+  update:
+    operationId: getUsersById
+- target: $.paths['/api2/users/me'].get
+  update:
+    operationId: getUsersMe
+- target: $.paths['/api2/project_users'].get
+  update:
+    operationId: getProjectUsers
+- target: $.paths['/api2/project_users/{id}'].get
+  update:
+    operationId: getProjectUsersById
+- target: $.paths['/api2/annotation_types'].get
+  update:
+    operationId: getAnnotationTypes
+- target: $.paths['/api2/annotation_types/{id}'].get
+  update:
+    operationId: getAnnotationTypesById
+- target: $.paths['/api2/annotation_sources'].get
+  update:
+    operationId: getAnnotationSources
+- target: $.paths['/api2/annotation_sources'].post
+  update:
+    operationId: createAnnotationSources
+- target: $.paths['/api2/annotation_sources'].patch
+  update:
+    operationId: updateAnnotationSources
+- target: $.paths['/api2/annotation_sources/{id}'].get
+  update:
+    operationId: getAnnotationSourcesById
+- target: $.paths['/api2/annotation_sources/{id}'].patch
+  update:
+    operationId: updateAnnotationSourcesById
+- target: $.paths['/api2/annotation_source_relations'].get
+  update:
+    operationId: getAnnotationSourceRelations
+- target: $.paths['/api2/annotation_source_relations'].post
+  update:
+    operationId: createAnnotationSourceRelations
+- target: $.paths['/api2/annotation_source_relations/{id}'].get
+  update:
+    operationId: getAnnotationSourceRelationsById
+- target: $.paths['/api2/annotation_source_relations/{id}'].patch
+  update:
+    operationId: updateAnnotationSourceRelationsById
+- target: $.paths['/api2/search'].get
+  update:
+    operationId: getSearch
+- target: $.paths['/api2/search/documents'].get
+  update:
+    operationId: getSearchDocuments
+- target: $.paths['/api2/search/matters'].get
+  update:
+    operationId: getSearchMatters
+- target: $.paths['/api2/projects'].get
+  update:
+    operationId: getProjects
+- target: $.paths['/api2/projects/{project_id}'].get
+  update:
+    operationId: getProjectsByProjectId
+- target: $.paths['/api2/projects/{project_id}/folders'].get
+  update:
+    operationId: getProjectsByProjectIdFolders
+- target: $.paths['/api2/projects/{project_id}/folders'].post
+  update:
+    operationId: createProjectsByProjectIdFolders
+- target: $.paths['/api2/projects/{project_id}/folders'].patch
+  update:
+    operationId: updateProjectsByProjectIdFolders
+- target: $.paths['/api2/projects/{project_id}/folders'].delete
+  update:
+    operationId: deleteProjectsByProjectIdFolders
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}'].get
+  update:
+    operationId: getProjectsByProjectIdFoldersByFolderId
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}'].patch
+  update:
+    operationId: updateProjectsByProjectIdFoldersByFolderId
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdFoldersByFolderId
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/upload'].post
+  update:
+    operationId: createProjectsByProjectIdFoldersByFolderIdUpload
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents'].get
+  update:
+    operationId: getProjectsByProjectIdFoldersByFolderIdDocuments
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents'].delete
+  update:
+    operationId: deleteProjectsByProjectIdFoldersByFolderIdDocuments
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}'].get
+  update:
+    operationId: getProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentId
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentId
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations'].get
+  update:
+    operationId: getProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations/annotationText'].get
+  update:
+    operationId: getProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdAnnotationsAnnotationtext
+- target: $.paths['/api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/download'].get
+  update:
+    operationId: getProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdDownload
+- target: $.paths['/api2/projects/{project_id}/documents'].get
+  update:
+    operationId: getProjectsByProjectIdDocuments
+- target: $.paths['/api2/projects/{project_id}/documents'].delete
+  update:
+    operationId: deleteProjectsByProjectIdDocuments
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentsByDocumentId
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdDocumentsByDocumentId
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}/download'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentsByDocumentIdDownload
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis'].post
+  update:
+    operationId: createProjectsByProjectIdDocumentsByDocumentIdTrafficLightAnalysis
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}/annotations'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentsByDocumentIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}/annotations/annotationText'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentsByDocumentIdAnnotationsAnnotationtext
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}/notes'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentsByDocumentIdNotes
+- target: $.paths['/api2/projects/{project_id}/documents/{document_id}/notes/{id}'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentsByDocumentIdNotesById
+- target: $.paths['/api2/projects/{project_id}/document_templates'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentTemplates
+- target: $.paths['/api2/projects/{project_id}/document_templates/{document_template_id}'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentTemplatesByDocumentTemplateId
+- target: $.paths['/api2/projects/{project_id}/document_templates/{document_template_id}/fields'].get
+  update:
+    operationId: getProjectsByProjectIdDocumentTemplatesByDocumentTemplateIdFields
+- target: $.paths['/api2/projects/{project_id}/document_templates/create'].post
+  update:
+    operationId: createProjectsByProjectIdDocumentTemplatesCreate
+- target: $.paths['/api2/projects/{project_id}/matters'].get
+  update:
+    operationId: getProjectsByProjectIdMatters
+- target: $.paths['/api2/projects/{project_id}/matters'].post
+  update:
+    operationId: createProjectsByProjectIdMatters
+- target: $.paths['/api2/projects/{project_id}/matters'].patch
+  update:
+    operationId: updateProjectsByProjectIdMatters
+- target: $.paths['/api2/projects/{project_id}/matters'].delete
+  update:
+    operationId: deleteProjectsByProjectIdMatters
+- target: $.paths['/api2/projects/{project_id}/matters/create'].post
+  update:
+    operationId: createProjectsByProjectIdMattersCreate
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}'].patch
+  update:
+    operationId: updateProjectsByProjectIdMattersByMatterId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdMattersByMatterId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations'].post
+  update:
+    operationId: createProjectsByProjectIdMattersByMatterIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations'].patch
+  update:
+    operationId: updateProjectsByProjectIdMattersByMatterIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations'].delete
+  update:
+    operationId: deleteProjectsByProjectIdMattersByMatterIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations/{annotation_id}'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdAnnotationsByAnnotationId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations/{annotation_id}'].patch
+  update:
+    operationId: updateProjectsByProjectIdMattersByMatterIdAnnotationsByAnnotationId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/annotations/{annotation_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdMattersByMatterIdAnnotationsByAnnotationId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/relations'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdRelations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/relations'].post
+  update:
+    operationId: createProjectsByProjectIdMattersByMatterIdRelations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/relations'].delete
+  update:
+    operationId: deleteProjectsByProjectIdMattersByMatterIdRelations
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/relations/{relation_id}'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdRelationsByRelationId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/relations/{relation_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdMattersByMatterIdRelationsByRelationId
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/events'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdEvents
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/versions'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdVersions
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/versions/{version_id}/assignable_users'].get
+  update:
+    operationId: getProjectsByProjectIdMattersByMatterIdVersionsByVersionIdAssignableUsers
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/versions/{version_id}/assign'].patch
+  update:
+    operationId: updateProjectsByProjectIdMattersByMatterIdVersionsByVersionIdAssign
+- target: $.paths['/api2/projects/{project_id}/matters/{matter_id}/versions/add_attachment'].post
+  update:
+    operationId: createProjectsByProjectIdMattersByMatterIdVersionsAddAttachment
+- target: $.paths['/api2/projects/{project_id}/tasks'].get
+  update:
+    operationId: getProjectsByProjectIdTasks
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskId
+- target: $.paths['/api2/projects/{project_id}/tasks/knowledge_bank_from_template'].post
+  update:
+    operationId: createProjectsByProjectIdTasksKnowledgeBankFromTemplate
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviews
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews'].post
+  update:
+    operationId: createProjectsByProjectIdTasksByTaskIdReviews
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews'].patch
+  update:
+    operationId: updateProjectsByProjectIdTasksByTaskIdReviews
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsByReviewId
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}'].patch
+  update:
+    operationId: updateProjectsByProjectIdTasksByTaskIdReviewsByReviewId
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsByReviewIdAnalysis
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocuments
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents'].delete
+  update:
+    operationId: deleteProjectsByProjectIdTasksByTaskIdReviewsDocuments
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentId
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}'].delete
+  update:
+    operationId: deleteProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentId
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/download'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdDownload
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdAnnotations
+- target: $.paths['/api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations/annotationText'].get
+  update:
+    operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdAnnotationsAnnotationtext
+- target: $.paths['/api2/projects/{project_id}/workflows'].get
+  update:
+    operationId: getProjectsByProjectIdWorkflows
+- target: $.paths['/api2/projects/{project_id}/workflows/{id}'].get
+  update:
+    operationId: getProjectsByProjectIdWorkflowsById

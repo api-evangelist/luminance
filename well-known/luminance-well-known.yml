@@ -1,0 +1,78 @@
+generated: '2026-08-04'
+method: probed
+source: live GET of the /.well-known/ discovery surface on every Luminance host in apis.yml
+description: >-
+  Luminance publishes no /.well-known/ discovery documents on either its marketing host
+  (www.luminance.com) or its API documentation host (api.luminance.com). Every probed path
+  returned 404. The one 200 observed anywhere in the luminance.com namespace was
+  https://help.luminance.com/.well-known/security.txt, which is Intercom's document
+  (Canonical: https://app.intercom.com/.well-known/security.txt) served by the hosted
+  help-centre platform — it is NOT a Luminance vulnerability-disclosure policy and is
+  deliberately recorded here as third-party rather than harvested as the provider's own.
+  Absence is valid, recorded data.
+hosts:
+- host: https://www.luminance.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    file: ../llms/luminance-llms.txt
+    note: Non-standard "llm-manifest 1.0" framing rather than the canonical llms.txt H1 +
+      blockquote + link-list format, but published by the provider and saved verbatim.
+- host: https://api.luminance.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: Carries the Cloudflare "content signals" preamble (search / ai-input / ai-train)
+      as an express Article 4 EU DSM reservation of rights, but declares no signal values
+      and no Disallow rules.
+- host: https://help.luminance.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    third_party: intercom
+    note: Intercom's own security.txt, canonical at app.intercom.com. NOT Luminance's.
+      Not harvested as a provider artifact.
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+notes:
+- No OIDC / OAuth 2.0 Authorization Server Metadata document is published, even though the
+  API uses OAuth2 client credentials — the token endpoint is documented only in prose in the
+  OpenAPI `info.description` (https://<moniker>.app.luminance.com/auth/oauth2/token).
+- Per-customer instance hosts (https://<moniker>.app.luminance.com) could not be probed
+  anonymously; the instance moniker is customer-specific and no public instance exists.

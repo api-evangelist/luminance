@@ -1,0 +1,29 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/luminance-api-v1-3-openapi-original.yml, openapi/luminance-api-v1-4-openapi-original.yml,
+  openapi/luminance-public-api-v2-openapi-original.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    scopes: 0
+  sources:
+  - openapi/luminance-api-v1-3-openapi-original.yml
+  - openapi/luminance-api-v1-4-openapi-original.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Access token from the OAuth2 client credentials flow. See the Authentication
+    section above for how to obtain a token (curl to your instance token endpoint); then paste
+    the access_token here.
+  sources:
+  - openapi/luminance-public-api-v2-openapi-original.yml

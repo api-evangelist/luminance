@@ -1,0 +1,80 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  Standards derived from the three harvested OpenAPI documents; the certification claims
+  searched from https://www.luminance.com/security/ and captured in
+  security/luminance-trust-center.yml.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: three documents published at api.luminance.com — 3.0.0 (v1.3.0, v1.4.0) and
+    3.0.3 (v1.5 Public API v2)
+- id: oauth2
+  conforms: true
+  evidence: components.securitySchemes declares an oauth2 clientCredentials flow with
+    tokenUrl https://moniker.app.luminance.com/auth/oauth2/token (v1.3.0, v1.4.0)
+- id: oauth2-client-credentials-rfc6749
+  conforms: true
+  evidence: >-
+    info.description documents the RFC 6749 §4.4 exchange verbatim — HTTP Basic
+    client_id:client_secret, grant_type=client_credentials, access_token in the response
+- id: rfc6750-bearer-token
+  conforms: true
+  evidence: >-
+    v1.5 declares an http/bearer scheme with bearerFormat JWT and sends the header
+    `Authorization` with a `Bearer <access_token>` value
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on every host; the token
+    endpoint is documented only in prose
+- id: oidc
+  conforms: false
+  evidence: no openIdConnect security scheme and no /.well-known/openid-configuration
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no application/problem+json media type anywhere; error responses carry a
+    description string only, with no schema
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.luminance.com and
+    api.luminance.com (the 200 on help.luminance.com is Intercom's, not Luminance's)
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header support and no deprecation policy published
+    despite three concurrent API versions
+- id: idempotency-key
+  conforms: false
+  evidence: no Idempotency-Key header or equivalent in any of the three specs
+- id: cursor-pagination
+  conforms: false
+  evidence: limit/offset only; no cursor, no has_more, no total, no link envelope
+- id: json-api
+  conforms: false
+  evidence: plain application/json resource representations, not the JSON:API media type
+- id: asyncapi
+  conforms: false
+  evidence: no event, webhook, callback or streaming surface exists to describe
+- id: mcp
+  conforms: false
+  evidence: no hosted or published Model Context Protocol server
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json both 404 on every host
+- id: llms-txt
+  conforms: partial
+  evidence: >-
+    https://www.luminance.com/llms.txt returns 200 but uses a bespoke "llm-manifest: 1.0"
+    YAML-ish framing rather than the llms.txt H1 + blockquote + link-list convention, and
+    its link targets point at the WP Engine origin (lumiprd.wpenginepowered.com) rather than
+    the canonical www.luminance.com hostnames
+compliance_program:
+  published: true
+  url: https://www.luminance.com/security/
+  certifications:
+  - ISO 27001:2022
+  - SOC 2 Type 2
+  practices:
+  - regular third-party penetration testing
+  - Darktrace Enterprise Immune System for threat detection
+  whitepaper: https://www.luminance.com/resources/white-papers/security-standards-and-protocols/
+  detail: security/luminance-trust-center.yml

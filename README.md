@@ -42,5 +42,23 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Luminance is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/luminance_stock/
+Luminance Technologies Ltd. is a UK-headquartered legal-AI company, founded in 2015 out of
+Cambridge mathematics research, that builds what it markets as Legal-Grade AI for the full
+contract lifecycle — drafting, negotiation, analysis, compliance, investigation and
+collaboration.
+
+Luminance is delivered as a per-customer instance addressed by an "instance moniker"
+subdomain (`https://{moniker}.app.luminance.com`), and publishes three OpenAPI 3.0 documents
+from its own API host: v1.3.0, v1.4.0, and the current v1.5 "Public API v2". Authentication is
+OAuth 2.0 client credentials against the customer's instance token endpoint, and the API is
+rate limited to 100 requests every 10 minutes.
+
+## Public surface
+
+- Website — https://www.luminance.com/
+- API documentation (version selector) — https://api.luminance.com/swagger-docs
+- API reference, v1.5 "Public API v2" — https://api.luminance.com/swagger-docsv150
+- Help centre — https://help.luminance.com/en/
+- Security and compliance — https://www.luminance.com/security/ (ISO 27001:2022, SOC 2 Type 2)
+- llms.txt — https://www.luminance.com/llms.txt
+- Secondary-market listing (original harvest source) — https://forgeglobal.com/luminance_stock/

@@ -1,0 +1,143 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  Derived from the three Luminance OpenAPI documents harvested from
+  https://api.luminance.com/swagger-docs (v1.3.0, v1.4.0 and the v1.5 "Public API v2"),
+  including their info.description prose, shared components.parameters and shared
+  components.responses. Luminance publishes no separate developer-conventions guide.
+description: >-
+  How the Luminance REST API behaves across every operation: how you authenticate, how
+  the instance host is addressed, how collections are filtered and limited, how errors
+  come back, and what the API does NOT do (no idempotency contract, no cursor pagination,
+  no webhooks, no rate-limit response headers).
+
+base_url: https://{moniker}.app.luminance.com
+base_url_note: >-
+  Every customer runs on their own Luminance instance and the "moniker" path segment is
+  the instance subdomain. There is no shared multi-tenant api.luminance.com data plane —
+  api.luminance.com serves only the Swagger UI documentation.
+api_style: REST over HTTPS, JSON request and response bodies
+
+versioning:
+  scheme: uri-path + product-release coupling
+  detail: >-
+    v1.3.0 and v1.4.0 are served at the instance root; the v1.5 "Public API v2" is served
+    under the /api2 path prefix. API version is not client-selectable per request — it is
+    determined by the Luminance product version deployed to the instance (v1.3.0 ships with
+    product 1.37.0-1.42.0; v1.5 ships with product 1.43.0 onward).
+  detail_artifact: lifecycle/luminance-lifecycle.yml
+
+authentication:
+  scheme: OAuth 2.0 client credentials, then HTTP Bearer
+  detail: >-
+    A Service User client_id/client_secret pair is Base64-encoded into an HTTP Basic
+    Authorization header and POSTed as grant_type=client_credentials to the instance token
+    endpoint https://{moniker}.app.luminance.com/auth/oauth2/token. The returned
+    access_token is then sent as `Authorization: Bearer <access_token>` on every call.
+    v1.5 declares this as an `http`/`bearer` (JWT) scheme; v1.3.0/v1.4.0 declare the
+    oauth2 clientCredentials scheme directly.
+  scopes: none declared — the client-credentials flow publishes an empty scopes map, so
+    authorization is governed by the Service User's platform permissions (Administrator vs
+    standard, plus per-project roles) rather than by OAuth scope.
+  detail_artifact: authentication/luminance-authentication.yml
+
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, no idempotency parameter and no idempotency prose appears
+    anywhere in any of the three OpenAPI documents. Retrying a POST (for example
+    /api2/projects/{project_id}/matters/create or a folder upload) is not protected against
+    duplicate creation.
+  gap: true
+
+pagination:
+  style: limit-only (no cursor, no page tokens, no total count)
+  request_params:
+    limit: integer, default 50 — "Maximum number of objects that can be retrieved"
+      (shared components.parameters.limit in v1.3.0/v1.4.0)
+    offset: integer — added alongside limit on the v1.5 collection endpoints
+  response_fields: none — list endpoints return a bare JSON array/object with no
+    has_more, next, total or link envelope.
+  gap: >-
+    With no cursor and no total, a client cannot reliably page a large collection or detect
+    truncation; this is the weakest convention on the API.
+
+filtering:
+  style: query-parameter equality filters, one parameter per resource attribute
+  detail: >-
+    Rather than a generic filter grammar, Luminance declares a named shared parameter for
+    almost every attribute of every object (e.g. userState, matterState, documentState,
+    annotationType, folderParentId, createdAt, createdBy, reviewOutcome). Enumerated states
+    are constrained in the spec (documents: import_pending / import_complete /
+    import_failure / upload_failure / import_extracted / upload_cancelled; matter versions:
+    active / draft / replaced; tasks: task / precedent / alert / comparison).
+  bulk_by_filter: >-
+    Several v1.5 endpoints apply PATCH and DELETE to a filtered set rather than a single id
+    (for example PATCH/DELETE /api2/projects/{project_id}/folders and DELETE
+    /api2/projects/{project_id}/matters). These are destructive fan-out operations with no
+    dry-run and no idempotency key.
+
+field_expansion:
+  supported: false
+  detail: >-
+    No expand[] mechanism. The nearest equivalent is the `fullParagraph` boolean on
+    annotation-text retrieval, which widens the extracted text from the tag to the whole
+    paragraph, and `enable_token_based_linking` on document download.
+
+metadata:
+  supported: partial
+  detail: >-
+    There is no generic key/value metadata bag. The extensibility surface is the annotation
+    model: customer-defined annotation types (pre-built=false) attach typed values to
+    matters and documents, discoverable via /annotation_types.
+
+request_tracing:
+  request_id_header: none documented
+  gap: >-
+    No request-id / correlation-id response header is declared in any spec, so a client has
+    no documented handle to quote back to Luminance support for a failed call.
+
+error_envelope:
+  format: undocumented
+  detail: >-
+    Error responses are declared as shared components.responses with a human description
+    only — no schema, no media type and no example body. There is no RFC 9457
+    application/problem+json envelope and no machine-readable error code registry.
+  catalog: errors/luminance-problem-types.yml
+
+rate_limiting:
+  documented: true
+  limit: 100 requests per 10 minutes
+  source: OpenAPI info.description (all three versions)
+  response_code: 429
+  headers: none — no X-RateLimit-* and no Retry-After is declared, so a client cannot see
+    remaining quota or a documented backoff interval and must implement blind backoff.
+  detail_artifact: rate-limits/luminance-rate-limits.yml
+
+async_operations:
+  supported: true
+  detail: >-
+    Long-running machine-learning work is accepted with 202 rather than completed inline:
+    POST .../documents/{document_id}/traffic_light_analysis starts Traffic Light Analysis,
+    and POST .../tasks/knowledge_bank_from_template takes an `async` parameter to create a
+    Knowledge Bank asynchronously.
+  completion_signal: polling only — there is no callback, no webhook and no event stream,
+    so the client must re-read the resource to learn the outcome.
+
+events:
+  webhooks: false
+  asyncapi: false
+  evidence: no webhook, callback, subscription or event-delivery surface appears in any of
+    the three OpenAPI documents or in the public documentation.
+
+content_types:
+  request: application/json (plus multipart file upload on the folder upload endpoint)
+  response: application/json; application/octet-stream on document download endpoints
+
+cross_links:
+  authentication: authentication/luminance-authentication.yml
+  scopes: scopes/luminance-scopes.yml
+  errors: errors/luminance-problem-types.yml
+  lifecycle: lifecycle/luminance-lifecycle.yml
+  rate_limits: rate-limits/luminance-rate-limits.yml
+  data_model: data-model/luminance-data-model.yml

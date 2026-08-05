@@ -1,23 +1,151 @@
 aid: luminance
 name: Luminance
-description: 'Luminance is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Luminance Technologies Ltd. is a UK-headquartered legal-AI company, founded
+  in 2015 out of Cambridge mathematics research, that builds what it markets as Legal-Grade
+  AI for the full contract lifecycle — drafting, negotiation, analysis, compliance, investigation
+  and collaboration. The platform is delivered as a per-customer instance (an "instance
+  moniker" subdomain) and exposes a documented RESTful HTTP/JSON API that lets external
+  software read and act on projects, folders, documents, matters, matter versions, tasks,
+  reviews, annotations, workflows and document templates, plus machine-learning surfaces
+  such as Traffic Light Analysis and annotation-driven contract intelligence. Three OpenAPI
+  3.0 versions are published from Luminance''s own API host: v1.3.0 and v1.4.0 (OAuth2
+  client-credentials) and the newer "Public API v2" v1.5, which is deployed by standard
+  to Luminance product versions 1.43.0 onward. Authentication is OAuth2 client credentials
+  against the customer instance token endpoint, and API traffic is rate limited to 100
+  requests every 10 minutes.'
 url: https://raw.githubusercontent.com/api-evangelist/luminance/refs/heads/main/apis.yml
+image: https://api.luminance.com/img/general_resources/luminance_logos/Luminance-logo.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-04'
 modified: '2026-08-04'
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1
 tags:
 - Company
-apis: []
+- Legal
+- Artificial Intelligence
+- Contracts
+- Contract Lifecycle Management
+- Document Intelligence
+- Compliance
+- Legal Technology
+- Enterprise Software
+- Automation
+apis:
+- name: Luminance Public API v2
+  description: 'The current Luminance REST API (documented as version 1.5, "Public API
+    v2"), deployed by standard to Luminance product versions 1.43.0 onward. 62 paths /
+    94 operations across System, Users, Projects, Folders, Documents, Document Templates,
+    Matters, Tasks, Workflows, Annotation Types, Annotation Sources, Annotation Source
+    Relations, Project Users and Search. Served from the customer''s own instance host
+    under /api2 and authenticated with an OAuth2 client-credentials bearer token.'
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Legal
+  - Contracts
+  - Documents
+  - Matters
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-public-api-v2-openapi-original.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Overlay
+    url: overlays/luminance-public-api-v2-overlay.yaml
+- name: Luminance API v1.4.0
+  description: 'Luminance REST API version 1.4.0, deployed by standard to earlier Luminance
+    product versions. 53 paths / 74 operations across Accounts, Users, Projects, Tasks,
+    Reviews, Folders, Documents, Annotations, Workflows, Matters, Matter Versions, Traffic
+    Light Analysis and Contract Creation. OAuth2 client-credentials authentication against
+    the customer instance token endpoint.'
+  humanURL: https://api.luminance.com/swagger-docsv140
+  baseURL: https://your-instance.app.luminance.com
+  tags:
+  - Legal
+  - Contracts
+  - Documents
+  - Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-api-v1-4-openapi-original.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+- name: Luminance API v1.3.0
+  description: 'Luminance REST API version 1.3.0, deployed by standard to Luminance product
+    versions 1.37.0 to 1.42.0 inclusive. 49 paths / 67 operations across Root, Accounts,
+    Users, Projects, Tasks, Reviews, Folders, Documents, Annotations, Matters, Matter
+    Versions, Traffic Light Analysis and Contract Creation. OAuth2 client-credentials
+    authentication.'
+  humanURL: https://api.luminance.com/swagger-docsv130
+  baseURL: https://your-instance.app.luminance.com
+  tags:
+  - Legal
+  - Contracts
+  - Documents
+  - Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-api-v1-3-openapi-original.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/luminance-trust-center.yml
 - type: Website
-  url: https://forgeglobal.com/luminance_stock/
+  url: https://www.luminance.com/
+- type: DeveloperPortal
+  url: https://api.luminance.com/swagger-docs
+- type: Documentation
+  url: https://api.luminance.com/swagger-docs
+- type: APIReference
+  url: https://api.luminance.com/swagger-docsv150
+- type: Support
+  url: https://help.luminance.com/en/
+- type: HelpCenter
+  url: https://help.luminance.com/en/
+- type: Blog
+  url: https://www.luminance.com/resources/blog/
+- type: SignUp
+  url: https://www.luminance.com/demo/
+- type: TermsOfService
+  url: https://www.luminance.com/terms-conditions/
+- type: PrivacyPolicy
+  url: https://www.luminance.com/privacy-policy/
+- type: Compliance
+  url: https://www.luminance.com/security/
+- type: Authentication
+  url: authentication/luminance-authentication.yml
+- type: OAuthScopes
+  url: scopes/luminance-scopes.yml
+- type: Conventions
+  url: conventions/luminance-conventions.yml
+- type: RateLimits
+  url: rate-limits/luminance-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/luminance-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/luminance-lifecycle.yml
+- type: Conformance
+  url: conformance/luminance-conformance.yml
+- type: DataModel
+  url: data-model/luminance-data-model.yml
+- type: WellKnown
+  url: well-known/luminance-well-known.yml
+- type: LLMsTxt
+  url: llms/luminance-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/luminance-domain-security.yml

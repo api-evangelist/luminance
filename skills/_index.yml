@@ -1,0 +1,39 @@
+generated: '2026-08-04'
+method: generated
+source: openapi/luminance-public-api-v2-openapi-original.yml
+note: >-
+  Luminance publishes no operationId on any of the 94 operations in the v1.5 spec, so every
+  skill step is grounded in the verbatim HTTP method + path from the harvested document rather
+  than an id. Deterministic operationIds for tooling that requires them are supplied by
+  overlays/luminance-public-api-v2-overlay.yaml without mutating the original spec.
+  Luminance publishes no AGENTS.md or first-party agent skills; these are API Evangelist
+  generated operating instructions.
+skills:
+- file: luminance-ingest-and-analyze-contract.md
+  name: Ingest a contract and run Traffic Light Analysis
+  api: openapi/luminance-public-api-v2-openapi-original.yml
+  operations:
+  - POST /api2/projects/{project_id}/folders/{folder_id}/upload
+  - POST /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis
+  - GET /api2/projects/{project_id}/documents/{document_id}/annotations
+- file: luminance-generate-contract-from-template.md
+  name: Generate a contract from a document template
+  api: openapi/luminance-public-api-v2-openapi-original.yml
+  operations:
+  - GET /api2/projects/{project_id}/document_templates/{document_template_id}/fields
+  - POST /api2/projects/{project_id}/document_templates/create
+  - GET /api2/projects/{project_id}/matters/{matter_id}/versions
+- file: luminance-search-the-contract-repository.md
+  name: Search the contract repository and read matter intelligence
+  api: openapi/luminance-public-api-v2-openapi-original.yml
+  operations:
+  - GET /api2/search/matters
+  - GET /api2/projects/{project_id}/matters/{matter_id}/annotations
+  - GET /api2/annotation_types
+- file: luminance-run-review-task.md
+  name: Run a review task and record outcomes
+  api: openapi/luminance-public-api-v2-openapi-original.yml
+  operations:
+  - POST /api2/projects/{project_id}/tasks/knowledge_bank_from_template
+  - GET /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis
+  - PATCH /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}
