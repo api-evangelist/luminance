@@ -37,62 +37,342 @@ tags:
 - Enterprise Software
 - Automation
 apis:
-- name: Luminance Public API v2
-  description: 'The current Luminance REST API (documented as version 1.5, "Public API
-    v2"), deployed by standard to Luminance product versions 1.43.0 onward. 62 paths /
-    94 operations across System, Users, Projects, Folders, Documents, Document Templates,
-    Matters, Tasks, Workflows, Annotation Types, Annotation Sources, Annotation Source
-    Relations, Project Users and Search. Served from the customer''s own instance host
-    under /api2 and authenticated with an OAuth2 client-credentials bearer token.'
+- aid: luminance:luminance-accounts-api
+  name: Luminance Accounts API
+  description: The Accounts API from Luminance — 6 operation(s) for accounts.
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
-  - Legal
-  - Contracts
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-annotation-source-relations-api
+  name: Luminance Annotation Source Relations API
+  description: >-
+    The Annotation Source Relations API from Luminance — 2 operation(s) for annotation source relations.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Annotation Source Relations
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-annotation-source-relations-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-annotation-sources-api
+  name: Luminance Annotation Sources API
+  description: The Annotation Sources API from Luminance — 2 operation(s) for annotation sources.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Annotation Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-annotation-sources-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-annotation-types-api
+  name: Luminance Annotation Types API
+  description: The Annotation Types API from Luminance — 2 operation(s) for annotation types.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Annotation Types
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-annotation-types-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-annotations-api
+  name: Luminance Annotations API
+  description: The Annotations API from Luminance — 12 operation(s) for annotations.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-annotations-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-contract-creation-api
+  name: Luminance Contract Creation API
+  description: The Contract Creation API from Luminance — 4 operation(s) for contract creation.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Contract Creation
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-contract-creation-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-document-templates-api
+  name: Luminance Document Templates API
+  description: The Document Templates API from Luminance — 4 operation(s) for document templates.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Document Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-document-templates-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-documents-api
+  name: Luminance Documents API
+  description: The Documents API from Luminance — 19 operation(s) for documents.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
   - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-documents-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-folders-api
+  name: Luminance Folders API
+  description: The Folders API from Luminance — 10 operation(s) for folders.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-folders-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-matter-versions-api
+  name: Luminance Matter Versions API
+  description: The Matter Versions API from Luminance — 4 operation(s) for matter versions.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Matter Versions
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-matter-versions-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-matters-api
+  name: Luminance Matters API
+  description: The Matters API from Luminance — 22 operation(s) for matters.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
   - Matters
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-matters-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-project-users-api
+  name: Luminance Project Users API
+  description: The Project Users API from Luminance — 2 operation(s) for project users.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Project Users
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-project-users-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-projects-api
+  name: Luminance Projects API
+  description: The Projects API from Luminance — 6 operation(s) for projects.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-projects-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-reviews-api
+  name: Luminance Reviews API
+  description: The Reviews API from Luminance — 3 operation(s) for reviews.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-root-api
+  name: Luminance Root API
+  description: The Root API from Luminance — 1 operation(s) for root.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Root
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-root-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-search-api
+  name: Luminance Search API
+  description: The Search API from Luminance — 3 operation(s) for search.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
   - Search
   properties:
   - type: OpenAPI
-    url: openapi/luminance-public-api-v2-openapi-original.yml
+    url: openapi/luminance-search-api-openapi.yml
   - type: Documentation
     url: https://api.luminance.com/swagger-docsv150
-  - type: Overlay
-    url: overlays/luminance-public-api-v2-overlay.yaml
-- name: Luminance API v1.4.0
-  description: 'Luminance REST API version 1.4.0, deployed by standard to earlier Luminance
-    product versions. 53 paths / 74 operations across Accounts, Users, Projects, Tasks,
-    Reviews, Folders, Documents, Annotations, Workflows, Matters, Matter Versions, Traffic
-    Light Analysis and Contract Creation. OAuth2 client-credentials authentication against
-    the customer instance token endpoint.'
-  humanURL: https://api.luminance.com/swagger-docsv140
-  baseURL: https://your-instance.app.luminance.com
-  tags:
-  - Legal
-  - Contracts
-  - Documents
-  - Annotations
-  properties:
-  - type: OpenAPI
-    url: openapi/luminance-api-v1-4-openapi-original.yml
   - type: Documentation
     url: https://api.luminance.com/swagger-docsv140
-- name: Luminance API v1.3.0
-  description: 'Luminance REST API version 1.3.0, deployed by standard to Luminance product
-    versions 1.37.0 to 1.42.0 inclusive. 49 paths / 67 operations across Root, Accounts,
-    Users, Projects, Tasks, Reviews, Folders, Documents, Annotations, Matters, Matter
-    Versions, Traffic Light Analysis and Contract Creation. OAuth2 client-credentials
-    authentication.'
-  humanURL: https://api.luminance.com/swagger-docsv130
-  baseURL: https://your-instance.app.luminance.com
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-system-api
+  name: Luminance System API
+  description: The System API from Luminance — 1 operation(s) for system.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
   tags:
-  - Legal
-  - Contracts
-  - Documents
-  - Annotations
+  - System
   properties:
   - type: OpenAPI
-    url: openapi/luminance-api-v1-3-openapi-original.yml
+    url: openapi/luminance-system-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-tasks-api
+  name: Luminance Tasks API
+  description: The Tasks API from Luminance — 14 operation(s) for tasks.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-traffic-light-analysis-api
+  name: Luminance Traffic Light Analysis API
+  description: >-
+    The Traffic Light Analysis API from Luminance — 3 operation(s) for traffic light analysis.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Traffic Light Analysis
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-traffic-light-analysis-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-users-api
+  name: Luminance Users API
+  description: The Users API from Luminance — 10 operation(s) for users.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-users-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv130
+- aid: luminance:luminance-workflows-api
+  name: Luminance Workflows API
+  description: The Workflows API from Luminance — 4 operation(s) for workflows.
+  humanURL: https://api.luminance.com/swagger-docsv150
+  baseURL: https://your-instance.app.luminance.com/api2
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/luminance-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv150
+  - type: Documentation
+    url: https://api.luminance.com/swagger-docsv140
   - type: Documentation
     url: https://api.luminance.com/swagger-docsv130
 maintainers:
@@ -101,6 +381,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: MCPServer
+  url: mcp/luminance-mcp.yml
+- type: Overlay
+  url: overlays/luminance-public-api-v2-overlay.yaml
 - type: TrustCenter
   url: security/luminance-trust-center.yml
 - type: Website
