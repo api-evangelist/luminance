@@ -1,0 +1,985 @@
+openapi: 3.2.0
+info:
+  title: Luminance Tasks API
+  version: '1.0'
+  description: 'Operations tagged Tasks across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Tasks
+paths:
+  /projects/{project-id}/tasks:
+    get:
+      tags:
+      - Tasks
+      summary: Get a list of tasks in a particular project, including alerts and knowledge banks
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/taskId'
+      - $ref: '#/components/parameters/moniker'
+      - $ref: '#/components/parameters/TaskName'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/taskDescription'
+      - $ref: '#/components/parameters/auto_sync'
+      - $ref: '#/components/parameters/taskType'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/task_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get information on a specific task, including alerts and knowledge banks
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/task_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/knowledge_bank_from_template:
+    post:
+      tags:
+      - Tasks
+      summary: Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from and a contract type for that document, resulting in a precedent type task being created for the specified module
+      requestBody:
+        description: See schema for options and required information in body of request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeBankFromTemplate'
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/async'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/knowledge_bank_from_template_202'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/projects/{project_id}/tasks:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: List tasks (including Knowledge Banks)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+                parent_id: 1
+                description: Sample text
+                settings: {}
+                filter: {}
+                full_families: false
+                auto_sync: false
+                type: document
+                tags: []
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: Get task
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+                parent_id: 1
+                description: Sample text
+                settings: {}
+                filter: {}
+                full_families: false
+                auto_sync: false
+                type: document
+                tags: []
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/knowledge_bank_from_template:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    post:
+      tags:
+      - Tasks
+      summary: Create Knowledge Bank from template and generate positions
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                document_id:
+                  type: integer
+                contract_type:
+                  type: string
+                include_luminance_basis:
+                  type: boolean
+              required:
+              - name
+              - document_id
+              - contract_type
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: List task reviews
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Tasks
+      summary: Create task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                document_id:
+                  type: integer
+              required:
+              - task_id
+              - document_id
+      responses:
+        '201':
+          description: Created
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Tasks
+      summary: Update multiple task reviews by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: Get task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: review_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Tasks
+      summary: Update task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: review_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: Get task review analysis results
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: review_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paragraph_weights: {}
+                missing_components: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: List documents for task reviews
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Tasks
+      summary: Delete multiple documents in task reviews
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: Get document in task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Tasks
+      summary: Delete document in task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/download:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: Download document file (task review path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: List document annotations (task review path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                document_id: 1
+                type: document
+                roles:
+                - admin
+                content: Sample text
+                state: active
+                external_reference: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations/annotationText:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Tasks
+      summary: Retrieve annotation text (task review path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        required: true
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      - in: query
+        name: fullParagraph
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                text: Sample text
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    task_200:
+      description: JSON array of Tasks or a single JSON task object if task ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+          example:
+            id: 16
+            created_at: '2018-12-21T14:49:38.113Z'
+            created_by: 7
+            moniker: tes
+            name: Test Task
+            project_id: 2
+            parent_id: null
+            description: null
+            workspace_id: null
+            settings:
+              last_synced: '2023-05-17T11:49:18.240Z'
+              completionConditions: []
+            filter:
+              op: and
+              analyze: true
+              annotation:0.type: documenttype
+              annotation:0.content.type: i:commercial-and-operations
+            full_families: false
+            auto_sync: false
+            type: task
+            tags: []
+    knowledge_bank_from_template_202:
+      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
+      content:
+        application/json:
+          schema:
+            message:
+              type: string
+              example: Knowledge Bank created. Generating positions from provided template.
+            task_id:
+              type: integer
+              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
+          example:
+            message: Knowledge Bank created. Generating positions from provided template.
+            task_id: 130
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+    taskId:
+      name: id
+      in: query
+      description: Unique Task ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    auto_sync:
+      name: auto_sync
+      in: query
+      description: If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    async:
+      name: async
+      in: query
+      description: Whether to make the call synchronously or wait for the precedent type task to be created asynchronously when creating a Knowledge Bank from template.
+      required: true
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project
+      required: false
+      schema:
+        type: string
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    TaskName:
+      name: name
+      in: query
+      description: Name of Task
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    taskDescription:
+      name: description
+      in: query
+      description: Task Description
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    taskType:
+      name: type
+      in: query
+      description: Type of Task - Knowledge Banks are 'precedent' type tasks
+      required: false
+      schema:
+        type: string
+        enum:
+        - task
+        - precedent
+        - alert
+        - comparison
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 53
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-02-01T10:11:04.678Z'
+        created_by:
+          type: integer
+          example: 9
+        moniker:
+          type: string
+          example: reviewnda
+        name:
+          type: string
+          example: Review NDAs
+        project_id:
+          type: integer
+          example: 5
+        parent_id:
+          type: integer
+          example: 2
+        description:
+          type: string
+          example: null
+        workspace_id:
+          type: integer
+          example: 6
+          description: ID of the workspace the task is associated with, if present, associated only with Discovery type projects
+        settings:
+          type: object
+          example:
+            last_synced: '2023-05-17T11:49:18.240Z'
+            completionConditions: []
+        filter:
+          type: object
+          description: Object containing filters attached to the task to automatically or manually identify and create task reviews for document objects matching the filters and uploaded to the project
+          example:
+            op: and
+            analyze: true
+            annotation:0.type: i:commercial-and-operations
+        full_families:
+          type: boolean
+          example: false
+          description: Boolean value indicating whether the task was created to include full 'families' of parent/attachment document relations or not
+        auto_sync:
+          type: boolean
+          example: false
+          description: Boolean value indicating whether reviews are automatically created in the task for document objects matching the 'filter's or not
+        type:
+          description: Type of Task - Knowledge Banks are 'precedent' type tasks
+          required: false
+          type: string
+          enum:
+          - task
+          - precedent
+          - alert
+          - comparison
+        tags:
+          required: false
+          type: array
+          items:
+            type: string
+          example:
+          - Review Level 1
+          - Review Level 2
+    KnowledgeBankFromTemplate:
+      type: object
+      description: Payload necessary to create a knowledge bank from a specified document ID of the specified contract type
+      properties:
+        document_id:
+          type: integer
+          example: 698
+          description: The document ID to find positional information in and generate a knowledge bank from
+        contract_type:
+          type: string
+          enum:
+          - non%2Ddisclosure-agreement
+          - services-agreement
+          example: non%2Ddisclosure-agreement
+          description: Select the from the available Luminance contract type modules which can be used to generate positions from ontracts of that type
+        include_luminance_basis:
+          type: boolean
+          example: false
+          description: Whether or not to include standard Luminance position information in this knowledge bank from the selected module, or only to use position information found in the specified document ID
+        name:
+          type: string
+          example: New Knowledge Bank from for Master Services Agreement
+          description: the name for the new Knowledge Bank created
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml

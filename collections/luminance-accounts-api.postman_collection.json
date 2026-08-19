@@ -1,0 +1,4706 @@
+{
+  "item": [
+    {
+      "id": "5a6f39ea-cc9b-46fa-b733-db5cc3b99d1c",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05ed5f23-c339-43fe-907d-95e5ebbb9cca",
+          "name": "Get Users Collection",
+          "request": {
+            "name": "Get Users Collection",
+            "description": {
+              "content": "This endpoint provides a list of users available on the environment. Only Service Users with Administrator level permissions can access this list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "Unique User ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Username used in login credentials"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<integer>",
+                  "description": "ID of Associated Account this User is Added to"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Current State of User"
+                },
+                {
+                  "disabled": false,
+                  "key": "multi_factor_auth_enabled",
+                  "value": "<boolean>",
+                  "description": "If `true` MFA is Enabled for this User"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "099cb054-4f0f-46bc-bfce-a4e12afa6eb2",
+              "name": "JSON array of Users or single JSON user object if user ID is referenced in path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"created_at\": \"2022-12-01T10:21:04.589Z\",\n  \"username\": \"luminance.cto\",\n  \"name\": \"Luminance CTO\",\n  \"email\": \"luminance.cto@luminance.com\",\n  \"account_id\": 2,\n  \"state\": \"active\",\n  \"multi_factor_auth_enabled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ad999e3-c2f1-431e-b9f0-9bc0ea5a9547",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bf0ba352-bf4c-4610-a8b1-327e3fe48fbc",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35be04ec-39cf-4706-b6b7-980d30094ea8",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7835291-5e5b-41bf-b090-ee76ecc62f98",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2070bb47-1c09-417f-9ce8-5742a461ae8b",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3387e04-373d-4a39-8488-2b2a1032d57b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "multi_factor_auth_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "399c9691-3c7c-4202-8666-bf96520a3bd3",
+          "name": "Get a specific user",
+          "request": {
+            "name": "Get a specific user",
+            "description": {
+              "content": "Get a user with the specific user id provided",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user-id",
+                  "description": "(Required) User ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8544044c-16ce-4331-a98b-3f530ae9846f",
+              "name": "JSON array of Users or single JSON user object if user ID is referenced in path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"created_at\": \"2022-12-01T10:21:04.589Z\",\n  \"username\": \"luminance.cto\",\n  \"name\": \"Luminance CTO\",\n  \"email\": \"luminance.cto@luminance.com\",\n  \"account_id\": 2,\n  \"state\": \"active\",\n  \"multi_factor_auth_enabled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ceee5cc8-f48e-48e6-ab1d-c6738bda0276",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a08fd706-821d-4310-b260-aa929841ef1d",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b71f76a1-5206-4c45-89f1-34d74dc7316b",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35a77fab-8250-497b-bce8-8412e4074e49",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "150d20df-d670-4851-9bbe-3c3331ef36b9",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b55c9ebb-1b9e-4cff-996e-c5c59208ff9d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user-id",
+                      "description": "(Required) User ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1790bd36-75c2-4b98-9ff5-de0965928823",
+          "name": "Get Annotation Types that have been created on your instance as a whole.",
+          "request": {
+            "name": "Get Annotation Types that have been created on your instance as a whole.",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "annotation_type_id",
+                  "value": "<integer>",
+                  "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Type of data stored by the annotation e.g. 'language'"
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "Key used to identify the annotation"
+                },
+                {
+                  "disabled": false,
+                  "key": "pre-built",
+                  "value": "none",
+                  "description": "Whether this annotation is reflects an out-of-the-box Luminance concept (\"True\"), or the concept has been created in your instance (\"False\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "The display name for the annotation in platform"
+                },
+                {
+                  "disabled": false,
+                  "key": "options",
+                  "value": "<string>",
+                  "description": "Options associated with the annotation, the options field will display available values if the type is generic:enum."
+                },
+                {
+                  "disabled": false,
+                  "key": "options",
+                  "value": "<string>",
+                  "description": "Options associated with the annotation, the options field will display available values if the type is generic:enum."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1145ac69-3291-4fab-b1f0-5300bce62e31",
+              "name": "JSON array of annotation type objects available in the instance, or a sinlge JSON annotation type object if annotation type ID is referenced in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"type\": \"entity:datetime\",\n  \"key\": \"contract:effective\",\n  \"pre-built\": true,\n  \"name\": \"Effective Date\",\n  \"options\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b31453c-98a0-4dbb-984a-64272008f6e7",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad5cb1cd-90fe-4f8f-8651-7252e1761f88",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e82f70e1-f9c7-45d8-818d-2be20729e18d",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3d91d0e-4399-407b-af1f-90ef46efddb6",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "995db437-e06e-4360-a744-ab337f05f05b",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b2c694f7-1705-45fd-b022-151b6e603808",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre-built",
+                      "value": "none"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91c2103a-a428-42ff-bfb2-48a821cf2ec0",
+          "name": "Get information on a specific Annotation Type ID",
+          "request": {
+            "name": "Get information on a specific Annotation Type ID",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_types",
+                ":annotation-type-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "annotation-type-id",
+                  "description": "(Required) Annotation Type ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb557bdb-f109-4ceb-8d84-a86e178bf25e",
+              "name": "JSON array of annotation type objects available in the instance, or a sinlge JSON annotation type object if annotation type ID is referenced in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"type\": \"entity:datetime\",\n  \"key\": \"contract:effective\",\n  \"pre-built\": true,\n  \"name\": \"Effective Date\",\n  \"options\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b8997b1-3614-41cb-9459-1590ba0a783c",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06ba452e-2fe2-49a7-8dd7-cbc9b72986b0",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e27479f0-dffa-48cb-a62a-dd348d28cacd",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14356b88-bedc-4efd-a217-e5923d827037",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5611e56b-463d-4554-a4fd-c8c37c3b7366",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "762d7930-23ae-4292-bafb-1bae27f04447",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_types",
+                    ":annotation-type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "annotation-type-id",
+                      "description": "(Required) Annotation Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c26fc37e-26d9-488f-8e28-78ed20ee4269",
+          "name": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters",
+          "request": {
+            "name": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_source_id",
+                  "value": "<integer>",
+                  "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_type_id",
+                  "value": "<integer>",
+                  "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "Unique Project ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "Unique Workflow ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_source_relation_id",
+                  "value": "<integer>",
+                  "description": "annotation_source_relation_id is not currently an interactable element via the API"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+                },
+                {
+                  "description": {
+                    "content": "State of the annotation (This can only be one of active,deleted)",
+                    "type": "text/plain"
+                  },
+                  "key": "state",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "94e623b5-05ba-4f39-864b-0a75503f54e9",
+              "name": "JSON array of annotationSource objects available in the instance, or a single JSON annotationSource object if annotationSourceId is referenced in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 56,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 345,\n  \"project_id\": 2,\n  \"workflow_id\": 3,\n  \"annotation_source_relation_id\": null,\n  \"content\": {\n    \"type\": \"object\",\n    \"example\": {\n      \"party\": \"VoicePhone Limited\",\n      \"raw_text\": \"Voicephone Ltd.\"\n    }\n  },\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f7f0381-18ca-48ec-af10-febab84a484f",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8a0d02f-a871-40e4-a2ed-6daa41ea2c60",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "511d4603-ecbe-461c-8c48-f4bacaf0d396",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8f56315-f731-42be-8238-82682d05da63",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "838f52e8-f4f1-4599-90e2-4ebeaa0ee3cb",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ecb07141-a2ac-460f-b921-b4e49a57032f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0de85a31-18cf-4598-905d-0c2c254b48f5",
+          "name": "Create a new annotation_source",
+          "request": {
+            "name": "Create a new annotation_source",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotation_type_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"workflow_id\": \"<integer>\",\n  \"content\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a99ec12-dba9-418d-b391-51ec81862188",
+              "name": "JSON object of an AnnotationsSource after POSTing to create one",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 56,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 345,\n  \"project_id\": 2,\n  \"workflow_id\": 3,\n  \"annotation_source_relation_id\": null,\n  \"content\": {\n    \"type\": \"object\",\n    \"example\": {\n      \"party\": \"VoicePhone Limited\",\n      \"raw_text\": \"Voicephone Ltd.\"\n    }\n  },\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc74f93e-3e49-42e2-816e-7ba2224eed58",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc49a268-e41d-4809-9e75-c1e092c66b01",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b5bc144-1cc0-4d9c-8d41-479d47a76221",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3e1f7ea0-52c7-476d-8f68-f20fabcdd845",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "34022a7a-3f84-43da-ba95-f21a1e6e2ca6",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bce96d5c-f1ea-4c68-a8f4-07d1d6f67249",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "485e83dd-4802-4b28-83e6-c927a2510eae",
+          "name": "Modify annotation_sources",
+          "request": {
+            "name": "Modify annotation_sources",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_source_id",
+                  "value": "<integer>",
+                  "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_type_id",
+                  "value": "<integer>",
+                  "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "Unique Project ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "Unique Workflow ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_source_relation_id",
+                  "value": "<integer>",
+                  "description": "annotation_source_relation_id is not currently an interactable element via the API"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+                },
+                {
+                  "description": {
+                    "content": "State of the annotation (This can only be one of active,deleted)",
+                    "type": "text/plain"
+                  },
+                  "key": "state",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotation_type_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"workflow_id\": \"<integer>\",\n  \"content\": \"<object>\",\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6df55810-4d0b-4d07-ae31-5a919164f16c",
+              "name": "JSON object or array of JSON objects of AnnotationSources after PATCHing to modify one or more AnnotationSource objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 56,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 345,\n  \"project_id\": 2,\n  \"workflow_id\": 3,\n  \"annotation_source_relation_id\": null,\n  \"content\": {\n    \"type\": \"object\",\n    \"example\": {\n      \"party\": \"VoicePhone Limited\",\n      \"raw_text\": \"Voicephone Ltd.\"\n    }\n  },\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a777269-6448-4919-b634-c5f35aca1d25",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aedfd9fa-f15f-400c-88ea-723dbf2b2daf",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec0943f4-ae70-4ee4-bd16-fc8c35587e97",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d2e35131-3557-48a7-a8d9-d056e483709f",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8bcca5b9-4818-4dbe-9aea-162859f39bd7",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d9d236ee-7709-4b89-a588-1b36bc25ed95",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "64"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "76"
+                    },
+                    {
+                      "key": "value",
+                      "value": "Agreement"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "725c7e76-37a7-4c6b-a683-baf0d542ceaa",
+          "name": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters",
+          "request": {
+            "name": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_sources",
+                ":annotation_source_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "annotation_source_id",
+                  "value": "<integer>",
+                  "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "033445d5-d6ff-4213-849b-4792c5d5a2ff",
+              "name": "JSON array of annotationSource objects available in the instance, or a single JSON annotationSource object if annotationSourceId is referenced in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 56,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 345,\n  \"project_id\": 2,\n  \"workflow_id\": 3,\n  \"annotation_source_relation_id\": null,\n  \"content\": {\n    \"type\": \"object\",\n    \"example\": {\n      \"party\": \"VoicePhone Limited\",\n      \"raw_text\": \"Voicephone Ltd.\"\n    }\n  },\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6161bbe0-561f-4fb3-8a59-0a3dd77950d4",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d599ff0e-b67e-4955-a999-79c06020d0de",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94eadd4a-77e6-4790-b6d3-0b9edfb9af01",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4561292f-88cc-4d6b-b66e-66b4bbc8bb57",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7a42aae-1cb5-45b8-99e9-3672e3d9bfe6",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "550bf99e-baba-489c-9039-10764a3f4efe",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bc87423-e1be-46e6-b165-7577e9fa6763",
+          "name": "Modify annotation_sources",
+          "request": {
+            "name": "Modify annotation_sources",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation_sources",
+                ":annotation_source_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "annotation_source_id",
+                  "value": "<integer>",
+                  "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotation_type_id\": \"<integer>\",\n  \"project_id\": \"<integer>\",\n  \"workflow_id\": \"<integer>\",\n  \"content\": \"<object>\",\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f978a056-9c1c-4048-892e-2319372d3ef8",
+              "name": "JSON object or array of JSON objects of AnnotationSources after PATCHing to modify one or more AnnotationSource objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 56,\n  \"created_at\": \"2021-10-25T11:58:31.879Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 345,\n  \"project_id\": 2,\n  \"workflow_id\": 3,\n  \"annotation_source_relation_id\": null,\n  \"content\": {\n    \"type\": \"object\",\n    \"example\": {\n      \"party\": \"VoicePhone Limited\",\n      \"raw_text\": \"Voicephone Ltd.\"\n    }\n  },\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5a9fd58-95f8-44ec-82c3-c68f80b17c04",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c4f3959-662e-420d-9804-789d82ac72cc",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7685ae07-4ad3-4d10-b0f8-8f56948283d2",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b7391c9-63dd-4fcb-a2df-79124878a28e",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad5b920f-a7c3-41d4-8141-0428b99b9d2e",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89a74b38-0705-49f8-a8a5-93c49d038c9d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation_sources",
+                    ":annotation_source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "annotation_source_id",
+                      "value": "76"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 345,\n  \"project_id\": \"Voicephone project\",\n  \"workflow_id\": \"NDA Workflow\",\n  \"content\": {\n    \"party\": \"VoicePhone Limited\",\n    \"raw_text\": \"Voicephone Ltd.\"\n  },\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c7df1d1e-e3bc-4eea-a611-35684c4f4702",
+    "name": "Luminance Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Accounts across 2 of this provider's published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

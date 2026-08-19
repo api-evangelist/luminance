@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Public API v2 Annotation Types API",
+    "version": "1.5"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Annotation Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List annotation types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_types",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pre_built",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "options",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List annotation types"
+        },
+        {
+          "info": {
+            "name": "Get annotation type by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get annotation type by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

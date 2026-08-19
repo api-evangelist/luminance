@@ -1,0 +1,268 @@
+openapi: 3.2.0
+info:
+  title: Luminance Workflows API
+  version: '1.0'
+  description: 'Operations tagged Workflows across 2 of this provider''s published API definitions: luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Workflows
+paths:
+  /projects/{project-id}/workflows:
+    get:
+      tags:
+      - Workflows
+      summary: Get Workflows available in a Project
+      parameters:
+      - $ref: '#/components/parameters/workflowId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/moniker'
+      - $ref: '#/components/parameters/workflowName'
+      - $ref: '#/components/parameters/projectId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/workflows_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/workflows/{workflow-id}:
+    get:
+      tags:
+      - Workflows
+      summary: Get information on a single Workflow available in a Project
+      parameters:
+      - $ref: '#/components/parameters/workflowId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/workflows_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/projects/{project_id}/workflows:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Workflows
+      summary: List workflows
+      parameters:
+      - $ref: '#/components/parameters/projectId_2'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: room_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: moniker
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/workflows/{id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Workflows
+      summary: Get workflow
+      parameters:
+      - $ref: '#/components/parameters/projectId_2'
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    workflows_200:
+      description: JSON array of workflows
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Workflow'
+          example:
+            id: 415
+            created_at: '2023-04-19T12:20:39.200Z'
+            created_by: 33
+            moniker: nda
+            name: NDA Workflow
+            project_id: 2
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  schemas:
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+          description: unique workflowId
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        moniker:
+          type: string
+          example: nda
+          description: Short name for the workflow
+        name:
+          type: string
+          example: NDA Workflow
+        project_id:
+          type: integer
+          example: 6
+  parameters:
+    workflowName:
+      name: name
+      in: query
+      description: Name of workflow
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: NDA Workflow
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId_2:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project or Workflow
+      required: false
+      schema:
+        type: string
+    workflowId:
+      name: id
+      in: query
+      description: Unique Workflow ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml

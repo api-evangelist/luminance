@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Workflows API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Workflows available in a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/workflows",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Workflow ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "moniker",
+                "value": "",
+                "type": "query",
+                "description": "Shortened Name of Project or Workflow"
+              },
+              {
+                "name": "name",
+                "value": "NDA Workflow",
+                "type": "query",
+                "description": "Name of workflow"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Workflows available in a Project"
+        },
+        {
+          "info": {
+            "name": "Get information on a single Workflow available in a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/workflows/:workflow-id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Workflow ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get information on a single Workflow available in a Project"
+        },
+        {
+          "info": {
+            "name": "List workflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/workflows",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "room_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "moniker",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List workflows"
+        },
+        {
+          "info": {
+            "name": "Get workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/workflows/:id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get workflow"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

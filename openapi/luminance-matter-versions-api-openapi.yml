@@ -1,0 +1,442 @@
+openapi: 3.2.0
+info:
+  title: Luminance Matter Versions API
+  version: '1.0'
+  description: 'Operations tagged Matter Versions across 2 of this provider''s published API definitions:
+    luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml. Each path carries
+    the servers of the definition it was published in.'
+tags:
+- name: Matter Versions
+paths:
+  /projects/{project-id}/matters/{matter-id}/versions:
+    get:
+      tags:
+      - Matter Versions
+      summary: Get the matter versions for a matter in a particular project including a record of current
+        and previous drafts and current attachments to the matter
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matterVersionId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/matterVersionType'
+      - $ref: '#/components/parameters/matterVersionState'
+      - $ref: '#/components/parameters/matterVersionAssignedTo'
+      - $ref: '#/components/parameters/matterVersionAssignedAt'
+      - $ref: '#/components/parameters/matterVersionName'
+      - $ref: '#/components/parameters/matterVersionInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_versions_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users:
+    get:
+      tags:
+      - Matter Versions
+      summary: Gets a list of user names and IDs which can be assigned to a matter version
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/userName'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_version_assignable_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assign:
+    patch:
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      tags:
+      - Matter Versions
+      summary: Assigns an available user to the matter version
+      requestBody:
+        description: Please use the /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users
+          endpoint to find out which userIds can be assigned to a particular matter version
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 4
+            example:
+              user_id: 4
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_assignable_users_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/add_attachment:
+    post:
+      tags:
+      - Matter Versions
+      summary: Creates a new matter version of type attachment to a matter containing the specified document
+        ID
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: Send the document_id of the document, which must be in the same project as the matter,
+          that you wish to add as an attachment to the matter
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+                  example: 67
+              required:
+              - document_id
+      minimum: 0
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_add_attachment_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    matter_version_assignable_users_200:
+      description: JSON array of users available to be assigned to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersionsAssignableUsers'
+          example:
+            name: Support User
+            id: 4
+    matter_version_add_attachment_200:
+      description: JSON object with the Matter Version created to add an attachment to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersion'
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform
+        this action
+    matter_version_assignable_users_201:
+      description: User has been assigned to a matter version successfully
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    matter_versions_200:
+      description: JSON array of Matter Versions or a single JSON matter version object if matter version
+        ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersion'
+          example:
+            id: 415
+            created_at: '2024-07-09T09:29:39.035Z'
+            created_by: 32
+            updated_at: '2024-07-09T09:29:39.035Z'
+            updated_by: 32
+            group_id: 1
+            workflow_stage_id: 6
+            document_id: 208
+            type: attachment
+            state: inactive
+            assigned_to: None
+            assigned_at: None
+            name: Contract Version 1
+            info: {}
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact
+        Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  schemas:
+    MatterVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        updated_by:
+          type: integer
+          example: 32
+        group_id:
+          type: integer
+          example: 1
+          description: This is the matterId the version is assigned to
+        workflow_stage_id:
+          type: integer
+          example: 1
+          description: This is the Workflow stage ID in the workflow editor the matter is in.
+        type:
+          type: string
+          enum:
+          - attachment
+          - draft
+          - version
+          description: An attachment is not part of a matter's version history, but is typically used
+            to store supporting documentation. A new 'version' is a new document saved as a new version,
+            while a 'draft' version is an updated copy of the previous 'version' type group version.
+        state:
+          type: string
+          enum:
+          - active
+          - inactive
+          - deleted
+          - executed
+          description: An active matter version is the most recent draft or version type version of the
+            contratc on the matter. Inactive versions are earlier in time than the most recent draft or
+            version. An executed version has progressed to the end of a workflow and been executed. An
+            attachment type version will always be inactive. Deleted versions mean the matter itself has
+            been deleted.
+        assigned_to:
+          type: integer
+          example: 5
+          description: userId of the user the matter version is assigned to. Can be 'None'.
+        assigned_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.300Z'
+        info:
+          type: array
+          example: {}
+          description: Not typically used to store data.
+    MatterVersionsAssignableUsers:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Support User
+          description: userName of the Assignable user
+        id:
+          type: integer
+          example: 4
+          description: userID of the Assignable user
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    matterVersionInfo:
+      name: info
+      in: query
+      description: State
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionState:
+      name: state
+      in: query
+      description: Current State of the matter version
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    userId:
+      name: id
+      in: query
+      description: Unique User ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matter-version-id:
+      name: matter-version-id
+      in: path
+      description: Matter Version Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    userName:
+      name: username
+      in: query
+      description: Username used in login credentials
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionName:
+      name: name
+      in: query
+      description: Information about the matter hidden in the user interface
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionType:
+      name: type
+      in: query
+      type: string
+      example: attachment
+      required: false
+      enum:
+      - attachment
+      - draft
+      - version
+      description: An attachment is not part of a matter's version history, but is typically used to store
+        supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft'
+        version is an updated copy of the previous 'version' type group version.
+    matter-id:
+      name: matter-id
+      in: path
+      description: Matter Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionAssignedAt:
+      name: assigned_at
+      in: query
+      description: Date and time the matter version was last assigned to a user
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    matterVersionId:
+      name: id
+      in: query
+      description: Version ID of a version of a document contained in a matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    matterVersionAssignedTo:
+      name: assigned_to
+      in: query
+      description: User ID of the user a matter is assigned to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml

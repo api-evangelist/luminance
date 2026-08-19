@@ -1,0 +1,310 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Projects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Information on the permissions assigned to users on a per project basis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/project_users",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user permission object"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query",
+                "description": "Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on the permissions assigned to users on a per project basis"
+        },
+        {
+          "info": {
+            "name": "Get Information on the user permissions object associated with a specific permissions object ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/project_users/:project-user-id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user permission object"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on the user permissions object associated with a specific permissions object ID"
+        },
+        {
+          "info": {
+            "name": "Get a JSON array list of all projects the Service User is assigned to, or all projects if the Service user has Administrator permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Project ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "moniker",
+                "value": "",
+                "type": "query",
+                "description": "Shortened Name of Project"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of Project"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of Associated Account this User is Added to"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of Project"
+              },
+              {
+                "name": "permissions",
+                "value": "",
+                "type": "query",
+                "description": "Granted Download Permissions of Project Documents"
+              },
+              {
+                "name": "settings",
+                "value": "",
+                "type": "query",
+                "description": "Enabled Annotation Types"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Product type"
+              },
+              {
+                "name": "features",
+                "value": "",
+                "type": "query",
+                "description": "Additional Features Available in this Project"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a JSON array list of all projects the Service User is assigned to, or all projects if the Service user has Administrator permissions"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Single Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Single Project"
+        },
+        {
+          "info": {
+            "name": "List projects the authenticated user can access",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "moniker",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "permissions",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List projects the authenticated user can access"
+        },
+        {
+          "info": {
+            "name": "Get project by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get project by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

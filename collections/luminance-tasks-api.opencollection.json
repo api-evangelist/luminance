@@ -1,0 +1,654 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Tasks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of tasks in a particular project, including alerts and knowledge banks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Task ID(s)"
+              },
+              {
+                "name": "moniker",
+                "value": "",
+                "type": "query",
+                "description": "Shortened Name of Project"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of Task"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Task Description"
+              },
+              {
+                "name": "auto_sync",
+                "value": "",
+                "type": "query",
+                "description": "If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of Task - Knowledge Banks are 'precedent' type tasks"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of tasks in a particular project, including alerts and knowledge banks"
+        },
+        {
+          "info": {
+            "name": "Get information on a specific task, including alerts and knowledge banks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/:task-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get information on a specific task, including alerts and knowledge banks"
+        },
+        {
+          "info": {
+            "name": "Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from and a contract type for that document, resulting in a precedent type task being created for the specified module",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/knowledge_bank_from_template",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "async",
+                "value": "",
+                "type": "query",
+                "description": "Whether to make the call synchronously or wait for the precedent type task to be created asynchronously when creating a Knowledge Bank from template."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from and a contract type for that document, resulting in a precedent type task being created for the specified module"
+        },
+        {
+          "info": {
+            "name": "List tasks (including Knowledge Banks)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List tasks (including Knowledge Banks)"
+        },
+        {
+          "info": {
+            "name": "Get task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get task"
+        },
+        {
+          "info": {
+            "name": "Create Knowledge Bank from template and generate positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/knowledge_bank_from_template",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Knowledge Bank from template and generate positions"
+        },
+        {
+          "info": {
+            "name": "List task reviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List task reviews"
+        },
+        {
+          "info": {
+            "name": "Create task review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create task review"
+        },
+        {
+          "info": {
+            "name": "Update multiple task reviews by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update multiple task reviews by filter"
+        },
+        {
+          "info": {
+            "name": "Get task review",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/:review_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "review_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get task review"
+        },
+        {
+          "info": {
+            "name": "Update task review",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/:review_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "review_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update task review"
+        },
+        {
+          "info": {
+            "name": "Get task review analysis results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/:review_id/analysis",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "review_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get task review analysis results"
+        },
+        {
+          "info": {
+            "name": "List documents for task reviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List documents for task reviews"
+        },
+        {
+          "info": {
+            "name": "Delete multiple documents in task reviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete multiple documents in task reviews"
+        },
+        {
+          "info": {
+            "name": "Get document in task review",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents/:document_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get document in task review"
+        },
+        {
+          "info": {
+            "name": "Delete document in task review",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents/:document_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete document in task review"
+        },
+        {
+          "info": {
+            "name": "Download document file (task review path)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents/:document_id/download",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download document file (task review path)"
+        },
+        {
+          "info": {
+            "name": "List document annotations (task review path)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents/:document_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List document annotations (task review path)"
+        },
+        {
+          "info": {
+            "name": "Retrieve annotation text (task review path)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/tasks/:task_id/reviews/documents/:document_id/annotations/annotationText",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fullParagraph",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve annotation text (task review path)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

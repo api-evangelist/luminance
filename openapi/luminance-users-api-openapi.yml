@@ -1,0 +1,691 @@
+openapi: 3.2.0
+info:
+  title: Luminance Users API
+  version: '1.0'
+  description: 'Operations tagged Users across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Users
+paths:
+  /users:
+    get:
+      tags:
+      - Users
+      summary: Get Users Collection
+      description: This endpoint provides a list of users available on the environment. Only Service Users with Administrator level permissions can access this list.
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/userName'
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/userState'
+      - $ref: '#/components/parameters/mfaEnabled'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/user_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users/{user-id}:
+    get:
+      tags:
+      - Users
+      summary: Get a specific user
+      description: Get a user with the specific user id provided
+      parameters:
+      - $ref: '#/components/parameters/user-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/user_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users/me:
+    get:
+      tags:
+      - Users
+      summary: Get Information on the User being used for Authentication
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/user_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /project_users:
+    get:
+      tags:
+      - Users
+      summary: Get Information on the permissions assigned to users on a per project basis
+      parameters:
+      - $ref: '#/components/parameters/projectUserId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/projectUserType'
+      - $ref: '#/components/parameters/projectUserRoles'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /project_users/{project-user-id}:
+    get:
+      tags:
+      - Users
+      summary: Get Information on the user permissions object associated with a specific permissions object ID
+      parameters:
+      - $ref: '#/components/parameters/project-user-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users:
+    get:
+      tags:
+      - Users
+      summary: Gets a list of user names and IDs which can be assigned to a matter version
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/userName'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_version_assignable_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assign:
+    patch:
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      tags:
+      - Users
+      summary: Assigns an available user to the matter version
+      requestBody:
+        description: Please use the /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users endpoint to find out which userIds can be assigned to a particular matter version
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 4
+            example:
+              user_id: 4
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_assignable_users_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/users:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Users
+      summary: List users
+      description: Only Service Users with Administrator permissions can access this list.
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+        description: Unique user ID
+      - in: query
+        name: username
+        schema:
+          type: string
+        description: Username (login)
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: email
+        schema:
+          type: string
+      - in: query
+        name: account_id
+        schema:
+          type: integer
+        description: Associated account ID
+      - in: query
+        name: state
+        schema:
+          type: string
+        description: User state (e.g. active)
+      - in: query
+        name: multi_factor_auth_enabled
+        schema:
+          type: boolean
+        description: If true, MFA is enabled for this user
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+        description: Maximum number of objects to return
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+        description: Number of objects to skip (pagination)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User_2'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                username: joe.bloggs
+                name: Joe Bloggs
+                email: joe.bloggs@example.com
+                account_id: 1
+                state: active
+      security:
+      - bearerAuth: []
+  /api2/users/{id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Users
+      summary: Get user by id
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                username: joe.bloggs
+                name: Joe Bloggs
+                email: joe.bloggs@example.com
+                account_id: 1
+                state: active
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+  /api2/users/me:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Users
+      summary: Get current user (the user associated with the authentication token)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                username: joe.bloggs
+                name: Joe Bloggs
+                email: joe.bloggs@example.com
+                account_id: 1
+                state: active
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    matter_version_assignable_users_200:
+      description: JSON array of users available to be assigned to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersionsAssignableUsers'
+          example:
+            name: Support User
+            id: 4
+    user_200:
+      description: JSON array of Users or single JSON user object if user ID is referenced in path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+          example:
+            id: 4
+            created_at: '2022-12-01T10:21:04.589Z'
+            username: luminance.cto
+            name: Luminance CTO
+            email: luminance.cto@luminance.com
+            account_id: 2
+            state: active
+            multi_factor_auth_enabled: true
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    matter_version_assignable_users_201:
+      description: User has been assigned to a matter version successfully
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    project_users_200:
+      description: Array of JSON objects describing user permissions assigned across your instance at a project level, or a single JSON user permissions object if user permission object ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectUsers'
+          example:
+            id: 1
+            created_at: '2021-10-25T12:35:02.385Z'
+            project_id: 1
+            user_id: 8
+            type: admin
+            roles:
+            - admin
+            - power
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  parameters:
+    mfaEnabled:
+      name: multi_factor_auth_enabled
+      in: query
+      description: If `true` MFA is Enabled for this User
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    userState:
+      name: state
+      in: query
+      description: Current State of User
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - disabled
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    userId:
+      name: id
+      in: query
+      description: Unique User ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectUserRoles:
+      name: roles
+      in: query
+      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    project-user-id:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    accountId:
+      name: account_id
+      in: query
+      description: ID of Associated Account this User is Added to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matter-version-id:
+      name: matter-version-id
+      in: path
+      description: Matter Version Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    userName:
+      name: username
+      in: query
+      description: Username used in login credentials
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    projectUserType:
+      name: type
+      in: query
+      description: Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matter-id:
+      name: matter-id
+      in: path
+      description: Matter Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    user-id:
+      name: user-id
+      in: path
+      description: User ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectUserId:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+  schemas:
+    MatterVersionsAssignableUsers:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Support User
+          description: userName of the Assignable user
+        id:
+          type: integer
+          example: 4
+          description: userID of the Assignable user
+    ProjectUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-10-25T12:35:02.385Z'
+        project_id:
+          type: integer
+          example: 3
+        user_id:
+          type: integer
+          example: 8
+        type:
+          type: string
+          enum:
+          - admin
+          - standard
+        roles:
+          type: array
+          example:
+          - admin
+          - power
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-12-01T10:21:04.589Z'
+        username:
+          type: string
+          example: luminance.cto
+        name:
+          type: string
+          example: Luminance CTO
+        email:
+          type: string
+          default: null
+          example: luminance.cto@luminance.com
+        account_id:
+          type: integer
+          example: 2
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - disabled
+        multi_factor_auth_enabled:
+          type: boolean
+          example: false
+    User_2:
+      type: object
+      description: User object (see API2_Schema users table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+          description: User ID of creator
+        username:
+          type: string
+        name:
+          type: string
+        email:
+          type:
+          - string
+          - 'null'
+        account_id:
+          type: integer
+        state:
+          type: string
+        multi_factor_auth_enabled:
+          type: boolean
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml

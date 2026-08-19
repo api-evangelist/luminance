@@ -1,0 +1,3471 @@
+openapi: 3.0.3
+info:
+  title: Luminance Public API v2
+  version: '1.5'
+  description: "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for\
+    \ authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging\
+    \ its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct\
+    \ access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews\
+    \ or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed\
+    \ with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres\
+    \ to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to\
+    \ build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests\
+    \ are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard\
+    \ to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from\
+    \ this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n\
+    \   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode\
+    \ the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request\
+    \ a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token`\
+    \ (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`,\
+    \ `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n \
+    \  ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded'\
+    \ \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\
+    \n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**,\
+    \ and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization:\
+    \ Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header\
+    \ for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n"
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+security:
+- bearerAuth: []
+tags:
+- name: System
+- name: Users
+- name: Projects
+- name: Folders
+- name: Documents
+- name: Document Templates
+- name: Matters
+- name: Tasks
+- name: Workflows
+- name: Annotation Types
+- name: Annotation Sources
+- name: Annotation Source Relations
+- name: Project Users
+- name: Search
+paths:
+  /api2/:
+    get:
+      tags:
+      - System
+      summary: Get system data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemInfo'
+              example:
+                product: corporate
+                version: 4.1.7
+                api2_version: 1.4.0
+  /api2/users:
+    get:
+      tags:
+      - Users
+      summary: List users
+      description: Only Service Users with Administrator permissions can access this list.
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+        description: Unique user ID
+      - in: query
+        name: username
+        schema:
+          type: string
+        description: Username (login)
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: email
+        schema:
+          type: string
+      - in: query
+        name: account_id
+        schema:
+          type: integer
+        description: Associated account ID
+      - in: query
+        name: state
+        schema:
+          type: string
+        description: User state (e.g. active)
+      - in: query
+        name: multi_factor_auth_enabled
+        schema:
+          type: boolean
+        description: If true, MFA is enabled for this user
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+        description: Maximum number of objects to return
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+        description: Number of objects to skip (pagination)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                username: joe.bloggs
+                name: Joe Bloggs
+                email: joe.bloggs@example.com
+                account_id: 1
+                state: active
+  /api2/users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Get user by id
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                username: joe.bloggs
+                name: Joe Bloggs
+                email: joe.bloggs@example.com
+                account_id: 1
+                state: active
+        '404':
+          description: Not found
+  /api2/users/me:
+    get:
+      tags:
+      - Users
+      summary: Get current user (the user associated with the authentication token)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                username: joe.bloggs
+                name: Joe Bloggs
+                email: joe.bloggs@example.com
+                account_id: 1
+                state: active
+  /api2/project_users:
+    get:
+      tags:
+      - Project Users
+      summary: List project users
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: project_id
+        schema:
+          type: integer
+      - in: query
+        name: user_id
+        schema:
+          type: integer
+      - in: query
+        name: type
+        schema:
+          type: string
+      - in: query
+        name: roles
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectUser'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                project_id: 1
+                user_id: 1
+                type: document
+                roles:
+                - admin
+  /api2/project_users/{id}:
+    get:
+      tags:
+      - Project Users
+      summary: Get project user by id
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectUser'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                project_id: 1
+                user_id: 1
+                type: document
+                roles:
+                - admin
+        '404':
+          description: Not found
+  /api2/annotation_types:
+    get:
+      tags:
+      - Annotation Types
+      summary: List annotation types
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: type
+        schema:
+          type: string
+      - in: query
+        name: key
+        schema:
+          type: string
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: pre_built
+        schema:
+          type: boolean
+      - in: query
+        name: options
+        schema:
+          type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                type: document
+                key: example_key
+                system: false
+                name: Joe Bloggs
+                options: {}
+  /api2/annotation_types/{id}:
+    get:
+      tags:
+      - Annotation Types
+      summary: Get annotation type by id
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                type: document
+                key: example_key
+                system: false
+                name: Joe Bloggs
+                options: {}
+        '404':
+          description: Not found
+  /api2/annotation_sources:
+    get:
+      tags:
+      - Annotation Sources
+      summary: List annotation sources
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_type_id
+        schema:
+          type: integer
+      - in: query
+        name: room_id
+        schema:
+          type: integer
+      - in: query
+        name: workflow_id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_source_relation_id
+        schema:
+          type: integer
+      - in: query
+        name: state
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+    post:
+      tags:
+      - Annotation Sources
+      summary: Create annotation source
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                room_id:
+                  type: integer
+                workflow_id:
+                  type: integer
+                annotation_source_relation_id:
+                  type: integer
+                content:
+                  type: object
+            example:
+              annotation_type_id: 97
+              room_id: 1
+              workflow_id: null
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: {}
+                state: active
+    patch:
+      tags:
+      - Annotation Sources
+      summary: Update annotation sources by filter
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_type_id
+        schema:
+          type: integer
+      - in: query
+        name: room_id
+        schema:
+          type: integer
+      - in: query
+        name: workflow_id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_source_relation_id
+        schema:
+          type: integer
+      - in: query
+        name: state
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                room_id:
+                  type: integer
+                workflow_id:
+                  type: integer
+                annotation_source_relation_id:
+                  type: integer
+                content:
+                  type: object
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+  /api2/annotation_sources/{id}:
+    get:
+      tags:
+      - Annotation Sources
+      summary: Get annotation source
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+        '404':
+          description: Not found
+    patch:
+      tags:
+      - Annotation Sources
+      summary: Update annotation source
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                room_id:
+                  type: integer
+                workflow_id:
+                  type: integer
+                annotation_source_relation_id:
+                  type: integer
+                content:
+                  type: object
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+  /api2/annotation_source_relations:
+    get:
+      tags:
+      - Annotation Source Relations
+      summary: List annotation source relations
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                state: active
+    post:
+      tags:
+      - Annotation Source Relations
+      summary: Create annotation source relation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            example:
+              name: My relation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                state: active
+  /api2/annotation_source_relations/{id}:
+    get:
+      tags:
+      - Annotation Source Relations
+      summary: Get annotation source relation
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                state: active
+        '404':
+          description: Not found
+    patch:
+      tags:
+      - Annotation Source Relations
+      summary: Update annotation source relation
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            example:
+              name: Updated name
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                state: active
+  /api2/search:
+    get:
+      tags:
+      - Search
+      summary: Aggregated search
+      parameters:
+      - in: query
+        name: groupBy
+        required: true
+        description: One of `documents` or `matters`
+        schema:
+          type: string
+          enum:
+          - documents
+          - matters
+          - groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                result:
+                - id: 1
+                  name: Joe Bloggs
+                page: 1
+                pageSize: 1
+                totalPages: 1
+        '422':
+          description: Validation error
+  /api2/search/documents:
+    get:
+      tags:
+      - Search
+      summary: Search documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                result:
+                - id: 1
+                  name: Joe Bloggs
+                page: 1
+                pageSize: 1
+                totalPages: 1
+  /api2/search/matters:
+    get:
+      tags:
+      - Search
+      summary: Search matters
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                result:
+                - id: 1
+                  name: Joe Bloggs
+                page: 1
+                pageSize: 1
+                totalPages: 1
+  /api2/projects:
+    get:
+      tags:
+      - Projects
+      summary: List projects the authenticated user can access
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: moniker
+        schema:
+          type: string
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: account_id
+        schema:
+          type: integer
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: permissions
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                account_id: 1
+                state: active
+                permissions: {}
+                settings: {}
+                type: document
+                features:
+                - bulkredact
+  /api2/projects/{project_id}:
+    get:
+      tags:
+      - Projects
+      summary: Get project by id
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                account_id: 1
+                state: active
+                permissions: {}
+                settings: {}
+                type: document
+                features:
+                - bulkredact
+        '404':
+          description: Not found
+  /api2/projects/{project_id}/folders:
+    get:
+      tags:
+      - Folders
+      summary: List folders
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Folder'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+    post:
+      tags:
+      - Folders
+      summary: Create folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent_id:
+                  type: integer
+                  nullable: true
+                name:
+                  type: string
+                type:
+                  type: string
+            example:
+              parent_id: 1
+              name: My Folder
+              type: folder
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+    patch:
+      tags:
+      - Folders
+      summary: Update folders by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+    delete:
+      tags:
+      - Folders
+      summary: Delete folders by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/folders/{folder_id}:
+    get:
+      tags:
+      - Folders
+      summary: Get folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+    patch:
+      tags:
+      - Folders
+      summary: Update folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+    delete:
+      tags:
+      - Folders
+      summary: Delete folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/folders/{folder_id}/upload:
+    post:
+      tags:
+      - Folders
+      summary: Upload a document into a folder
+      description: Body must be a base64-encoded file. See query params for metadata.
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: replace
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      - in: query
+        name: matter_version_type
+        schema:
+          type: string
+          enum:
+          - attachment
+          - version
+      - in: query
+        name: matter_id
+        schema:
+          type: integer
+      - in: query
+        name: task_id
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/folders/{folder_id}/documents:
+    get:
+      tags:
+      - Folders
+      summary: List documents in folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+    delete:
+      tags:
+      - Folders
+      summary: Delete documents in folder by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}:
+    get:
+      tags:
+      - Folders
+      summary: Get document in folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '404':
+          description: Not found
+    delete:
+      tags:
+      - Folders
+      summary: Delete document in folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations:
+    get:
+      tags:
+      - Folders
+      summary: List document annotations (folder-scoped path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                document_id: 1
+                type: document
+                roles:
+                - admin
+                content: Sample text
+                state: active
+                external_reference: {}
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations/annotationText:
+    get:
+      tags:
+      - Folders
+      summary: Retrieve annotation text (folder-scoped path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        required: true
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      - in: query
+        name: fullParagraph
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                text: Sample text
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/download:
+    get:
+      tags:
+      - Folders
+      summary: Download document file (folder-scoped path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: enable_token_linking
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not found
+  /api2/projects/{project_id}/documents:
+    get:
+      tags:
+      - Documents
+      summary: List documents in a project
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: folder_id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: media_type
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: version_group
+        schema:
+          type: integer
+      - in: query
+        name: version
+        schema:
+          type: integer
+      - in: query
+        name: version_state
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+    delete:
+      tags:
+      - Documents
+      summary: Delete documents by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/documents/{document_id}:
+    get:
+      tags:
+      - Documents
+      summary: Get document
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '404':
+          description: Not found
+    delete:
+      tags:
+      - Documents
+      summary: Delete single document
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not found
+  /api2/projects/{project_id}/documents/{document_id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Download document data file
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: enable_token_linking
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '422':
+          description: Unprocessable Entity
+  /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis:
+    post:
+      tags:
+      - Documents
+      summary: Start traffic light analysis for a document
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+              required:
+              - task_id
+            example:
+              task_id: 1
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/documents/{document_id}/annotations:
+    get:
+      tags:
+      - Documents
+      summary: List document annotations
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: type
+        schema:
+          type: string
+      - in: query
+        name: roles
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: pretty
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                document_id: 1
+                type: document
+                roles:
+                - admin
+                content: Sample text
+                state: active
+                external_reference: {}
+  /api2/projects/{project_id}/documents/{document_id}/annotations/annotationText:
+    get:
+      tags:
+      - Documents
+      summary: Retrieve annotation text
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        required: true
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      - in: query
+        name: fullParagraph
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                text: Sample text
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/documents/{document_id}/notes:
+    get:
+      tags:
+      - Documents
+      summary: List document notes
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                updated_at: '2024-01-15T12:00:00.000Z'
+                updated_by: 1
+                name: Joe Bloggs
+                text: Sample text
+                position: 0
+                document_id: 1
+                document_content: {}
+                document_wide: {}
+  /api2/projects/{project_id}/documents/{document_id}/notes/{id}:
+    get:
+      tags:
+      - Documents
+      summary: Get document note
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                updated_at: '2024-01-15T12:00:00.000Z'
+                updated_by: 1
+                name: Joe Bloggs
+                text: Sample text
+                position: 0
+                document_id: 1
+                document_content: {}
+                document_wide: {}
+  /api2/projects/{project_id}/document_templates:
+    get:
+      tags:
+      - Document Templates
+      summary: List document templates in project
+      description: Contract/document templates for the project. Use GET .../document_templates/{id}/fields to get the schema
+        required for contract creation.
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+        description: Filter by document template ID
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: default_folder_id
+        schema:
+          type: integer
+        description: Folder ID where documents created from this template are saved
+      - in: query
+        name: state
+        schema:
+          type: string
+        description: active or deleted
+      - in: query
+        name: media_type
+        schema:
+          type: string
+        description: Media type (e.g. MS Word MIME type)
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentTemplate'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                project_id: 1
+                default_folder_id: 1
+                media_type: application/pdf
+                state: active
+                options: {}
+  /api2/projects/{project_id}/document_templates/{document_template_id}:
+    get:
+      tags:
+      - Document Templates
+      summary: Get document template by id
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_template_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentTemplate'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                project_id: 1
+                default_folder_id: 1
+                media_type: application/pdf
+                state: active
+                options: {}
+        '404':
+          description: Not found
+  /api2/projects/{project_id}/document_templates/{document_template_id}/fields:
+    get:
+      tags:
+      - Document Templates
+      summary: Get document template fields (for contract creation)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_template_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                name: Joe Bloggs
+                key: example_key
+                field_order: 0
+                document_template_id: 1
+                parent_data_field_id: 1
+                datatype: string
+                options: {}
+                type: document
+                conditions: {}
+  /api2/projects/{project_id}/document_templates/create:
+    post:
+      tags:
+      - Document Templates
+      summary: Create contract (matter + generated document from template)
+      description: Get template fields from GET .../document_templates/{id}/fields; the data object keys match field keys
+        (e.g. singleInputFieldKey for type datatag). For nested/loop fields use arrays of objects. See docuvault Contract
+        Creation and Postman Contract Generation collection.
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentTemplateCreateRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/matters:
+    get:
+      tags:
+      - Matters
+      summary: List matters
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: info
+        schema:
+          type: string
+        description: Filter by matter info (hidden in UI)
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Matter'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+    post:
+      tags:
+      - Matters
+      summary: Create matter (alternate to matters/create)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+    patch:
+      tags:
+      - Matters
+      summary: Update matters by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+    delete:
+      tags:
+      - Matters
+      summary: Delete matters by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/matters/create:
+    post:
+      tags:
+      - Matters
+      summary: Create matter (and optional annotations and version)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+                workflow_id:
+                  type: integer
+                create_version:
+                  type: boolean
+                required_matter_annotations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      annotation_type_id:
+                        type: integer
+                      content:
+                        type: object
+                generate_document:
+                  type: object
+                  properties:
+                    document_template_id:
+                      type: integer
+                    data:
+                      type: object
+              required:
+              - name
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/matters/{matter_id}:
+    get:
+      tags:
+      - Matters
+      summary: Get matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Matter'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+        '404':
+          description: Not found
+    patch:
+      tags:
+      - Matters
+      summary: Update matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+    delete:
+      tags:
+      - Matters
+      summary: Delete matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/matters/{matter_id}/annotations:
+    get:
+      tags:
+      - Matters
+      summary: List matter annotations
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+    post:
+      tags:
+      - Matters
+      summary: Create matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group_id:
+                  type: integer
+                annotation_type_id:
+                  type: integer
+                content:
+                  type: object
+                state:
+                  type: string
+      responses:
+        '201':
+          description: Created
+    patch:
+      tags:
+      - Matters
+      summary: Update matter annotations by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+    delete:
+      tags:
+      - Matters
+      summary: Delete matter annotations by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/matters/{matter_id}/annotations/{annotation_id}:
+    get:
+      tags:
+      - Matters
+      summary: Get matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: annotation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+    patch:
+      tags:
+      - Matters
+      summary: Update matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: annotation_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+    delete:
+      tags:
+      - Matters
+      summary: Delete matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: annotation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/matters/{matter_id}/relations:
+    get:
+      tags:
+      - Matters
+      summary: List matter relations
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                source_id: 1
+                target_id: 1
+    post:
+      tags:
+      - Matters
+      summary: Create relation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_id:
+                  type: integer
+                target_id:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+      - Matters
+      summary: Delete relations by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/matters/{matter_id}/relations/{relation_id}:
+    get:
+      tags:
+      - Matters
+      summary: Get relation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: relation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                source_id: 1
+                target_id: 1
+    delete:
+      tags:
+      - Matters
+      summary: Delete relation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: relation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/matters/{matter_id}/events:
+    get:
+      tags:
+      - Matters
+      summary: List matter events
+      description: Only selected event types are supported.
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: type
+        description: Filter by supported event types
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                updated_at: '2024-01-15T12:00:00.000Z'
+                updated_by: 1
+                type: document
+                matter_id: 1
+                content: Sample text
+        '422':
+          description: Invalid type
+  /api2/projects/{project_id}/matters/{matter_id}/versions:
+    get:
+      tags:
+      - Matters
+      summary: List matter versions
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                document_id: 1
+                type: document
+                state: active
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                name: Joe Bloggs
+                info: {}
+  /api2/projects/{project_id}/matters/{matter_id}/versions/{version_id}/assignable_users:
+    get:
+      tags:
+      - Matters
+      summary: List assignable users for version
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: version_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                document_id: 1
+                type: document
+                state: active
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                name: Joe Bloggs
+                info: {}
+  /api2/projects/{project_id}/matters/{matter_id}/versions/{version_id}/assign:
+    patch:
+      tags:
+      - Matters
+      summary: Assign a version to a user
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: version_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+              required:
+              - user_id
+      responses:
+        '201':
+          description: Created
+  /api2/projects/{project_id}/matters/{matter_id}/versions/add_attachment:
+    post:
+      tags:
+      - Matters
+      summary: Add a document as attachment to matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+              required:
+              - document_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                document_id: 1
+                type: document
+                state: active
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                name: Joe Bloggs
+                info: {}
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/tasks:
+    get:
+      tags:
+      - Tasks
+      summary: List tasks (including Knowledge Banks)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+                parent_id: 1
+                description: Sample text
+                settings: {}
+                filter: {}
+                full_families: false
+                auto_sync: false
+                type: document
+                tags: []
+  /api2/projects/{project_id}/tasks/{task_id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get task
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+                parent_id: 1
+                description: Sample text
+                settings: {}
+                filter: {}
+                full_families: false
+                auto_sync: false
+                type: document
+                tags: []
+  /api2/projects/{project_id}/tasks/knowledge_bank_from_template:
+    post:
+      tags:
+      - Tasks
+      summary: Create Knowledge Bank from template and generate positions
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                document_id:
+                  type: integer
+                contract_type:
+                  type: string
+                include_luminance_basis:
+                  type: boolean
+              required:
+              - name
+              - document_id
+              - contract_type
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Validation error
+  /api2/projects/{project_id}/tasks/{task_id}/reviews:
+    get:
+      tags:
+      - Tasks
+      summary: List task reviews
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+    post:
+      tags:
+      - Tasks
+      summary: Create task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                document_id:
+                  type: integer
+              required:
+              - task_id
+              - document_id
+      responses:
+        '201':
+          description: Created
+    patch:
+      tags:
+      - Tasks
+      summary: Update multiple task reviews by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: review_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+    patch:
+      tags:
+      - Tasks
+      summary: Update task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: review_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                task_id: 1
+                document_id: 1
+                state: active
+                review_state: pending
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                outcome: null
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis:
+    get:
+      tags:
+      - Tasks
+      summary: Get task review analysis results
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: review_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paragraph_weights: {}
+                missing_components: {}
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents:
+    get:
+      tags:
+      - Tasks
+      summary: List documents for task reviews
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+    delete:
+      tags:
+      - Tasks
+      summary: Delete multiple documents in task reviews
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get document in task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '404':
+          description: Not found
+    delete:
+      tags:
+      - Tasks
+      summary: Delete document in task review
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/download:
+    get:
+      tags:
+      - Tasks
+      summary: Download document file (task review path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not found
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations:
+    get:
+      tags:
+      - Tasks
+      summary: List document annotations (task review path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                document_id: 1
+                type: document
+                roles:
+                - admin
+                content: Sample text
+                state: active
+                external_reference: {}
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations/annotationText:
+    get:
+      tags:
+      - Tasks
+      summary: Retrieve annotation text (task review path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        required: true
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      - in: query
+        name: fullParagraph
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                text: Sample text
+  /api2/projects/{project_id}/workflows:
+    get:
+      tags:
+      - Workflows
+      summary: List workflows
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: room_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: moniker
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+  /api2/projects/{project_id}/workflows/{id}:
+    get:
+      tags:
+      - Workflows
+      summary: Get workflow
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                project_id: 1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to
+        obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+  parameters:
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+  schemas:
+    SystemInfo:
+      type: object
+      description: System data returned by GET /api2/
+      properties:
+        product:
+          type: string
+          description: Product name (e.g. diligence, review)
+        version:
+          type: string
+          description: Luminance version
+        api2_version:
+          type: string
+          description: API v2 version
+    User:
+      type: object
+      description: User object (see API2_Schema users table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+          description: User ID of creator
+        username:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          nullable: true
+        account_id:
+          type: integer
+        state:
+          type: string
+        multi_factor_auth_enabled:
+          type: boolean
+    ProjectUser:
+      type: object
+      description: Project user (permissions object) - user assigned to a project with roles
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        project_id:
+          type: integer
+        user_id:
+          type: integer
+        type:
+          type: string
+          description: admin or standard
+        roles:
+          type: array
+          items:
+            type: string
+    Project:
+      type: object
+      description: Project (division/room) object (see API2_Schema projects table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        moniker:
+          type: string
+        name:
+          type: string
+        account_id:
+          type: integer
+        state:
+          type: string
+        permissions:
+          type: integer
+        settings:
+          type: object
+        type:
+          type: string
+          description: diligence, discovery, compliance, property, or corporate
+        features:
+          type: array
+          items:
+            type: string
+    Document:
+      type: object
+      description: Document object (see API2_Schema documents table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        folder_id:
+          type: integer
+          nullable: true
+        parent_id:
+          type: integer
+          nullable: true
+        project_id:
+          type: integer
+        media_type:
+          type: string
+        state:
+          type: string
+        version_group:
+          type: integer
+        version:
+          type: integer
+        version_state:
+          type: string
+          description: active, draft, or replaced
+    Matter:
+      type: object
+      description: Matter (group) object (see API2_Schema matters table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        state:
+          type: string
+        info:
+          type: object
+        type:
+          type: string
+        key:
+          type: string
+        project_id:
+          type: integer
+    DocumentTemplate:
+      type: object
+      description: Document template for contract generation (see API2_Schema document_templates table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        project_id:
+          type: integer
+        default_folder_id:
+          type: integer
+        media_type:
+          type: string
+        state:
+          type: string
+        options:
+          type: object
+    Folder:
+      type: object
+      description: Folder object (see API2_Schema folders table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        parent_id:
+          type: integer
+          nullable: true
+        name:
+          type: string
+        project_id:
+          type: integer
+        state:
+          type: string
+        type:
+          type: string
+          description: folder or custodian
+    Task:
+      type: object
+      description: Task object (see API2_Schema tasks table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        moniker:
+          type: string
+        name:
+          type: string
+        project_id:
+          type: integer
+        parent_id:
+          type: integer
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          type: string
+        settings:
+          type: object
+        filter:
+          type: object
+    DocumentTemplateCreateRequest:
+      type: object
+      description: Payload for POST document_templates/create (contract creation). Get field keys from GET .../document_templates/{id}/fields;
+        pass values in data keyed by field keys (e.g. singleInputFieldKey from fields of type datatag).
+      properties:
+        document_template_id:
+          type: integer
+        data:
+          type: object
+          description: Key-value map of template field keys to values
+        name:
+          type: string
+        state:
+          type: string
+        workflow_id:
+          type: integer
+      required:
+      - document_template_id
+      - data

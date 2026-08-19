@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Matter Versions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Matter Versions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the matter versions for a matter in a particular project including a record of current and previous drafts and current attachments to the matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/versions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Version ID of a version of a document contained in a matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "type",
+                "value": "attachment",
+                "type": "query",
+                "description": "An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of the matter version"
+              },
+              {
+                "name": "assigned_to",
+                "value": "",
+                "type": "query",
+                "description": "User ID of the user a matter is assigned to"
+              },
+              {
+                "name": "assigned_at",
+                "value": "",
+                "type": "query",
+                "description": "Date and time the matter version was last assigned to a user"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Information about the matter hidden in the user interface"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "State"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the matter versions for a matter in a particular project including a record of current and previous drafts and current attachments to the matter"
+        },
+        {
+          "info": {
+            "name": "Gets a list of user names and IDs which can be assigned to a matter version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/versions/:matter-version-id/assignable_users",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username used in login credentials"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique User ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-version-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Version Id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a list of user names and IDs which can be assigned to a matter version"
+        },
+        {
+          "info": {
+            "name": "Assigns an available user to the matter version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/versions/:matter-version-id/assign",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-version-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Version Id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Assigns an available user to the matter version"
+        },
+        {
+          "info": {
+            "name": "Creates a new matter version of type attachment to a matter containing the specified document ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/versions/add_attachment",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new matter version of type attachment to a matter containing the specified document ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1569 @@
+openapi: 3.2.0
+info:
+  title: Luminance Documents API
+  version: '1.0'
+  description: 'Operations tagged Documents across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Documents
+paths:
+  /projects/{project-id}/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Document collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/folderId'
+      - $ref: '#/components/parameters/parentId'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/documentMedia_type'
+      - $ref: '#/components/parameters/documentState'
+      - $ref: '#/components/parameters/documentVersionGroup'
+      - $ref: '#/components/parameters/documentVersion'
+      - $ref: '#/components/parameters/documentVersionState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a collection of Documents.
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/traffic_light_analysis:
+    post:
+      tags:
+      - Documents
+      summary: Initiates Traffic Light Analysis on a document
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: Send the taskId of the 'precedent' type Task (Knowledge Bank in the User Interface) which will be used to run traffic light analysis against the documentId in the path
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                  example: 67
+              required:
+              - task_id
+      security:
+      - OAuth2: []
+      responses:
+        '202':
+          $ref: '#/components/responses/traffic_light_analysis_202'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Single Document
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a Single Document
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Document collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/folderId'
+      - $ref: '#/components/parameters/parentId'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/documentMedia_type'
+      - $ref: '#/components/parameters/documentState'
+      - $ref: '#/components/parameters/documentVersionGroup'
+      - $ref: '#/components/parameters/documentVersion'
+      - $ref: '#/components/parameters/documentVersionState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a Document collection in a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a single Document in a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a Document object in a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Document collection in a specific task
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/folderId'
+      - $ref: '#/components/parameters/parentId'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/documentMedia_type'
+      - $ref: '#/components/parameters/documentState'
+      - $ref: '#/components/parameters/documentVersionGroup'
+      - $ref: '#/components/parameters/documentVersion'
+      - $ref: '#/components/parameters/documentVersionState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete multiple documents in a particular task path
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a single Document in a specific task path
+      parameters:
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a single Document in a particular task path
+      parameters:
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Downloads the file content for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/enable_token_based_linking'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_download_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Downloads the file content for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/enable_token_based_linking'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_download_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Downloads the file content for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/enable_token_based_linking'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_download_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/upload:
+    post:
+      tags:
+      - Documents
+      summary: Upload a single document to a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - in: query
+        name: matter_id
+        type: integer
+        example: 675
+        description: matterId of the matter you wish to upload the document into.
+      - $ref: '#/components/parameters/matterVersionType'
+      - in: query
+        name: name
+        required: true
+        description: Name of document
+        schema:
+          type: string
+          format: string
+          minimum: 0
+        example: This is a contract.docx
+      - in: query
+        name: replace
+        required: false
+        description: Whether, if a document of the same name already exists in the current folder, to 'replace' that document (existing document will be set to version_state:replaced, and version_group will change to the document_id of the document being uploaded), or if 'false' will return a 422 error code and the request will not complete.
+        schema:
+          type: boolean
+          default: false
+        example: This is a contract.docx
+      description: The body of the request should contain the file you wish to upload, as a base64 encoded string.
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/projects/{project_id}/documents:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: List documents in a project
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: folder_id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: media_type
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: version_group
+        schema:
+          type: integer
+      - in: query
+        name: version
+        schema:
+          type: integer
+      - in: query
+        name: version_state
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document_2'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Documents
+      summary: Delete documents by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: Get document
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document_2'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Documents
+      summary: Delete single document
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}/download:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: Download document data file
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: enable_token_linking
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '422':
+          description: Unprocessable Entity
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    post:
+      tags:
+      - Documents
+      summary: Start traffic light analysis for a document
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+              required:
+              - task_id
+            example:
+              task_id: 1
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}/annotations:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: List document annotations
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: type
+        schema:
+          type: string
+      - in: query
+        name: roles
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: pretty
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                document_id: 1
+                type: document
+                roles:
+                - admin
+                content: Sample text
+                state: active
+                external_reference: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}/annotations/annotationText:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: Retrieve annotation text
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        required: true
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      - in: query
+        name: fullParagraph
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                text: Sample text
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}/notes:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: List document notes
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                updated_at: '2024-01-15T12:00:00.000Z'
+                updated_by: 1
+                name: Joe Bloggs
+                text: Sample text
+                position: 0
+                document_id: 1
+                document_content: {}
+                document_wide: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/documents/{document_id}/notes/{id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Documents
+      summary: Get document note
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                updated_at: '2024-01-15T12:00:00.000Z'
+                updated_by: 1
+                name: Joe Bloggs
+                text: Sample text
+                position: 0
+                document_id: 1
+                document_content: {}
+                document_wide: {}
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    traffic_light_analysis_202:
+      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Traffic Light Analysis started on document 896
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '204':
+      description: Request completed, but no response payload body will be present (attributed to a successful deletion request)
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    documents_200:
+      description: JSON array of Document objects or a single Document object if documentId is used in the path of the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Document'
+          example:
+            id: 369994
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            folder_id: 52665
+            parent_id: null
+            project_id: 455
+            name: Sample MSA.pdf
+            media_type: application/pdf
+            state: import_complete
+            version_group: 369689
+            version: 1
+            version_state: active
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    document_download_200:
+      description: Response containing a single document downloaded from the instance. The media type of the response will be contained in the content-type header and is entirely dependent on the media type uploaded to Luminance, which accepts any MIME-type following RFC 6838.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  schemas:
+    Document_2:
+      type: object
+      description: Document object (see API2_Schema documents table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        folder_id:
+          type:
+          - integer
+          - 'null'
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        project_id:
+          type: integer
+        media_type:
+          type: string
+        state:
+          type: string
+        version_group:
+          type: integer
+        version:
+          type: integer
+        version_state:
+          type: string
+          description: active, draft, or replaced
+    Document:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the document assigned by Luminance
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-17T18:10:46.532Z'
+        created_by:
+          type: integer
+          example: 4
+        folder_id:
+          type: integer
+          example: 7342
+        parent_id:
+          type: integer
+          example: 7342
+          description: if the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email
+        project_id:
+          type: integer
+          example: 455
+        name:
+          type: string
+          example: Template NDA.pdf
+        media_type:
+          type: string
+          example: application/pdf
+        state:
+          type: string
+          enum:
+          - import_pending
+          - import_complete
+          - import_failure
+          - upload_failure
+          - import_extracted
+          - upload_cancelled
+          description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. if the document cannot be analysed, it becomes 'import_failure'.
+        version_group:
+          type: integer
+          example: 345328
+          description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document.
+        version:
+          type: integer
+          example: 1
+          description: if a file 'replaces' another file, its version will increment.
+        version_state:
+          type: string
+          enum:
+          - active
+          - draft
+          - replaced
+          description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+    documentState:
+      name: state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - import_pending
+        - import_complete
+        - import_failure
+        - upload_failure
+        - import_extracted
+        - upload_cancelled
+      description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'.
+      example: import_complete
+    parentId:
+      name: parent_id
+      in: query
+      description: If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentName:
+      name: name
+      in: query
+      description: Name of document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: This is a contract.docx
+    documentMedia_type:
+      name: media_type
+      in: query
+      description: MIME type detected for the document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    matterVersionType:
+      name: type
+      in: query
+      type: string
+      example: attachment
+      required: false
+      enum:
+      - attachment
+      - draft
+      - version
+      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
+    documentVersionGroup:
+      name: version_group
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document.
+      example: 256
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    enable_token_based_linking:
+      name: enable_token_based_linking
+      in: query
+      description: Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx.
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    documentVersionState:
+      name: version_state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - draft
+        - replaced
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
+      example: active
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    document-id:
+      name: document-id
+      in: path
+      description: Document ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderId:
+      name: folder_id
+      in: query
+      description: Unique Folder ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 6
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    documentVersion:
+      name: version
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: if a file 'replaces' another file, its version will increment.
+      example: 2
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml

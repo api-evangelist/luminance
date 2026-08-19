@@ -1,0 +1,350 @@
+{
+  "item": [
+    {
+      "id": "f7e1eedf-fdef-4c83-88ad-99cae4c0a7ca",
+      "name": "Project Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5ac497f3-666c-45d4-a194-245eae36400b",
+          "name": "List project users",
+          "request": {
+            "name": "List project users",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "project_users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "roles",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd4a899e-9721-423c-b16f-fce6f5d68f17",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "project_users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"project_id\": 1,\n    \"user_id\": 1,\n    \"type\": \"document\",\n    \"roles\": [\n      \"admin\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7595382-0e74-481e-afcf-c29f005c4e57",
+          "name": "Get project user by id",
+          "request": {
+            "name": "Get project user by id",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "project_users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59184946-f198-4574-8eab-3fb680a7e1d3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "project_users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"project_id\": 1,\n  \"user_id\": 1,\n  \"type\": \"document\",\n  \"roles\": [\n    \"admin\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20033e78-1f1d-461d-a8e3-5bd44a21139c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "project_users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8478e9c-f749-417b-8b28-d30ea94cd0f0",
+    "name": "Luminance Public API v2 Project Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token` (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`, `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n   ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded' \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**, and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization: Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Public API v2 Annotation Sources API",
+    "version": "1.5"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Annotation Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List annotation sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_sources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "room_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "annotation_source_relation_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List annotation sources"
+        },
+        {
+          "info": {
+            "name": "Create annotation source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_sources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create annotation source"
+        },
+        {
+          "info": {
+            "name": "Update annotation sources by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_sources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "room_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "annotation_source_relation_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update annotation sources by filter"
+        },
+        {
+          "info": {
+            "name": "Get annotation source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get annotation source"
+        },
+        {
+          "info": {
+            "name": "Update annotation source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update annotation source"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

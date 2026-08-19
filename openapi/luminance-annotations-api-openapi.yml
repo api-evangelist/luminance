@@ -1,0 +1,1447 @@
+openapi: 3.2.0
+info:
+  title: Luminance Annotations API
+  version: '1.0'
+  description: 'Operations tagged Annotations across 2 of this provider''s published API definitions:
+    luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml. Each path carries
+    the servers of the definition it was published in.'
+tags:
+- name: Annotations
+paths:
+  /annotation_types:
+    get:
+      tags:
+      - Annotations
+      summary: Get Annotation Types that have been created on your instance as a whole.
+      parameters:
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationTypeKey'
+      - $ref: '#/components/parameters/annotationTypePre-built'
+      - $ref: '#/components/parameters/annotationTypeName'
+      - $ref: '#/components/parameters/annotationTypeOptions'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_types_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /annotation_types/{annotation-type-id}:
+    get:
+      tags:
+      - Annotations
+      summary: Get information on a specific Annotation Type ID
+      parameters:
+      - $ref: '#/components/parameters/annotation-type-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_types_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get an array of JSON object Annotations added to a matter
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterAnnotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterAnnotationTypeId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/annotationState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Annotations
+      summary: Create an annotation on a matter
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            description: Define the annotationTypeId and the annotationContent for it. The content including
+              required property names and data types of an annotation may vary depending on the annotationTypeId
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                  example: 367
+                content:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      example: Agreement
+            example:
+              annotation_type_id: 344
+              content:
+                value: Agreement
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_create_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Annotations
+      summary: Patch the content of multiple matter annotations to a different value
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/matterAnnotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/matterAnnotationState'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterAnnotationPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/annotations/{annotation-id}:
+    get:
+      tags:
+      - Annotations
+      summary: Get an array of JSON object Annotations added to a matter
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotation-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Annotations
+      summary: Patch the content of a particular matter annotation to a different value
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/annotation-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterAnnotationPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on Annotations for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdby'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationRoles'
+      - $ref: '#/components/parameters/annotationState'
+      - $ref: '#/components/parameters/annotationContent'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on Annotations for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/annotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdby'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationRoles'
+      - $ref: '#/components/parameters/annotationState'
+      - $ref: '#/components/parameters/annotationContent'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on Annotations for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/annotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdby'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationRoles'
+      - $ref: '#/components/parameters/annotationState'
+      - $ref: '#/components/parameters/annotationContent'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/annotations/annotationText:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on a Single Annotation
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotationTextId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotationText_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}/annotations/annotationText:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on a Single Annotation
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/annotationTextId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotationText_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/annotations/annotationText:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on a Single Annotation
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/annotationTextId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotationText_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /annotation_sources:
+    get:
+      tags:
+      - Annotations
+      summary: Get information on a particular annotation_source_id. Each annotation_source can be used
+        to populate values users are able to select from in-platform when interacting with Matters
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/annotationSourceId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/workflowId'
+      - $ref: '#/components/parameters/annotationSourceRelationId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/annotationState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_sources_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Annotations
+      summary: Create a new annotation_source
+      requestBody:
+        description: See schema for options and required information in body of request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationSourceCreate'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_source_create_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Annotations
+      summary: Modify annotation_sources
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/annotationSourceId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/workflowId'
+      - $ref: '#/components/parameters/annotationSourceRelationId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/annotationState'
+      requestBody:
+        description: See schema for options and required information in body of request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationSourcePatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_source_patch_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /annotation_sources/{annotation_source_id}:
+    get:
+      tags:
+      - Annotations
+      summary: Get information on a particular annotation_source_id. Each annotation_source can be used
+        to populate values users are able to select from in-platform when interacting with Matters
+      parameters:
+      - $ref: '#/components/parameters/annotationSourceId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_sources_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Annotations
+      summary: Modify annotation_sources
+      parameters:
+      - $ref: '#/components/parameters/annotationSourceId'
+      requestBody:
+        description: See schema for options and required information in body of request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationSourcePatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_source_patch_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    annotation_types_200:
+      description: JSON array of annotation type objects available in the instance, or a sinlge JSON annotation
+        type object if annotation type ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationType'
+          example:
+            id: 1
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            type: entity:datetime
+            key: contract:effective
+            pre-built: true
+            name: Effective Date
+            options: {}
+    annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            document_id: 369998
+            type: entity:party
+            roles:
+            - Counter-Party
+            content:
+              party: VoicePhone Limited.
+              raw_text: Voicephone Ltd.
+            state: active
+    matter_annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterAnnotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            matter_id: 7342
+            annotation_type_id: 347
+            content:
+              timestamp: '2027-04-07T00:00:00.000Z'
+            state: active
+    annotation_source_create_201:
+      description: JSON object of an AnnotationsSource after POSTing to create one
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationSource'
+          example:
+            id: 56
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            annotation_type_id: 345
+            project_id: 2
+            workflow_id: 3
+            annotation_source_relation_id: null
+            content:
+              type: object
+              example:
+                party: VoicePhone Limited
+                raw_text: Voicephone Ltd.
+            state: active
+    annotationText_200:
+      description: JSON array of clauses (annotation)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationText'
+          example:
+            id: 37225093,
+            text: Example clause text.
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform
+        this action
+    annotation_create_200:
+      description: JSON object of matter annotations after POSTing to create the matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/annotationId'
+          example:
+            version: 1.3.0
+            api2_version: 1.3.0
+            product: corporate
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact
+        Luminance's support team.
+    annotation_source_patch_200:
+      description: JSON object or array of JSON objects of AnnotationSources after PATCHing to modify
+        one or more AnnotationSource objects
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationSource'
+          example:
+            id: 56
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            annotation_type_id: 345
+            project_id: 2
+            workflow_id: 3
+            annotation_source_relation_id: null
+            content:
+              type: object
+              example:
+                party: VoicePhone Limited
+                raw_text: Voicephone Ltd.
+            state: active
+    annotation_sources_200:
+      description: JSON array of annotationSource objects available in the instance, or a single JSON
+        annotationSource object if annotationSourceId is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationSource'
+          example:
+            id: 56
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            annotation_type_id: 345
+            project_id: 2
+            workflow_id: 3
+            annotation_source_relation_id: null
+            content:
+              type: object
+              example:
+                party: VoicePhone Limited
+                raw_text: Voicephone Ltd.
+            state: active
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationSourceRelationId:
+      name: annotation_source_relation_id
+      in: query
+      description: annotation_source_relation_id is not currently an interactable element via the API
+      required: false
+      schema:
+        type: integer
+        example: 76
+        minimum: 0
+    matterAnnotationState:
+      name: state
+      in: query
+      description: State of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - deleted
+    annotationTypeName:
+      name: name
+      in: query
+      description: The display name for the annotation in platform
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterAnnotationTypeId:
+      name: id
+      in: query
+      description: Unique Annotation Type ID for the Annotation attached to the Matter, can also be queried
+        via the /annotation_types endpoint
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationType:
+      name: type
+      in: query
+      description: Type of data stored by the annotation e.g. 'language'
+      required: false
+      schema:
+        type: string
+        enum:
+        - alert
+        - alias
+        - contract:state
+        - contracttype
+        - definedterm:definition
+        - definedterm:use
+        - document:bates
+        - document:cluster
+        - document:custodian
+        - document:duplicationfamily
+        - document:family
+        - document:privileged
+        - document:relation
+        - document:textinfo
+        - documenttype
+        - email:chain
+        - email:type
+        - emailaddress
+        - entity:area
+        - entity:boolean
+        - entity:custom
+        - entity:datetime
+        - entity:enum
+        - entity:identifier
+        - entity:law
+        - entity:location
+        - entity:money
+        - entity:organization
+        - entity:party
+        - entity:percent
+        - entity:person
+        - entity:signature
+        - entity:term
+        - entity:timeperiod
+        - folder
+        - fragment:clause
+        - fragment:cluster
+        - generic:boolean
+        - generic:enum
+        - generic:number
+        - generic:text
+        - language
+        - page
+        - pagecount
+        - qa:antivirus
+        - qa:blankpage
+        - qa:contentextraction
+        - qa:emptycontent
+        - qa:encrypted
+        - qa:hiddencells
+        - qa:missingmodel
+        - qa:ocr
+        - qa:paragraphing
+        - qa:partiallyindexed
+        - qa:render
+        - qa:restrictedfileformat
+        - qa:unsupportedfileformat
+        - redacted
+        - search
+        - source:referenceid
+        - source:signed
+        - structure:group
+        - structure:metadata
+        - structure:pagebreak
+        - structure:paragraph:joined
+        - structure:paragraph:split
+        - structure:section
+        - title
+        - user
+        - usertag
+    annotationTypeKey:
+      name: key
+      in: query
+      description: Key used to identify the annotation
+      required: false
+      schema:
+        type: string
+        format: string
+    annotationTypeId:
+      name: annotation_type_id
+      in: query
+      description: annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types
+        endpoint
+      required: false
+      schema:
+        type: integer
+        example: 64
+        minimum: 0
+    workflowId:
+      name: id
+      in: query
+      description: Unique Workflow ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationTypeOptions:
+      name: options
+      in: query
+      description: Options associated with the annotation, the options field will display available values
+        if the type is generic:enum.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    matterAnnotationId:
+      name: id
+      in: query
+      description: Annotation ID of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matter-id:
+      name: matter-id
+      in: path
+      description: Matter Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    annotationId:
+      name: id
+      in: query
+      description: Unique Annotation ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    annotationContent:
+      name: content
+      in: query
+      description: The content of a particular annotation, which will be a value depending on the annotation's
+        annotationTypeId
+      required: false
+      schema:
+        type: object
+        properties:
+          value:
+            type: string
+            example: Agreement
+    document-id:
+      name: document-id
+      in: path
+      description: Document ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationState:
+      name: state
+      in: query
+      description: State of the annotation
+      required: false
+      type: string
+      enum:
+      - active
+      - deleted
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationRoles:
+      name: roles
+      in: query
+      description: There will only ever be a single value in the role field for annotations. This corresponds
+        to annotationTypeKey available when calling the /annotation_types endpoint
+      required: false
+      schema:
+        type: array
+        example:
+        - contract-effective
+    annotationTextId:
+      name: id
+      in: query
+      required: true
+      description: This parameter refers to the annotationId you wish to retrieve the underlying text
+        from the Document on. It should be repeated to return results from multiple annotationIds
+      schema:
+        type: integer
+        format: int32
+        example: 6238
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    annotationTypePre-built:
+      name: pre-built
+      in: query
+      description: Whether this annotation is reflects an out-of-the-box Luminance concept ("True"), or
+        the concept has been created in your instance ("False")
+      required: false
+      schema:
+        type: boolean
+        default: none
+    annotation-id:
+      name: annotation-id
+      in: path
+      description: Annotation ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationSourceId:
+      name: annotation_source_id
+      in: query
+      description: annotation_source_id for a particular value made available to a users selecting values
+        for that an Annotation when interacting with Matters in the user interface
+      required: false
+      schema:
+        type: integer
+        example: 76
+        minimum: 0
+    annotation-type-id:
+      name: annotation-type-id
+      in: path
+      description: Annotation Type ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+  schemas:
+    MatterAnnotationPatch:
+      type: object
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 400
+          required: true
+          description: See the api2/annotation_types endpoint for specifics of the annotation_type_ids
+            enabled on your instance.
+        content:
+          type: object
+          properties:
+            value:
+              type: string
+              example: Agreement
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+          description: Can be used to patch the annotation to state deleted to delete the annotation from
+            the user interface.
+    MatterAnnotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        matter_id:
+          type: integer
+          example: 7342
+        annotation_type_id:
+          type: integer
+          example: 347
+          description: This corresponds to annotationTypeId available when calling the /annotation_types
+            endpoint
+        content:
+          type: object
+          example:
+            timestamp: '2027-04-07T00:00:00.000Z'
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+    Annotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        document_id:
+          type: integer
+          example: 7342
+        type:
+          type: string
+          example: entity:party
+          enum:
+          - alert
+          - alias
+          - contract:state
+          - contracttype
+          - definedterm:definition
+          - definedterm:use
+          - document:bates
+          - document:cluster
+          - document:custodian
+          - document:duplicationfamily
+          - document:family
+          - document:privileged
+          - document:relation
+          - document:textinfo
+          - documenttype
+          - email:chain
+          - email:type
+          - emailaddress
+          - entity:area
+          - entity:boolean
+          - entity:custom
+          - entity:datetime
+          - entity:enum
+          - entity:identifier
+          - entity:law
+          - entity:location
+          - entity:money
+          - entity:organization
+          - entity:party
+          - entity:percent
+          - entity:person
+          - entity:signature
+          - entity:term
+          - entity:timeperiod
+          - folder
+          - fragment:clause
+          - fragment:cluster
+          - generic:boolean
+          - generic:enum
+          - generic:number
+          - generic:text
+          - language
+          - page
+          - pagecount
+          - qa:antivirus
+          - qa:blankpage
+          - qa:contentextraction
+          - qa:emptycontent
+          - qa:encrypted
+          - qa:hiddencells
+          - qa:missingmodel
+          - qa:ocr
+          - qa:paragraphing
+          - qa:partiallyindexed
+          - qa:render
+          - qa:restrictedfileformat
+          - qa:unsupportedfileformat
+          - redacted
+          - search
+          - source:referenceid
+          - source:signed
+          - structure:group
+          - structure:metadata
+          - structure:pagebreak
+          - structure:paragraph:joined
+          - structure:paragraph:split
+          - structure:section
+          - title
+          - user
+          - usertag
+        roles:
+          type: array
+          example:
+          - Counter-Party
+          description: There will only ever be a single value in the role field for annotations. This
+            corresponds to annotationTypeKey available when calling the /annotation_types endpoint
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+    AnnotationText:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        text:
+          type: string
+          example: Example clause text
+    AnnotationSourceCreate:
+      type: object
+      description: Payload required to POST a new annotationSourceId
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 345
+          description: Please note only AnnotationTypeIds which have the following annotationType values
+            are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party',
+            'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId
+            populates.
+          required: true
+        project_id:
+          type: integer
+          example: Voicephone project
+          description: The content for this annotationSourceId will be available only in the identified
+            project. Set to null if the annotationSourceId should be available in all projects.
+          required: false
+        workflow_id:
+          type: integer
+          example: NDA Workflow
+          description: The content for this annotationSourceId will be available only in the identified
+            workflow. Set to null if the annotationSourceId should be available in all workflows.
+          required: false
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+          required: true
+    AnnotationSourcePatch:
+      type: object
+      description: Payload required to PATCH an annotationSourceId
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 345
+          description: Please note only AnnotationTypeIds which have the following annotationType values
+            are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party',
+            'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId
+            populates.
+          required: true
+        project_id:
+          type: integer
+          example: Voicephone project
+          description: The content for this annotationSourceId will be available only in the identified
+            project. Set to null if the annotationSourceId should be available in all projects.
+          required: false
+        workflow_id:
+          type: integer
+          example: NDA Workflow
+          description: The content for this annotationSourceId will be available only in the identified
+            workflow. Set to null if the annotationSourceId should be available in all workflows.
+          required: false
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+          required: false
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          required: false
+    AnnotationType:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        type:
+          type: string
+          enum:
+          - alert
+          - alias
+          - contract:state
+          - contracttype
+          - definedterm:definition
+          - definedterm:use
+          - document:bates
+          - document:cluster
+          - document:custodian
+          - document:duplicationfamily
+          - document:family
+          - document:privileged
+          - document:relation
+          - document:textinfo
+          - documenttype
+          - email:chain
+          - email:type
+          - emailaddress
+          - entity:area
+          - entity:boolean
+          - entity:custom
+          - entity:datetime
+          - entity:enum
+          - entity:identifier
+          - entity:law
+          - entity:location
+          - entity:money
+          - entity:organization
+          - entity:party
+          - entity:percent
+          - entity:person
+          - entity:signature
+          - entity:term
+          - entity:timeperiod
+          - folder
+          - fragment:clause
+          - fragment:cluster
+          - generic:boolean
+          - generic:enum
+          - generic:number
+          - generic:text
+          - language
+          - page
+          - pagecount
+          - qa:antivirus
+          - qa:blankpage
+          - qa:contentextraction
+          - qa:emptycontent
+          - qa:encrypted
+          - qa:hiddencells
+          - qa:missingmodel
+          - qa:ocr
+          - qa:paragraphing
+          - qa:partiallyindexed
+          - qa:render
+          - qa:restrictedfileformat
+          - qa:unsupportedfileformat
+          - redacted
+          - search
+          - source:referenceid
+          - source:signed
+          - structure:group
+          - structure:metadata
+          - structure:pagebreak
+          - structure:paragraph:joined
+          - structure:paragraph:split
+          - structure:section
+          - title
+          - user
+          - usertag
+          example: entity:datetime
+        key:
+          type: string
+          example: contract-effective
+        pre_built:
+          type: boolean
+          example: true
+        name:
+          type: string
+          example: Effective Date
+        options:
+          type: array
+          example: None
+    AnnotationSource:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+          description: Unique annotationSourceId for this annotationSource
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        annotation_type_id:
+          type: integer
+          example: 345
+          description: Please note only AnnotationTypeIds which have the following annotationType values
+            are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party',
+            'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId
+            populates.
+        project_id:
+          type: integer
+          example: Voicephone project
+          description: The content for this annotationSourceId will be available only in the identified
+            project. Set to null if the annotationSourceId should be available in all projects.
+        workflow_id:
+          type: integer
+          example: NDA Workflow
+          description: The content for this annotationSourceId will be available only in the identified
+            workflow. Set to null if the annotationSourceId should be available in all workflows.
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml

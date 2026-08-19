@@ -1,0 +1,5211 @@
+openapi: 3.0.0
+info:
+  version: 1.3.0
+  title: Luminance API
+  description: <h2>Overview</h2>Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format
+    and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform,
+    leveraging its objects and endpoints to enhance your applications.<br><br>With this API, you can create integrations that
+    allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress
+    through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.<br><br>The Luminance
+    API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration.
+    It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility
+    to build custom solutions, automate workflows, and enhance overall efficiency within their applications.<br><br><strong>This
+    version of the API is deployed by standard to Luminance product versions 1.37.0 to 1.42.0 inclusive</strong><br><br><strong>API
+    requests are rate limited for security reasons to 100 requests every 10 minutes.</strong><h2>Objects</h2><ul><li>**<a
+    href='/api_docs/documentation/accounts#endpoints'>Accounts</a>:** These actions are made at the top    Account-level of
+    Luminance, which requires Administrator permissions for the Service user performing the action</li><li>**<a href='/api_docs/documentation/users#endpoints'>Users</a>:**
+    This refers to the users on your Luminance    account. Their level of access will depend on their permissions.</li><li>**<a
+    href='/api_docs/documentation/projects'>Projects</a>:** This refers to the different projects that are    stored within
+    your Luminance account.</li><li>**<a href='/api_docs/documentation/tasks#endpoints'>Tasks</a>:** Tasks are collections
+    of documents within a    project that can be assigned to a subset of users.</li><li>**<a href='/api_docs/documentation/reviews#endpoints'>Reviews</a>:**
+    This refers to the 'review' object created to track review status of documents    by users within a task, and store AI
+    outputs from Traffic Light Analysis through a Knowledge Bank.</li><li>**<a href='/api_docs/documentation/folders#endpoints'>Folders</a>:**
+    This refers to the folders the documents    are stored in within the project.</li><li>**<a href='/api_docs/documentation/documents#endpoints'>Documents</a>:**
+    These are the documents on your    Luminance account. Documents can be accessed via their projects, folders or the tasks
+    they have been added in    to.</li><li>**<a href='/api_docs/documentation/annotations#endpoints'>Annotations</a>:** Annotations
+    refer to all the types    of data tags that can be added to a document. They can be accessed via the document they are
+    on via the    document's project, folder, or task.</li><li>**<a href='/api_docs/documentation/matters#endpoints'>Matters</a>:**
+    Matters are containers used in live negotiations to store document versioning information and assist in managing workflows.
+    Our matter endpoints allow for management of these matters, including data tags associated with these matters, programmatically</li><li>**<a
+    href='/api_docs/documentation/matterversions#endpoints'>Matter Versions</a>:** An object referencing a single document
+    in a matter. This could be single draft of a contract or a related document such as an attachment.</li><li>**<a href='/api_docs/documentation/trafficlightanalysis#endpoints'>Traffic
+    Light Analysis</a>:**The Traffic Light Analysis endpoint is able to trigger analysis of a document using Luminance's AI
+    analysis tool to see how compliant the clauses in a document are with your standard positioning</li><li>**<a href='/api_docs/documentation/contractcreation#endpoints'>Contract
+    Creation</a>:**Get information on, and create contracts with a new associated matter using the templates hosted in a particular
+    division by calling these endpoints.</li></ul>
+tags:
+- name: Root
+- name: Accounts
+- name: Users
+- name: Projects
+- name: Tasks
+- name: Reviews
+- name: Folders
+- name: Documents
+- name: Annotations
+- name: Matters
+- name: Matter Versions
+- name: Traffic Light Analysis
+- name: Contract Creation
+paths:
+  /:
+    get:
+      tags:
+      - Root
+      summary: Get System Data
+      description: 'This endpoint provides system data, including: Luminance version, API2 version, and product type.'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/system_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users:
+    get:
+      tags:
+      - Users
+      - Accounts
+      summary: Get Users Collection
+      description: This endpoint provides a list of users available on the environment. Only Service Users with Administrator
+        level permissions can access this list.
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/userName'
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/userState'
+      - $ref: '#/components/parameters/mfaEnabled'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/user_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users/{user-id}:
+    get:
+      tags:
+      - Users
+      - Accounts
+      summary: Get a specific user
+      description: Get a user with the specific user id provided
+      parameters:
+      - $ref: '#/components/parameters/user-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/user_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users/me:
+    get:
+      tags:
+      - Users
+      summary: Get Information on the User being used for Authentication
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/user_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /annotation_types:
+    get:
+      tags:
+      - Accounts
+      - Annotations
+      summary: Get Annotation Types that have been created on your instance as a whole.
+      parameters:
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationTypeKey'
+      - $ref: '#/components/parameters/annotationTypePre-built'
+      - $ref: '#/components/parameters/annotationTypeName'
+      - $ref: '#/components/parameters/annotationTypeOptions'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_types_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /annotation_types/{annotation-type-id}:
+    get:
+      tags:
+      - Accounts
+      - Annotations
+      summary: Get information on a specific Annotation Type ID
+      parameters:
+      - $ref: '#/components/parameters/annotation-type-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_types_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /project_users:
+    get:
+      tags:
+      - Projects
+      - Users
+      summary: Get Information on the permissions assigned to users on a per project basis
+      parameters:
+      - $ref: '#/components/parameters/projectUserId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/projectUserType'
+      - $ref: '#/components/parameters/projectUserRoles'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /project_users/{project-user-id}:
+    get:
+      tags:
+      - Projects
+      - Users
+      summary: Get Information on the user permissions object associated with a specific permissions object ID
+      parameters:
+      - $ref: '#/components/parameters/project-user-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects:
+    get:
+      tags:
+      - Projects
+      summary: Get a JSON array list of all projects the Service User is assigned to, or all projects if the Service user
+        has Administrator permissions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/moniker'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/projectState'
+      - $ref: '#/components/parameters/projectPermissions'
+      - $ref: '#/components/parameters/projectSettings'
+      - $ref: '#/components/parameters/projectType'
+      - $ref: '#/components/parameters/projectFeatures'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}:
+    get:
+      tags:
+      - Projects
+      summary: Get Information on a Single Project
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks:
+    get:
+      tags:
+      - Tasks
+      summary: Get a list of tasks in a particular project, including alerts and knowledge banks
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/taskId'
+      - $ref: '#/components/parameters/moniker'
+      - $ref: '#/components/parameters/TaskName'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/taskDescription'
+      - $ref: '#/components/parameters/auto_sync'
+      - $ref: '#/components/parameters/taskType'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/task_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get information on a specific task, including alerts and knowledge banks
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/task_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/knowledge_bank_from_template:
+    post:
+      tags:
+      - Tasks
+      - Traffic Light Analysis
+      summary: Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from
+        and a contract type for that document, resulting in a precedent type task being created for the specified module
+      requestBody:
+        description: See schema for options and required information in body of request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeBankFromTemplate'
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/async'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/knowledge_bank_from_template_202'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews:
+    get:
+      tags:
+      - Reviews
+      summary: Get all Reviews for a particular task
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/reviewId'
+      - $ref: '#/components/parameters/documentReviewId'
+      - $ref: '#/components/parameters/reviewSyncState'
+      - $ref: '#/components/parameters/reviewState'
+      - $ref: '#/components/parameters/reviewAssignee'
+      - $ref: '#/components/parameters/reviewAssignedAt'
+      - $ref: '#/components/parameters/reviewOutcome'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/review_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Reviews
+      summary: Create a New Review
+      parameters:
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            description: Define the documentId which will have a review created for it in the relevant task
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+                  example: 83049
+            example:
+              document_id: 83049
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/review_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Reviews
+      summary: Update multiple reviews
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/reviewId'
+      - $ref: '#/components/parameters/reviewSyncState'
+      - $ref: '#/components/parameters/reviewState'
+      - $ref: '#/components/parameters/reviewAssignee'
+      - $ref: '#/components/parameters/reviewAssignedAt'
+      - $ref: '#/components/parameters/reviewOutcome'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  required: false
+                  type: string
+                  enum:
+                  - active
+                  - sync_staged
+                  - deleted
+                  example: active
+                review_state:
+                  required: false
+                  type: string
+                  enum:
+                  - pending
+                  - complete
+                  example: pending
+                assigned_to:
+                  required: false
+                  type: integer
+                  example: 7
+                outcome:
+                  required: false
+                  type: string
+                  enum:
+                  - approved
+                  - rejected
+                  - None
+                  description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before
+                    a document can pass through a particular workflow stage. This indicates whether those approvals have been
+                    completed or rejected.
+  /projects/{project-id}/tasks/{task-id}/reviews/{review-id}:
+    get:
+      tags:
+      - Reviews
+      summary: Get Information on a Single Review
+      parameters:
+      - $ref: '#/components/parameters/review-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/review_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Reviews
+      summary: Update a Single Review
+      parameters:
+      - $ref: '#/components/parameters/review-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  required: false
+                  type: string
+                  enum:
+                  - active
+                  - sync_staged
+                  - deleted
+                  example: active
+                review_state:
+                  required: false
+                  type: string
+                  enum:
+                  - pending
+                  - complete
+                  example: pending
+                assigned_to:
+                  required: false
+                  type: integer
+                  example: 7
+                outcome:
+                  required: false
+                  type: string
+                  enum:
+                  - approved
+                  - rejected
+                  - None
+                  description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before
+                    a document can pass through a particular workflow stage. This indicates whether those approvals have been
+                    completed or rejected.
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/review_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/{review-id}/analysis:
+    get:
+      tags:
+      - Reviews
+      - Traffic Light Analysis
+      summary: Get a JSON object containing the Traffic Light Analysis results for AI review completed on a single document.
+        this may have been initiated from the {document-id}/traffic_light_analysis endpoint, in which case the analysis may
+        not be immediately available, there will be up to a few minutes to wait. The response will be an empty array until
+        complete.
+      parameters:
+      - $ref: '#/components/parameters/review-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/review_analysis_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders:
+    get:
+      tags:
+      - Folders
+      summary: Get Folder Collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folderParentId'
+      - $ref: '#/components/parameters/folderName'
+      - $ref: '#/components/parameters/folderState'
+      - $ref: '#/components/parameters/folderType'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Folders
+      summary: Create a folder
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: A POST request which creates a folder parented to the folder of the specified parent id.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderPost'
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/folder_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Folders
+      summary: Patch information on a Folder Collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folderParentId'
+      - $ref: '#/components/parameters/folderName'
+      - $ref: '#/components/parameters/folderState'
+      - $ref: '#/components/parameters/folderType'
+      requestBody:
+        description: A PATCH request which can change folder attributes, including moving and deleting them.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}:
+    get:
+      tags:
+      - Folders
+      summary: Get Information on a Single Folder
+      parameters:
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Folders
+      summary: Modify Information on a Single Folder
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: A PATCH request which can change folder attributes, including moving and deleting them.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Document collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/folderId'
+      - $ref: '#/components/parameters/parentId'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/documentMedia_type'
+      - $ref: '#/components/parameters/documentState'
+      - $ref: '#/components/parameters/documentVersionGroup'
+      - $ref: '#/components/parameters/documentVersion'
+      - $ref: '#/components/parameters/documentVersionState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a collection of Documents.
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request.
+          Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/traffic_light_analysis:
+    post:
+      tags:
+      - Documents
+      - Traffic Light Analysis
+      summary: Initiates Traffic Light Analysis on a document
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: Send the taskId of the 'precedent' type Task (Knowledge Bank in the User Interface) which will be used
+          to run traffic light analysis against the documentId in the path
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                  example: 67
+              required:
+              - task_id
+      security:
+      - OAuth2: []
+      responses:
+        '202':
+          $ref: '#/components/responses/traffic_light_analysis_202'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Single Document
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a Single Document
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Document collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/folderId'
+      - $ref: '#/components/parameters/parentId'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/documentMedia_type'
+      - $ref: '#/components/parameters/documentState'
+      - $ref: '#/components/parameters/documentVersionGroup'
+      - $ref: '#/components/parameters/documentVersion'
+      - $ref: '#/components/parameters/documentVersionState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a Document collection in a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request.
+          Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a single Document in a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a Document object in a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a Document collection in a specific task
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/folderId'
+      - $ref: '#/components/parameters/parentId'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/documentMedia_type'
+      - $ref: '#/components/parameters/documentState'
+      - $ref: '#/components/parameters/documentVersionGroup'
+      - $ref: '#/components/parameters/documentVersion'
+      - $ref: '#/components/parameters/documentVersionState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete multiple documents in a particular task path
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request.
+          Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get Information on a single Document in a specific task path
+      parameters:
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+      - Documents
+      summary: Delete a single Document in a particular task path
+      parameters:
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-id'
+      - in: query
+        description: Any one or more of the following parameters MUST be used as a query parameter in the deletion request.
+          Please see the 'Document' schema for more information on each parameter
+        name: deletionparameters
+        required: true
+        schema:
+          type: object
+          properties:
+            document_id:
+              type: integer
+              format: int32
+              example: 4638
+            created_at:
+              type: string
+              format: date-time
+              example: '2021-10-25T11:58:31.879Z'
+            created_by:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 5
+            folder_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 8
+            parent_id:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 3473
+            name:
+              type: string
+              format: string
+              minimum: 0
+              example: This is a contract.docx
+            media_type:
+              type: string
+              format: string
+              minimum: 0
+              example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            state:
+              type: string
+              enum:
+              - import_pending
+              - import_complete
+              - import_failure
+              - upload_failure
+              - import_extracted
+              - upload_cancelled
+              example: import_complete
+            version_group:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 247
+            version:
+              type: integer
+              format: int32
+              minimum: 0
+              example: 2
+            version_state:
+              type: string
+              enum:
+              - active
+              - draft
+              - replaced
+              example: active
+          minProperties: 1
+          additionalProperties: false
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates:
+    get:
+      tags:
+      - Contract Creation
+      summary: Get an array of documentTemplate objects in a particular project
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentTemplateId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/documentTemplateName'
+      - $ref: '#/components/parameters/defaultFolderId'
+      - $ref: '#/components/parameters/documentTemplateState'
+      - $ref: '#/components/parameters/mediaType'
+      - $ref: '#/components/parameters/documentTemplateOptions'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_templates_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates/{document-template-id}:
+    get:
+      tags:
+      - Contract Creation
+      summary: Get a documentTemplate object in a particular project
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-template-id'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/documentTemplateName'
+      - $ref: '#/components/parameters/defaultFolderId'
+      - $ref: '#/components/parameters/documentTemplateState'
+      - $ref: '#/components/parameters/mediaType'
+      - $ref: '#/components/parameters/documentTemplateOptions'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_templates_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates/{document-template-id}/fields:
+    get:
+      tags:
+      - Contract Creation
+      summary: Get the JSON array of DocumentTemplateFields (or single DocumentTemplaeField object if only one in present
+        in the the DocumentTemplate) necessary to create a contract for a particular document template ID
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-template-id'
+      - $ref: '#/components/parameters/documentTemplateFieldId'
+      - $ref: '#/components/parameters/documentTemplateFieldKey'
+      - $ref: '#/components/parameters/documentTemplateFieldDataType'
+      - $ref: '#/components/parameters/documentTemplateFieldOrder'
+      - $ref: '#/components/parameters/documentTemplateFieldParentDataFieldId'
+      - $ref: '#/components/parameters/documentTemplateFieldOptions'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/documentTemplateFieldName'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_template_fields_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates/create:
+    post:
+      tags:
+      - Contract Creation
+      summary: Create a Contract in Luminance
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentTemplatePayload'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_template_create_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter objects in a particular project
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Matters
+      summary: Create a New Matter
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: The only value which needs to be passed in is a matterName. See the documents/upload endpoints for information
+          on how to upload a document to that matter. The matter will not be visible in the user interface until this is complete.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  required: true
+                  type: string
+                  example: New Matter Name
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      summary: Patch information on Matter objects
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter object with a particular matterId in a particular project
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      summary: Patch information on a single Matter object
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/create:
+    post:
+      tags:
+      - Matters
+      summary: Create a New Matter with required matter tags and/or optional matter tags configured for the project. These
+        can be mandatory if configured for the project.
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: The value which need to be passed in is a matterName plus an object with any required matter annotations
+          (see below schema). See the documents/upload endpoints for information on how to upload a document to that matter.
+          The matter will not be visible in the user interface until this is complete.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  required: true
+                  type: string
+                  example: New Matter Name
+                required_matter_annotations:
+                  required: true
+                  type: array
+                  items:
+                    type: object
+                  description: Each item in the array represents a single Annotation which needs to be added to the Matter
+                    on creation.
+                  properties:
+                    $ref: '#/components/parameters/MatterAnnotationArrayObject'
+                  example:
+                    annotation_type_id: 347
+                    content:
+                      name: London
+                      country: GB
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions:
+    get:
+      tags:
+      - Matters
+      - Matter Versions
+      summary: Get the matter versions for a matter in a particular project including a record of current and previous drafts
+        and current attachments to the matter
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matterVersionId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/matterVersionType'
+      - $ref: '#/components/parameters/matterVersionState'
+      - $ref: '#/components/parameters/matterVersionAssignedTo'
+      - $ref: '#/components/parameters/matterVersionAssignedAt'
+      - $ref: '#/components/parameters/matterVersionName'
+      - $ref: '#/components/parameters/matterVersionInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_versions_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users:
+    get:
+      tags:
+      - Matters
+      - Matter Versions
+      - Users
+      summary: Gets a list of user names and IDs which can be assigned to a matter version
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/userName'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_version_assignable_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assign:
+    patch:
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      tags:
+      - Matters
+      - Matter Versions
+      - Users
+      summary: Assigns an available user to the matter version
+      requestBody:
+        description: Please use the /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users
+          endpoint to find out which userIds can be assigned to a particular matter version
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 4
+            example:
+              user_id: 4
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_assignable_users_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/add_attachment:
+    post:
+      tags:
+      - Matters
+      - Matter Versions
+      summary: Creates a new matter version of type attachment to a matter containing the specified document ID
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: Send the document_id of the document, which must be in the same project as the matter, that you wish
+          to add as an attachment to the matter
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+                  example: 67
+              required:
+              - document_id
+      minimum: 0
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_add_attachment_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/annotations:
+    get:
+      tags:
+      - Matters
+      - Annotations
+      summary: Get an array of JSON object Annotations added to a matter
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterAnnotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterAnnotationTypeId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/annotationState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Matters
+      - Annotations
+      summary: Create an annotation on a matter
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            description: Define the annotationTypeId and the annotationContent for it. The content including required property
+              names and data types of an annotation may vary depending on the annotationTypeId
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                  example: 367
+                content:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      example: Agreement
+            example:
+              annotation_type_id: 344
+              content:
+                value: Agreement
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_create_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      - Annotations
+      summary: Patch the content of multiple matter annotations to a different value
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/matterAnnotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/matterAnnotationState'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterAnnotationPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/annotations/{annotation-id}:
+    get:
+      tags:
+      - Matters
+      - Annotations
+      summary: Get an array of JSON object Annotations added to a matter
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotation-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      - Annotations
+      summary: Patch the content of a particular matter annotation to a different value
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/annotation-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterAnnotationPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/relations:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter all the matters a matter is related to
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/matterRelationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/sourceId'
+      - $ref: '#/components/parameters/targetId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_relations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Downloads the file content for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/enable_token_based_linking'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_download_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Downloads the file content for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/enable_token_based_linking'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_download_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/download:
+    get:
+      tags:
+      - Documents
+      summary: Downloads the file content for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/enable_token_based_linking'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_download_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/upload:
+    post:
+      tags:
+      - Documents
+      summary: Upload a single document to a specific folder path
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - in: query
+        name: matter_id
+        type: integer
+        example: 675
+        description: matterId of the matter you wish to upload the document into.
+      - $ref: '#/components/parameters/matterVersionType'
+      - in: query
+        name: name
+        required: true
+        description: Name of document
+        schema:
+          type: string
+          format: string
+          minimum: 0
+        example: This is a contract.docx
+      - in: query
+        name: replace
+        required: false
+        description: Whether, if a document of the same name already exists in the current folder, to 'replace' that document
+          (existing document will be set to version_state:replaced, and version_group will change to the document_id of the
+          document being uploaded), or if 'false' will return a 422 error code and the request will not complete.
+        schema:
+          type: boolean
+          default: false
+        example: This is a contract.docx
+      description: The body of the request should contain the file you wish to upload, as a base64 encoded string.
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/documents_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on Annotations for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdby'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationRoles'
+      - $ref: '#/components/parameters/annotationState'
+      - $ref: '#/components/parameters/annotationContent'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on Annotations for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/annotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdby'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationRoles'
+      - $ref: '#/components/parameters/annotationState'
+      - $ref: '#/components/parameters/annotationContent'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on Annotations for a single Document object
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/annotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdby'
+      - $ref: '#/components/parameters/annotationType'
+      - $ref: '#/components/parameters/annotationRoles'
+      - $ref: '#/components/parameters/annotationState'
+      - $ref: '#/components/parameters/annotationContent'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/documents/{document-id}/annotations/annotationText:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on a Single Annotation
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotationTextId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotationText_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}/documents/{document-id}/annotations/annotationText:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on a Single Annotation
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/annotationTextId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotationText_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/annotations/annotationText:
+    get:
+      tags:
+      - Annotations
+      summary: Get Information on a Single Annotation
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/task-id'
+      - $ref: '#/components/parameters/annotationTextId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotationText_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+  parameters:
+    annotation-type-id:
+      name: annotation-type-id
+      in: path
+      description: Annotation Type ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    user-id:
+      name: user-id
+      in: path
+      description: User ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    review-id:
+      name: review-id
+      in: path
+      description: Review ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    document-id:
+      name: document-id
+      in: path
+      description: Document ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matter-id:
+      name: matter-id
+      in: path
+      description: Matter Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matter-version-id:
+      name: matter-version-id
+      in: path
+      description: Matter Version Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotation-id:
+      name: annotation-id
+      in: path
+      description: Annotation ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-user-id:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    document-template-id:
+      name: document-template-id
+      in: path
+      description: ID of a specific document template (document template in the user interface)
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    userId:
+      name: id
+      in: query
+      description: Unique User ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    taskId:
+      name: id
+      in: query
+      description: Unique Task ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    reviewId:
+      name: id
+      in: query
+      description: Unique Review ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderId:
+      name: folder_id
+      in: query
+      description: Unique Folder ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 6
+    documentName:
+      name: name
+      in: query
+      description: Name of document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: This is a contract.docx
+    documentMedia_type:
+      name: media_type
+      in: query
+      description: MIME type detected for the document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    documentState:
+      name: state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - import_pending
+        - import_complete
+        - import_failure
+        - upload_failure
+        - import_extracted
+        - upload_cancelled
+      description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user
+        while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed
+        for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not
+        analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document
+        with document/annotations. If the document cannot be analysed, it becomes 'import_failure'.
+      example: import_complete
+    documentVersionGroup:
+      name: version_group
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder,
+        the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId
+        of the 'replaced' document.
+      example: 256
+    documentVersion:
+      name: version
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: if a file 'replaces' another file, its version will increment.
+      example: 2
+    documentVersionState:
+      name: version_state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - draft
+        - replaced
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder,
+        the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId
+        of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word
+        Plugin and open for editing.
+      example: active
+    parentId:
+      name: parent_id
+      in: query
+      description: If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached
+        to an email
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    documentReviewId:
+      name: document_id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    annotationId:
+      name: id
+      in: query
+      description: Unique Annotation ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterAnnotationTypeId:
+      name: id
+      in: query
+      description: Unique Annotation Type ID for the Annotation attached to the Matter, can also be queried via the /annotation_types
+        endpoint
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationType:
+      name: type
+      in: query
+      description: Type of data stored by the annotation e.g. 'language'
+      required: false
+      schema:
+        type: string
+        enum:
+        - alert
+        - alias
+        - contract:state
+        - contracttype
+        - definedterm:definition
+        - definedterm:use
+        - document:bates
+        - document:cluster
+        - document:custodian
+        - document:duplicationfamily
+        - document:family
+        - document:privileged
+        - document:relation
+        - document:textinfo
+        - documenttype
+        - email:chain
+        - email:type
+        - emailaddress
+        - entity:area
+        - entity:boolean
+        - entity:custom
+        - entity:datetime
+        - entity:enum
+        - entity:identifier
+        - entity:law
+        - entity:location
+        - entity:money
+        - entity:organization
+        - entity:party
+        - entity:percent
+        - entity:person
+        - entity:signature
+        - entity:term
+        - entity:timeperiod
+        - folder
+        - fragment:clause
+        - fragment:cluster
+        - generic:boolean
+        - generic:enum
+        - generic:number
+        - generic:text
+        - language
+        - page
+        - pagecount
+        - qa:antivirus
+        - qa:blankpage
+        - qa:contentextraction
+        - qa:emptycontent
+        - qa:encrypted
+        - qa:hiddencells
+        - qa:missingmodel
+        - qa:ocr
+        - qa:paragraphing
+        - qa:partiallyindexed
+        - qa:render
+        - qa:restrictedfileformat
+        - qa:unsupportedfileformat
+        - redacted
+        - search
+        - source:referenceid
+        - source:signed
+        - structure:group
+        - structure:metadata
+        - structure:pagebreak
+        - structure:paragraph:joined
+        - structure:paragraph:split
+        - structure:section
+        - title
+        - user
+        - usertag
+    annotationState:
+      name: state
+      in: query
+      description: State of the annotation
+      required: false
+      type: string
+      enum:
+      - active
+      - deleted
+    annotationRoles:
+      name: roles
+      in: query
+      description: There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey
+        available when calling the /annotation_types endpoint
+      required: false
+      schema:
+        type: array
+        example:
+        - contract-effective
+    projectUserId:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectUserType:
+      name: type
+      in: query
+      description: Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    projectUserRoles:
+      name: roles
+      in: query
+      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A
+        user may have multiple permission roles in a single project.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    annotationTypeKey:
+      name: key
+      in: query
+      description: Key used to identify the annotation
+      required: false
+      schema:
+        type: string
+        format: string
+    annotationTypePre-built:
+      name: pre-built
+      in: query
+      description: Whether this annotation is reflects an out-of-the-box Luminance concept ("True"), or the concept has been
+        created in your instance ("False")
+      required: false
+      schema:
+        type: boolean
+        default: none
+    annotationTypeName:
+      name: name
+      in: query
+      description: The display name for the annotation in platform
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    annotationTypeOptions:
+      name: options
+      in: query
+      description: Options associated with the annotation, the options field will display available values if the type is
+        generic:enum.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    fullParagraph:
+      name: fullParagraph
+      in: query
+      description: Indicate whether you would like to extract the entire paragraph that a tag is found within, or just the
+        tag itself
+      required: false
+      schema:
+        type: boolean
+        default: false
+    accountId:
+      name: account_id
+      in: query
+      description: ID of Associated Account this User is Added to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderParentId:
+      name: parent_id
+      in: query
+      description: The folder Id of the Parent Folder
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    required_matter_annotations:
+      name: required_matter_annotations
+      in: body
+      description: Array of required tags configured in a particular project as mandatory for matter creation
+      required: false
+      schema:
+        type: array
+        minimum: 0
+        items:
+          type: integer
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    reviewAssignedAt:
+      name: created_at
+      in: query
+      description: Time of Task Allocation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+    annotationContent:
+      name: content
+      in: query
+      description: The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId
+      required: false
+      schema:
+        type: object
+        properties:
+          value:
+            type: string
+            example: Agreement
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    reviewAssignee:
+      name: assigned_to
+      in: query
+      description: User ID of Assignee
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    reviewOutcome:
+      name: outcome
+      in: query
+      description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document
+        can pass through a particular workflow stage. Each individual approval has a separate taskReview which can be set
+        to completed or rejected. Once all are complete, the document can pass through certain workflow stages.
+      required: false
+      schema:
+        type: string
+        enum:
+        - approved
+        - rejected
+        - None
+    matterId:
+      name: id
+      in: query
+      description: Matter ID of Matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterName:
+      name: name
+      in: query, body
+      description: Display name of Matter
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterState:
+      name: state
+      in: query
+      description: Current State of Matter
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterInfo:
+      name: info
+      in: query
+      description: Information about the matter hidden in the user interface
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionId:
+      name: id
+      in: query
+      description: Version ID of a version of a document contained in a matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionState:
+      name: state
+      in: query
+      description: Current State of the matter version
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionAssignedTo:
+      name: assigned_to
+      in: query
+      description: User ID of the user a matter is assigned to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionAssignedAt:
+      name: assigned_at
+      in: query
+      description: Date and time the matter version was last assigned to a user
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+    matterVersionName:
+      name: name
+      in: query
+      description: Information about the matter hidden in the user interface
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionInfo:
+      name: info
+      in: query
+      description: State
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionType:
+      name: type
+      in: query
+      type: string
+      example: attachment
+      required: false
+      enum:
+      - attachment
+      - draft
+      - version
+      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation.
+        A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous
+        'version' type group version.
+    matterRelationId:
+      name: id
+      in: query
+      description: ID of the relation a source matterId has to a target matterId
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterAnnotationId:
+      name: id
+      in: query
+      description: Annotation ID of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterAnnotationState:
+      name: state
+      in: query
+      description: State of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - deleted
+    sourceId:
+      name: source_id
+      in: query
+      description: matterId of the matter which is the source of the relationship in a particular matter relation
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    targetId:
+      name: target_id
+      in: query
+      description: matterId of the matter which is the target of the relationship in a particular matter relation
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    enable_token_based_linking:
+      name: enable_token_based_linking
+      in: query
+      description: Whether to download a document with tokens added which will allow the document to be identified to its
+        matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc
+        or .docx.
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    documentTemplateId:
+      name: id
+      in: query
+      description: ID of a specific document template (document template in the user interface)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateName:
+      name: name
+      in: query
+      description: Name of a specific document template
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldId:
+      name: id
+      in: query
+      description: ID of a specific document template field
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateState:
+      in: query
+      name: state
+      required: false
+      type: string
+      enum: active deleted
+      example: active
+    documentTemplateFieldName:
+      in: query
+      name: name
+      description: Name of a specific document template
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldKey:
+      name: key
+      in: query
+      description: Name of a specific document template field. Corresponds to its name on the document template itself
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldDataType:
+      name: datatype
+      in: query
+      description: Data type accepted by that field - will usually be generic:text, which is free text
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldOrder:
+      name: field_order
+      in: query
+      description: Where positionally the field is on the document template, top to bottom and left to right
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateFieldParentDataFieldId:
+      name: parent_data_field_id
+      in: query
+      description: The documentTemplateFieldId of the field this field is a child of, for example in a nested loop.
+      required: false
+      schema:
+        type: string
+        minimum: 0
+    documentTemplateFieldOptions:
+      name: options
+      in: query
+      description: This is where options for the field are stored.
+      required: false
+      type: object
+    defaultFolderId:
+      name: default_folder_id
+      in: query
+      description: The folderId which documents created using this template will be saved to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    mediaType:
+      name: media_type
+      in: query
+      description: The media type of the file in the documentTemplate object. Will always be an MS Word MIME type
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    documentTemplateOptions:
+      name: options
+      in: query
+      description: Configuration options for the document template
+      required: false
+      schema:
+        type: object
+        example:
+          old_template: true
+    async:
+      name: async
+      in: query
+      description: Whether to make the call synchronously or wait for the precedent type task to be created asynchronously
+        when creating a Knowledge Bank from template.
+      required: true
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    userName:
+      name: username
+      in: query
+      description: Username used in login credentials
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project
+      required: false
+      schema:
+        type: string
+    ProjectName:
+      name: name
+      in: query
+      description: Name of Project
+      required: false
+      schema:
+        type: string
+    TaskName:
+      name: name
+      in: query
+      description: Name of Task
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    folderName:
+      name: name
+      in: query
+      description: Name of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    taskType:
+      name: type
+      in: query
+      description: Type of Task - Knowledge Banks are 'precedent' type tasks
+      required: false
+      schema:
+        type: string
+        enum:
+        - task
+        - precedent
+        - alert
+        - comparison
+    projectType:
+      name: type
+      in: query
+      description: Product type
+      schema:
+        type: string
+        enum:
+        - diligence
+        - discovery
+        - corporate
+    folderType:
+      name: type
+      in: query
+      description: Folder type
+      schema:
+        type: string
+        enum:
+        - folder
+        - custodian
+        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document
+          has come from in Discovery projects.
+        default: folder
+    userState:
+      name: state
+      in: query
+      description: Current State of User
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - disabled
+    folderState:
+      name: state
+      in: query
+      description: Current State of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - deleted
+    projectState:
+      name: state
+      in: query
+      description: Current State of Project
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - disabled
+        - deleted
+    reviewSyncState:
+      name: state
+      in: query
+      description: Whether the document is active, there is a sync_staged for it (the document has been flagged to appear
+        in the task but not added yet), or had a review which has been deleted
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - sync_staged
+        - deleted
+    reviewState:
+      name: review_state
+      in: query
+      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
+      required: false
+      schema:
+        type: string
+        enum:
+        - pending
+        - complete
+    projectPermissions:
+      name: permissions
+      in: query
+      description: Granted Download Permissions of Project Documents
+      required: false
+      schema:
+        type: string
+        enum:
+        - none
+        - preview
+        - native
+    projectSettings:
+      name: settings
+      in: query
+      description: Enabled Annotation Types
+      required: false
+      schema:
+        $ref: '#/components/schemas/ProjectSettings'
+    projectFeatures:
+      name: features
+      in: query
+      description: Additional Features Available in this Project
+      schema:
+        type: array
+        items:
+          type: string
+    taskDescription:
+      name: description
+      in: query
+      description: Task Description
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    auto_sync:
+      name: auto_sync
+      in: query
+      description: If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    mfaEnabled:
+      name: multi_factor_auth_enabled
+      in: query
+      description: If `true` MFA is Enabled for this User
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    annotationTypeId:
+      name: annotation_type_id
+      in: query
+      description: annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint
+      required: false
+      schema:
+        type: integer
+        example: 64
+        minimum: 0
+    annotationTextId:
+      name: id
+      in: query
+      required: true
+      description: This parameter refers to the annotationId you wish to retrieve the underlying text from the Document on.
+        It should be repeated to return results from multiple annotationIds
+      schema:
+        type: integer
+        format: int32
+        example: 6238
+  schemas:
+    System:
+      type: object
+      properties:
+        version:
+          type: number
+          example: 1.16.0
+        api2_version:
+          type: number
+          example: 1.2.0
+        product:
+          type: string
+          example: corporate
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-12-01T10:21:04.589Z'
+        username:
+          type: string
+          example: luminance.cto
+        name:
+          type: string
+          example: Luminance CTO
+        email:
+          type: string
+          default: null
+          example: luminance.cto@luminance.com
+        account_id:
+          type: integer
+          example: 2
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - disabled
+        multi_factor_auth_enabled:
+          type: boolean
+          example: false
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-12-01T10:21:04.589Z'
+        created_by:
+          type: integer
+          example: 1
+        moniker:
+          type: string
+          example: voicep
+        name:
+          type: string
+          example: VoicePhone Project
+        account_id:
+          type: integer
+          example: 2
+        state:
+          type: string
+          example: disabled
+          enum:
+          - active
+          - deleted
+          - disabled
+        permissions:
+          type: string
+          enum:
+          - none
+          - preview
+          - native
+          example: native
+        settings:
+          $ref: '#/components/schemas/ProjectSettings'
+        type:
+          type: string
+          example: diligence
+          enum:
+          - corporate
+          - diligence
+          - discovery
+        features:
+          type: array
+          example:
+          - bulkredact
+          items:
+            type: string
+    ProjectSettings:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: integer
+          description: array of strings with the names of note categories enabled on the specific project
+          example:
+          - Legal Analysis
+          - Flagged for Followup
+        task_tags:
+          type: array
+          items:
+            type: integer
+          description: array of strings with the names of task categories enabled on the specific project
+          example:
+          - Review Task Level 1
+          - Review Task Level 2
+        annotation_types:
+          type: object
+          description: An object describing the annotation type IDs enabled on a project for
+          properties:
+            bundles:
+              type: array
+              items:
+                type: integer
+              description: Array of pre-configured tag bundles added to the Project
+              example:
+              - Corporate
+            custom:
+              type: array
+              items:
+                type: integer
+              description: Array of custom Annotation Type IDs added to the project instead of using bundles
+              example:
+              - 25
+              - 35
+        required_matter_tags:
+          type: array
+          items:
+            type: integer
+          description: May be populated in the case of Corporate type projects, these matter tags must be added to any newly
+            created matters using the matters/create endpoint
+          example:
+          - 311
+        concept_tags_blacklist:
+          type: array
+          items:
+            type: integer
+          description: Array of Annotation type IDs which cannot be tagged in the particular project
+          example:
+          - 20
+          - 35
+        matter_tags:
+          type: array
+          items:
+            type: integer
+          description: Populated in the case of Corporate type projects, an array of Annotation Type IDs enabled on the project
+            specifically to categorise matter objects
+          example:
+          - 46
+          - 78
+    ProjectUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-10-25T12:35:02.385Z'
+        project_id:
+          type: integer
+          example: 3
+        user_id:
+          type: integer
+          example: 8
+        type:
+          type: string
+          enum:
+          - admin
+          - standard
+        roles:
+          type: array
+          example:
+          - admin
+          - power
+    KnowledgeBankFromTemplate:
+      type: object
+      description: Payload necessary to create a knowledge bank from a specified document ID of the specified contract type
+      properties:
+        document_id:
+          type: integer
+          example: 698
+          description: The document ID to find positional information in and generate a knowledge bank from
+        contract_type:
+          type: string
+          enum:
+          - non%2Ddisclosure-agreement
+          - services-agreement
+          example: non%2Ddisclosure-agreement
+          description: Select the from the available Luminance contract type modules which can be used to generate positions
+            from ontracts of that type
+        include_luminance_basis:
+          type: boolean
+          example: false
+          description: Whether or not to include standard Luminance position information in this knowledge bank from the selected
+            module, or only to use position information found in the specified document ID
+        name:
+          type: string
+          example: New Knowledge Bank from for Master Services Agreement
+          description: the name for the new Knowledge Bank created
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 53
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-02-01T10:11:04.678Z'
+        created_by:
+          type: integer
+          example: 9
+        moniker:
+          type: string
+          example: reviewnda
+        name:
+          type: string
+          example: Review NDAs
+        project_id:
+          type: integer
+          example: 5
+        parent_id:
+          type: integer
+          example: 2
+        description:
+          type: string
+          example: null
+        workspace_id:
+          type: integer
+          example: 6
+          description: ID of the workspace the task is associated with, if present, associated only with Discovery type projects
+        settings:
+          type: object
+          example:
+            last_synced: '2023-05-17T11:49:18.240Z'
+            completionConditions: []
+        filter:
+          type: object
+          description: Object containing filters attached to the task to automatically or manually identify and create task
+            reviews for document objects matching the filters and uploaded to the project
+          example:
+            op: and
+            analyze: true
+            annotation:0.type: i:commercial-and-operations
+        full_families:
+          type: boolean
+          example: false
+          description: Boolean value indicating whether the task was created to include full 'families' of parent/attachment
+            document relations or not
+        auto_sync:
+          type: boolean
+          example: false
+          description: Boolean value indicating whether reviews are automatically created in the task for document objects
+            matching the 'filter's or not
+        type:
+          description: Type of Task - Knowledge Banks are 'precedent' type tasks
+          required: false
+          type: string
+          enum:
+          - task
+          - precedent
+          - alert
+          - comparison
+        tags:
+          required: false
+          type: array
+          items:
+            type: string
+          example:
+          - Review Level 1
+          - Review Level 2
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 77
+        created_at:
+          type: string
+          format: date-time
+          example: '2018-12-21T14:49:38.331Z'
+        created_by:
+          type: integer
+          example: 4
+        document_id:
+          type: integer
+          example: 7342
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+        review_state:
+          type: string
+          enum:
+          - pending
+          - complete
+          example: pending
+        assigned_to:
+          type: integer
+          example: 7
+        assigned_at:
+          type: string
+          format: date-time
+          example: '2018-12-21T14:49:51.292Z'
+        outcome:
+          type: string
+          enum:
+          - approved
+          - rejected
+          - None
+          description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document
+            can pass through a particular workflow stage. This indicates whether those approvals have been completed or rejected.
+    FolderPost:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          example: 52597
+          description: ID of the folder the new folder will be created in
+        name:
+          type: string
+          example: Foo Folder
+          description: Name for the new folder
+        type:
+          type: string
+          example: folder
+          enum:
+          - folder
+          - custodian
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the
+            document has come from in Discovery projects.
+          default: folder
+      required:
+      - parent_id
+      - name
+    FolderPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          example: All Documents
+          required: false
+        media_type:
+          type: string
+          default: null
+          example: null
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+        type:
+          type: string
+          enum:
+          - custodian
+          - folder
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the
+            document has come from in Discovery projects.
+          default: folder
+          example: folder
+          required: false
+    Folder:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 52597
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-09-21T11:56:08.195Z'
+        created_by:
+          type: integer
+          example: 4
+        parent_id:
+          type: integer
+          default: null
+          example: null
+        name:
+          type: string
+          example: All Documents
+        media_type:
+          type: string
+          default: null
+          example: null
+        project_id:
+          type: integer
+          example: 444
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+        type:
+          type: string
+          enum:
+          - custodian
+          - folder
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the
+            document has come from in Discovery projects.
+          default: folder
+          example: folder
+    Matters:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+          description: unique Matter Id
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        project_id:
+          type: integer
+          format: int32
+          example: 4
+        name:
+          type: string
+          example: New Matter
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+        info:
+          type: array
+          example: {}
+          description: Not typically used to store data.
+    MatterVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        updated_by:
+          type: integer
+          example: 32
+        group_id:
+          type: integer
+          example: 1
+          description: This is the matterId the version is assigned to
+        workflow_stage_id:
+          type: integer
+          example: 1
+          description: This is the Workflow stage ID in the workflow editor the matter is in.
+        type:
+          type: string
+          enum:
+          - attachment
+          - draft
+          - version
+          description: An attachment is not part of a matter's version history, but is typically used to store supporting
+            documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated
+            copy of the previous 'version' type group version.
+        state:
+          type: string
+          enum:
+          - active
+          - inactive
+          - deleted
+          - executed
+          description: An active matter version is the most recent draft or version type version of the contratc on the matter.
+            Inactive versions are earlier in time than the most recent draft or version. An executed version has progressed
+            to the end of a workflow and been executed. An attachment type version will always be inactive. Deleted versions
+            mean the matter itself has been deleted.
+        assigned_to:
+          type: integer
+          example: 5
+          description: userId of the user the matter version is assigned to. Can be 'None'.
+        assigned_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.300Z'
+        info:
+          type: array
+          example: {}
+          description: Not typically used to store data.
+    MatterVersionsAssignableUsers:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Support User
+          description: userName of the Assignable user
+        id:
+          type: integer
+          example: 4
+          description: userID of the Assignable user
+    MatterAnnotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        matter_id:
+          type: integer
+          example: 7342
+        annotation_type_id:
+          type: integer
+          example: 347
+          description: This corresponds to annotationTypeId available when calling the /annotation_types endpoint
+        content:
+          type: object
+          example:
+            timestamp: '2027-04-07T00:00:00.000Z'
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+    MatterAnnotationArrayObject:
+      type: object
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 367
+        content:
+          type: object
+          properties:
+            value:
+              type: string
+              example: Agreement
+      example:
+        annotation_type_id: 347
+        content:
+          name: London
+          country: GB
+    MatterAnnotationPatch:
+      type: object
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 400
+          required: true
+          description: See the api2/annotation_types endpoint for specifics of the annotation_type_ids enabled on your instance.
+        content:
+          type: object
+          properties:
+            value:
+              type: string
+              example: Agreement
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+          description: Can be used to patch the annotation to state deleted to delete the annotation from the user interface.
+    MatterPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New Matter
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+          description: Can be used to patch the Matter to state deleted to delete the Matter from the user interface.
+        info:
+          type: object
+          properties:
+            high_priority:
+              type: boolean
+              example: false
+          required: false
+          description: Information is not typically used in the user interface. Can be used as a custom object to store notes.
+    MatterRelation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+          description: unique Matter Relation
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        source_id:
+          type: integer
+          format: int32
+          example: 4
+          description: Unique matter_id of the matter being related
+        target_id:
+          type: integer
+          format: int32
+          example: 4
+          description: Unique matter_id of the second matter in the relationship
+    Annotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        document_id:
+          type: integer
+          example: 7342
+        type:
+          type: string
+          example: entity:party
+          enum:
+          - alert
+          - alias
+          - contract:state
+          - contracttype
+          - definedterm:definition
+          - definedterm:use
+          - document:bates
+          - document:cluster
+          - document:custodian
+          - document:duplicationfamily
+          - document:family
+          - document:privileged
+          - document:relation
+          - document:textinfo
+          - documenttype
+          - email:chain
+          - email:type
+          - emailaddress
+          - entity:area
+          - entity:boolean
+          - entity:custom
+          - entity:datetime
+          - entity:enum
+          - entity:identifier
+          - entity:law
+          - entity:location
+          - entity:money
+          - entity:organization
+          - entity:party
+          - entity:percent
+          - entity:person
+          - entity:signature
+          - entity:term
+          - entity:timeperiod
+          - folder
+          - fragment:clause
+          - fragment:cluster
+          - generic:boolean
+          - generic:enum
+          - generic:number
+          - generic:text
+          - language
+          - page
+          - pagecount
+          - qa:antivirus
+          - qa:blankpage
+          - qa:contentextraction
+          - qa:emptycontent
+          - qa:encrypted
+          - qa:hiddencells
+          - qa:missingmodel
+          - qa:ocr
+          - qa:paragraphing
+          - qa:partiallyindexed
+          - qa:render
+          - qa:restrictedfileformat
+          - qa:unsupportedfileformat
+          - redacted
+          - search
+          - source:referenceid
+          - source:signed
+          - structure:group
+          - structure:metadata
+          - structure:pagebreak
+          - structure:paragraph:joined
+          - structure:paragraph:split
+          - structure:section
+          - title
+          - user
+          - usertag
+        roles:
+          type: array
+          example:
+          - Counter-Party
+          description: There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey
+            available when calling the /annotation_types endpoint
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+    AnnotationText:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        text:
+          type: string
+          example: Example clause text
+    AnnotationType:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        type:
+          type: string
+          enum:
+          - alert
+          - alias
+          - contract:state
+          - contracttype
+          - definedterm:definition
+          - definedterm:use
+          - document:bates
+          - document:cluster
+          - document:custodian
+          - document:duplicationfamily
+          - document:family
+          - document:privileged
+          - document:relation
+          - document:textinfo
+          - documenttype
+          - email:chain
+          - email:type
+          - emailaddress
+          - entity:area
+          - entity:boolean
+          - entity:custom
+          - entity:datetime
+          - entity:enum
+          - entity:identifier
+          - entity:law
+          - entity:location
+          - entity:money
+          - entity:organization
+          - entity:party
+          - entity:percent
+          - entity:person
+          - entity:signature
+          - entity:term
+          - entity:timeperiod
+          - folder
+          - fragment:clause
+          - fragment:cluster
+          - generic:boolean
+          - generic:enum
+          - generic:number
+          - generic:text
+          - language
+          - page
+          - pagecount
+          - qa:antivirus
+          - qa:blankpage
+          - qa:contentextraction
+          - qa:emptycontent
+          - qa:encrypted
+          - qa:hiddencells
+          - qa:missingmodel
+          - qa:ocr
+          - qa:paragraphing
+          - qa:partiallyindexed
+          - qa:render
+          - qa:restrictedfileformat
+          - qa:unsupportedfileformat
+          - redacted
+          - search
+          - source:referenceid
+          - source:signed
+          - structure:group
+          - structure:metadata
+          - structure:pagebreak
+          - structure:paragraph:joined
+          - structure:paragraph:split
+          - structure:section
+          - title
+          - user
+          - usertag
+          example: entity:datetime
+        key:
+          type: string
+          example: contract-effective
+        pre_built:
+          type: boolean
+          example: true
+        name:
+          type: string
+          example: Effective Date
+        options:
+          type: array
+          example: None
+    Document:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the document assigned by Luminance
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-17T18:10:46.532Z'
+        created_by:
+          type: integer
+          example: 4
+        folder_id:
+          type: integer
+          example: 7342
+        parent_id:
+          type: integer
+          example: 7342
+          description: if the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached
+            to an email
+        project_id:
+          type: integer
+          example: 455
+        name:
+          type: string
+          example: Template NDA.pdf
+        media_type:
+          type: string
+          example: application/pdf
+        state:
+          type: string
+          enum:
+          - import_pending
+          - import_complete
+          - import_failure
+          - upload_failure
+          - import_extracted
+          - upload_cancelled
+          description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user
+            while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed
+            for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but
+            not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete'
+            document with document/annotations. if the document cannot be analysed, it becomes 'import_failure'.
+        version_group:
+          type: integer
+          example: 345328
+          description: When a file with the same filename as another document in a particular folder, is uploaded to that
+            folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is
+            set to the documentId of the 'replaced' document.
+        version:
+          type: integer
+          example: 1
+          description: if a file 'replaces' another file, its version will increment.
+        version_state:
+          type: string
+          enum:
+          - active
+          - draft
+          - replaced
+          description: When a file with the same filename as another document in a particular folder, is uploaded to that
+            folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is
+            set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently
+            checked out via the Word Plugin and open for editing.
+    DocumentTemplateCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the Document object created
+        name:
+          type: string
+          example: '2023-01-17T18:10:46.532Z'
+          description: Filename for the Document object created
+        project_id:
+          type: integer
+          example: 4
+          description: Unique projectId for the project the document has been created in
+        folder_id:
+          type: integer
+          example: 7342
+          description: folderId of the Folder object the document has been created in
+        version:
+          type: integer
+          example: 45
+          description: This is the documentVersion for the newly created Document object, not related to matterVersion
+        version_matter:
+          type: integer
+          example: 45
+          description: This is the documentVersionMatter for the newly created Document object, not related to matterVersion
+    DocumentTemplates:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the DocumentTemplate assigned by Luminance
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-17T18:10:46.532Z'
+        created_by:
+          type: integer
+          example: 4
+        name:
+          type: string
+          example: NDA Contract template
+        default_folder_id:
+          type: integer
+          example: 7342
+        media_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        project_id:
+          type: integer
+          example: 6
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+        options:
+          type: object
+          example:
+            old_template: true
+    DocumentTemplateFields:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: ID of a specific document template field
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-17T18:10:46.532Z'
+        created_by:
+          type: integer
+          example: 4
+        name:
+          type: string
+          example: NDA Clause text
+          description: Name of a specific document template
+        key:
+          type: string
+          description: Name of a specific document template field. Corresponds to its name on the document template itself
+          example: _d1_NDA_Clause_Text
+        field_order:
+          type: integer
+          format: int32
+          example: 3
+          description: Where positionally the field is on the document template, top to bottom and left to right
+        document_template_id:
+          type: integer
+          example: 2
+        parent_data_field_id:
+          type: integer
+          format: int32
+          description: The documentTemplateFieldId of the field this field is a child of, for example in a nested loop.
+        datatype:
+          type: string
+          description: Data type accepted by that field - will usually be generic:text, which is free text
+          example: generic:text
+        options:
+          type: object
+          properties:
+            presets:
+              type: array
+              items:
+                type: string
+              example: []
+            isVirtual:
+              type: boolean
+              example: true
+            isSingleInputonly:
+              type: boolean
+              example: true
+              description: Attributes in a clause loop will have this property indicating, if the value is True, that multiple
+                of these fields can be entered and looped
+            singleinputFieldKey:
+              type: string
+              example: clause_text
+              description: indicates the muteable field key that should be used in the DocumentTemplatePayload, which will
+                be specific to each document template.
+        type:
+          type: string
+          enum:
+          - loop
+          - datatag
+          - value
+          description: Each field will be of the type 'loop', 'datatag' or 'value'. The only field types which need to be
+            considered when making a POST request to create a contract, are the 'datatag' type tags
+        conditions:
+          type: object
+          properties:
+            parent_data_field_key:
+              type: string
+              example: null
+          description: In a 'value' type DocumentTemplateField, the parent_data_field_key will specify the DocumentTemplateFieldskey
+            of the 'loop' type field item, if the field can accept multiple values as it is nested in a loop. Other DocumentTemplateFieldtypes
+            will not have a parent_data_field_key and will be entered only once in the Post request DocumentTemplatePayload.
+    DocumentTemplatePayload:
+      type: object
+      properties:
+        document_template_id:
+          required: true
+          type: integer
+          format: int32
+          description: This is the documentTemplateId you will create a contract using
+        filename:
+          required: true
+          type: string
+          description: The filename the resulting Document object should have
+        project_id:
+          required: true
+          type: integer
+          format: int32
+          description: The projectId the document template can be found in
+        matter_version_name:
+          type: string
+          required: true
+          description: The name the resulting MatterVersion should have which the new document will be saved to
+        matter_name:
+          required: true
+          type: string
+          description: The name the resulting Matter should have which the document will be saved to
+        folder_id:
+          required: false
+          type: integer
+          format: int32
+          description: The folderId of the folder in Luminance the new document should be saved to
+        fields:
+          type: object
+          description: The names of the fields in this object will vary depending on the fields for the specific documentTemplateFields
+            in the /documentTemplateFields endpoint for the documenTemplateId in the payload. Every 'value' type field in
+            DocumentTemplateFields objects should be specified in the payload. The field name is found in the DocumentTemplateFields.options.singleInputFieldKey.
+            Any 'loop' type DocumentTemplateFields must also be specified, but will not be a key-value pairing. These will
+            be key-object pairings, and any 'value' type DocumentTemplateFields with the DocumentTemplateFields.conditions.parent_data_field_key
+            value set to the 'loop' type DocumentTemplateFields object's DocumentTemplateFields.options.singleInputFieldKey
+            will comprise the keys in the key-value pairing for the 'loop' type key-object. Multiple can be sent in an array.
+            See example.
+      example:
+        non-loopedfield: This is the text in this field
+        filename: New Contract
+        project_id: 1
+        matter_version_name: V1
+        matter_name: New Matter
+        folder_id: 6
+        fields:
+          value_field_1: foo
+          value_field_2: This is an NDA
+          loopfield:
+          - value_field_parented_to_loop_1: text
+            value_field_parented_to_loop_2: text
+          - value_field_parented_to_loop_1: text
+            value_field_parented_to_loop_2: text
+  responses:
+    '201':
+      description: Request was successfully fulfilled and resulted in one or possibly multiple new resources being created
+    '202':
+      description: Request accepted for processing, but the processing has not been finished yet (initiation of traffic light
+        analysis)
+    '204':
+      description: Request completed, but no response payload body will be present (attributed to a successful deletion request)
+    '400':
+      description: Bad Request - the request was malformed
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '404':
+      description: Not Found
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support
+        team.
+    '500':
+      description: Internal server error
+    annotation_types_200:
+      description: JSON array of annotation type objects available in the instance, or a sinlge JSON annotation type object
+        if annotation type ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationType'
+          example:
+            id: 1
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            type: entity:datetime
+            key: contract:effective
+            pre-built: true
+            name: Effective Date
+            options: {}
+    project_users_200:
+      description: Array of JSON objects describing user permissions assigned across your instance at a project level, or
+        a single JSON user permissions object if user permission object ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectUsers'
+          example:
+            id: 1
+            created_at: '2021-10-25T12:35:02.385Z'
+            project_id: 1
+            user_id: 8
+            type: admin
+            roles:
+            - admin
+            - power
+    system_200:
+      description: JSON object of system data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/System'
+          example:
+            version: 1.16.0
+            api2_version: 1.2.0
+            product: corporate
+    user_200:
+      description: JSON array of Users or single JSON user object if user ID is referenced in path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+          example:
+            id: 4
+            created_at: '2022-12-01T10:21:04.589Z'
+            username: luminance.cto
+            name: Luminance CTO
+            email: luminance.cto@luminance.com
+            account_id: 2
+            state: active
+            multi_factor_auth_enabled: true
+    matters_200:
+      description: JSON array of Matters or a single JSON matter object if matter ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Matters'
+          example:
+            id: 415
+            created_at: '2023-04-19T12:20:39.200Z'
+            created_by: 33
+            project_id: 4
+            name: New Matter
+            state: active
+            info: {}
+    matter_versions_200:
+      description: JSON array of Matter Versions or a single JSON matter version object if matter version ID is referenced
+        in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersion'
+          example:
+            id: 415
+            created_at: '2024-07-09T09:29:39.035Z'
+            created_by: 32
+            updated_at: '2024-07-09T09:29:39.035Z'
+            updated_by: 32
+            group_id: 1
+            workflow_stage_id: 6
+            document_id: 208
+            type: attachment
+            state: inactive
+            assigned_to: None
+            assigned_at: None
+            name: Contract Version 1
+            info: {}
+    matter_version_assignable_users_200:
+      description: JSON array of users available to be assigned to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersionsAssignableUsers'
+          example:
+            name: Support User
+            id: 4
+    traffic_light_analysis_202:
+      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message
+        response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Traffic Light Analysis started on document 896
+    matter_version_assignable_users_201:
+      description: User has been assigned to a matter version successfully
+    matter_version_add_attachment_200:
+      description: JSON object with the Matter Version created to add an attachment to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersion'
+    matter_relations_200:
+      description: JSON array of Relations for a single matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterRelation'
+          example:
+            id: 415
+            created_at: '2023-04-19T12:20:39.200Z'
+            created_by: 33
+            source_id: 4
+            target_id: 5
+    annotation_patch_200:
+      description: JSON object of matter annotations after PATCHing annotations to the matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/annotationId'
+          example:
+            version: 1.3.0
+            api2_version: 1.3.0
+            product: corporate
+    annotation_create_200:
+      description: JSON object of matter annotations after POSTing to create the matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/annotationId'
+          example:
+            version: 1.3.0
+            api2_version: 1.3.0
+            product: corporate
+    knowledge_bank_from_template_202:
+      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in
+        mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
+      content:
+        application/json:
+          schema:
+            message:
+              type: string
+              example: Knowledge Bank created. Generating positions from provided template.
+            task_id:
+              type: integer
+              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
+          example:
+            message: Knowledge Bank created. Generating positions from provided template.
+            task_id: 130
+    project_200:
+      description: JSON array of Projects or a single JSON project object if project ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Project'
+          example:
+            id: 4
+            created_at: '2022-12-01T10:21:04.589Z'
+            created_by: 1
+            moniker: voicep
+            name: VoicePhone Project
+            account_id: 2
+            state: disabled
+            permissions: native
+            settings:
+              tags:
+              - Legal Analysis
+              - Flagged for Followup
+              task_tags:
+              - Review Task Level 1
+              - Review Task Level 2
+              annotation_types:
+                bundles:
+                - Corporate
+              required_matter_tags:
+              - 311
+              concept_tags_blacklist:
+              - 20
+              - 35
+              matter_tags:
+              - 46
+              - 78
+            type: corporate
+            features:
+            - bulkredact
+    task_200:
+      description: JSON array of Tasks or a single JSON task object if task ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+          example:
+            id: 16
+            created_at: '2018-12-21T14:49:38.113Z'
+            created_by: 7
+            moniker: tes
+            name: Test Task
+            project_id: 2
+            parent_id: null
+            description: null
+            workspace_id: null
+            settings:
+              last_synced: '2023-05-17T11:49:18.240Z'
+              completionConditions: []
+            filter:
+              op: and
+              analyze: true
+              annotation:0.type: documenttype
+              annotation:0.content.type: i:commercial-and-operations
+            full_families: false
+            auto_sync: false
+            type: task
+            tags: []
+    review_200:
+      description: JSON array of Reviews or a single review object if review ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+          example:
+            id: 3643
+            created_at: '2018-12-21T14:49:38.331Z'
+            created_by: 7
+            task_id: 16
+            document_id: 2040
+            state: active
+            review_state: pending
+            assigned_to: 7
+            assigned_at: '2018-12-21T14:49:51.292Z'
+    review_analysis_200:
+      description: JSON array of objects representing AI outputs from Traffic Light Analysis
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/traffic_light_analysis'
+          example: null
+    review_201:
+      description: JSON object of review created by POST method
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+          example:
+            id: 955758409
+            created_at: '2024-07-08T17:35:56.583Z'
+            created_by: 251
+            task_id: 256
+            document_id: 83049
+            state: active
+            review_state: pending
+            assigned_to: None
+            assigned_at: None
+            outcome: None
+    folder_200:
+      description: JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder
+        object if folderId is used in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+          example:
+            folder:
+              id: 52597
+              created_at: '2022-09-21T11:56:08.195Z'
+              created_by: 4
+              parent_id: null
+              name: All Documents
+              media_type: null
+              project_id: 444
+              state: active
+              type: folder
+    document_template_create_200:
+      description: Success Message for a document created via the templates/create endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplateCreate'
+          example:
+            id: 4
+            name: New NDA
+            project_id: 5
+            folder_id: 43
+            version: 1
+            version_matter: 1654
+    folder_201:
+      description: JSON array of single newly created Folder object with POST request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+          example:
+            folder:
+              id: 52597
+              created_at: '2022-09-21T11:56:08.195Z'
+              created_by: 4
+              parent_id: 16
+              name: New Folder
+              media_type: null
+              project_id: 4
+              state: active
+              type: folder
+    annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            document_id: 369998
+            type: entity:party
+            roles:
+            - Counter-Party
+            content:
+              party: VoicePhone Limited.
+              raw_text: Voicephone Ltd.
+            state: active
+    matter_annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterAnnotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            matter_id: 7342
+            annotation_type_id: 347
+            content:
+              timestamp: '2027-04-07T00:00:00.000Z'
+            state: active
+    documents_200:
+      description: JSON array of Document objects or a single Document object if documentId is used in the path of the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Document'
+          example:
+            id: 369994
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            folder_id: 52665
+            parent_id: null
+            project_id: 455
+            name: Sample MSA.pdf
+            media_type: application/pdf
+            state: import_complete
+            version_group: 369689
+            version: 1
+            version_state: active
+    document_templates_200:
+      description: JSON array of DocumentTemplates objects or a single DocumentTemplates object if documentTemplateId is used
+        in the path of the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplates'
+          example:
+            id: 5
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            name: NDA Contract templates
+            default_folder_id: 16
+            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            project_id: 8
+            state: active
+            options:
+              old_template: true
+    document_template_fields_200:
+      description: JSON array of DocumentTemplateField objects or a single DocumentTemplateField object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplateFields'
+          example:
+            id: 5
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            name: NDA Contract templates
+            default_folder_id: 16
+            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            project_id: 8
+            state: active
+            options:
+              old_template: true
+    document_download_200:
+      description: Response containing a single document downloaded from the instance. The media type of the response will
+        be contained in the content-type header and is entirely dependent on the media type uploaded to Luminance, which accepts
+        any MIME-type following RFC 6838.
+    annotationText_200:
+      description: JSON array of clauses (annotation)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationText'
+          example:
+            id: 37225093,
+            text: Example clause text.
+  examples:
+    user:
+      summary: Example Success Response from /users
+      description: Example user object from /users endpoint
+      value:
+        id: 4
+        created_at: '2022-12-01T10:21:04.589Z'
+        username: luminance.cto
+        name: Luminance CTO
+        email: luminance.cto@luminance.com
+        account_id: 2
+        state: active
+        multi_factor_auth_enabled: true
+    project:
+      summary: Example Success Response from /projects
+      description: Example project object from /projects endpoint
+      value:
+        id: 4
+        created_at: '2022-12-01T10:21:04.589Z'
+        created_by: 1
+        moniker: voicep
+        name: VoicePhone Project
+        account_id: 2
+        state: disabled
+        permissions: none
+        settings:
+          enabled_annotation_type_modes:
+          - data-tags: all
+          - contracttype: all
+          - documenttype: all
+          - fragment:clause: all
+        type: diligence
+        features: []
+    task:
+      summary: Example Success Response from /tasks
+      description: Example task object from /tasks endpoint
+      value:
+        id: 16
+        created_at: '2018-12-21T14:49:38.113Z'
+        created_by: 7
+        moniker: tes
+        name: Test Task
+        project_id: 2
+        parent_id: null
+        description: null
+        workspace_id: null
+        settings:
+          last_synced: '2023-05-17T11:49:18.240Z'
+          completionConditions: []
+        filter:
+          op: and
+          analyze: true
+          annotation:0.type: documenttype
+          annotation:0.content.type: i:commercial-and-operations
+        full_families: false
+        auto_sync: false
+        type: task
+        tags: []
+    review:
+      summary: Example Success Response from /reviews
+      description: Example review object from /reviews endpoint
+      value:
+        id: 3643
+        created_at: '2018-12-21T14:49:38.331Z'
+        created_by: 7
+        task_id: 16
+        document_id: 2040
+        state: active
+        review_state: pending
+        assigned_to: 7
+        assigned_at: '2018-12-21T14:49:51.292Z'
+    folder:
+      summary: Example Success Response from /folders
+      description: Example folder object from /folders endpoint
+      value:
+        id: 52597
+        created_at: '2022-09-21T11:56:08.195Z'
+        created_by: 4
+        parent_id: null
+        name: All Documents
+        media_type: null
+        project_id: 444
+        state: active
+        type: folder
+    document:
+      summary: Example Success Response from /documents
+      description: Example document object from /documents endpoint
+      value:
+        id: 369994
+        created_at: '2023-01-17T18:10:46.532Z'
+        created_by: 4
+        folder_id: 52665
+        parent_id: null
+        project_id: 455
+        name: Sample MSA.pdf
+        media_type: application/pdf
+        state: import_complete
+        version_group: 369689
+        version: 1
+        version_state: active
+    annotation:
+      summary: Example Success Response from /annotations
+      description: Example annotation object from /annotations endpoint
+      value:
+        id: 37495390
+        created_at: '2023-04-19T12:20:39.100Z'
+        created_by: 4
+        document_id: 369998
+        type: entity:party
+        roles:
+        - Counter-Party
+        content:
+          party: VoicePhone Limited.
+          raw_text: Voicephone Ltd.
+        state: active
+    annotationText:
+      summary: Example Success Response from /annotationText
+      description: Example text from /annotationText endpoint
+      value:
+        id: 37225093,
+        text: Example clause text.

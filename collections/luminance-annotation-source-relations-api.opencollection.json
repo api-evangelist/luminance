@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Public API v2 Annotation Source Relations API",
+    "version": "1.5"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Annotation Source Relations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List annotation source relations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_source_relations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List annotation source relations"
+        },
+        {
+          "info": {
+            "name": "Create annotation source relation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_source_relations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create annotation source relation"
+        },
+        {
+          "info": {
+            "name": "Get annotation source relation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_source_relations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get annotation source relation"
+        },
+        {
+          "info": {
+            "name": "Update annotation source relation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/annotation_source_relations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update annotation source relation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

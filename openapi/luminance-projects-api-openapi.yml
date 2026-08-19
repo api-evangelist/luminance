@@ -1,0 +1,651 @@
+openapi: 3.2.0
+info:
+  title: Luminance Projects API
+  version: '1.0'
+  description: 'Operations tagged Projects across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Projects
+paths:
+  /project_users:
+    get:
+      tags:
+      - Projects
+      summary: Get Information on the permissions assigned to users on a per project basis
+      parameters:
+      - $ref: '#/components/parameters/projectUserId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/projectUserType'
+      - $ref: '#/components/parameters/projectUserRoles'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /project_users/{project-user-id}:
+    get:
+      tags:
+      - Projects
+      summary: Get Information on the user permissions object associated with a specific permissions object ID
+      parameters:
+      - $ref: '#/components/parameters/project-user-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects:
+    get:
+      tags:
+      - Projects
+      summary: Get a JSON array list of all projects the Service User is assigned to, or all projects if the Service user has Administrator permissions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/moniker'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/projectState'
+      - $ref: '#/components/parameters/projectPermissions'
+      - $ref: '#/components/parameters/projectSettings'
+      - $ref: '#/components/parameters/projectType'
+      - $ref: '#/components/parameters/projectFeatures'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}:
+    get:
+      tags:
+      - Projects
+      summary: Get Information on a Single Project
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/project_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/projects:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Projects
+      summary: List projects the authenticated user can access
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: moniker
+        schema:
+          type: string
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: account_id
+        schema:
+          type: integer
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: permissions
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project_2'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                account_id: 1
+                state: active
+                permissions: {}
+                settings: {}
+                type: document
+                features:
+                - bulkredact
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Projects
+      summary: Get project by id
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project_2'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                moniker: Hello World
+                name: Joe Bloggs
+                account_id: 1
+                state: active
+                permissions: {}
+                settings: {}
+                type: document
+                features:
+                - bulkredact
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    project_200:
+      description: JSON array of Projects or a single JSON project object if project ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Project'
+          example:
+            id: 4
+            created_at: '2022-12-01T10:21:04.589Z'
+            created_by: 1
+            moniker: voicep
+            name: VoicePhone Project
+            account_id: 2
+            state: disabled
+            permissions: native
+            settings:
+              tags:
+              - Legal Analysis
+              - Flagged for Followup
+              task_tags:
+              - Review Task Level 1
+              - Review Task Level 2
+              annotation_types:
+                bundles:
+                - Corporate
+              required_matter_tags:
+              - 311
+              concept_tags_blacklist:
+              - 20
+              - 35
+              matter_tags:
+              - 46
+              - 78
+            type: corporate
+            features:
+            - bulkredact
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    project_users_200:
+      description: Array of JSON objects describing user permissions assigned across your instance at a project level, or a single JSON user permissions object if user permission object ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectUsers'
+          example:
+            id: 1
+            created_at: '2021-10-25T12:35:02.385Z'
+            project_id: 1
+            user_id: 8
+            type: admin
+            roles:
+            - admin
+            - power
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  schemas:
+    Project_2:
+      type: object
+      description: Project (division/room) object (see API2_Schema projects table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        moniker:
+          type: string
+        name:
+          type: string
+        account_id:
+          type: integer
+        state:
+          type: string
+        permissions:
+          type: integer
+        settings:
+          type: object
+        type:
+          type: string
+          description: diligence, discovery, compliance, property, or corporate
+        features:
+          type: array
+          items:
+            type: string
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-12-01T10:21:04.589Z'
+        created_by:
+          type: integer
+          example: 1
+        moniker:
+          type: string
+          example: voicep
+        name:
+          type: string
+          example: VoicePhone Project
+        account_id:
+          type: integer
+          example: 2
+        state:
+          type: string
+          example: disabled
+          enum:
+          - active
+          - deleted
+          - disabled
+        permissions:
+          type: string
+          enum:
+          - none
+          - preview
+          - native
+          example: native
+        settings:
+          $ref: '#/components/schemas/ProjectSettings'
+        type:
+          type: string
+          example: diligence
+          enum:
+          - corporate
+          - diligence
+          - discovery
+        features:
+          type: array
+          example:
+          - bulkredact
+          items:
+            type: string
+    ProjectUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-10-25T12:35:02.385Z'
+        project_id:
+          type: integer
+          example: 3
+        user_id:
+          type: integer
+          example: 8
+        type:
+          type: string
+          enum:
+          - admin
+          - standard
+        roles:
+          type: array
+          example:
+          - admin
+          - power
+    ProjectSettings:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: integer
+          description: array of strings with the names of note categories enabled on the specific project
+          example:
+          - Legal Analysis
+          - Flagged for Followup
+        task_tags:
+          type: array
+          items:
+            type: integer
+          description: array of strings with the names of task categories enabled on the specific project
+          example:
+          - Review Task Level 1
+          - Review Task Level 2
+        annotation_types:
+          type: object
+          description: An object describing the annotation type IDs enabled on a project for
+          properties:
+            bundles:
+              type: array
+              items:
+                type: integer
+              description: Array of pre-configured tag bundles added to the Project
+              example:
+              - Corporate
+            custom:
+              type: array
+              items:
+                type: integer
+              description: Array of custom Annotation Type IDs added to the project instead of using bundles
+              example:
+              - 25
+              - 35
+        required_matter_tags:
+          type: array
+          items:
+            type: integer
+          description: May be populated in the case of Corporate type projects, these matter tags must be added to any newly created matters using the matters/create endpoint
+          example:
+          - 311
+        concept_tags_blacklist:
+          type: array
+          items:
+            type: integer
+          description: Array of Annotation type IDs which cannot be tagged in the particular project
+          example:
+          - 20
+          - 35
+        matter_tags:
+          type: array
+          items:
+            type: integer
+          description: Populated in the case of Corporate type projects, an array of Annotation Type IDs enabled on the project specifically to categorise matter objects
+          example:
+          - 46
+          - 78
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectState:
+      name: state
+      in: query
+      description: Current State of Project
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - disabled
+        - deleted
+    projectType:
+      name: type
+      in: query
+      description: Product type
+      schema:
+        type: string
+        enum:
+        - diligence
+        - discovery
+        - corporate
+    projectUserRoles:
+      name: roles
+      in: query
+      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    projectSettings:
+      name: settings
+      in: query
+      description: Enabled Annotation Types
+      required: false
+      schema:
+        $ref: '#/components/schemas/ProjectSettings'
+    project-user-id:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    ProjectName:
+      name: name
+      in: query
+      description: Name of Project
+      required: false
+      schema:
+        type: string
+    accountId:
+      name: account_id
+      in: query
+      description: ID of Associated Account this User is Added to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectUserType:
+      name: type
+      in: query
+      description: Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    projectFeatures:
+      name: features
+      in: query
+      description: Additional Features Available in this Project
+      schema:
+        type: array
+        items:
+          type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    projectUserId:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project
+      required: false
+      schema:
+        type: string
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    projectPermissions:
+      name: permissions
+      in: query
+      description: Granted Download Permissions of Project Documents
+      required: false
+      schema:
+        type: string
+        enum:
+        - none
+        - preview
+        - native
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml

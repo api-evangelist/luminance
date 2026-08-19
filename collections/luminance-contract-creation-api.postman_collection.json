@@ -1,0 +1,2751 @@
+{
+  "item": [
+    {
+      "id": "b715e840-16a7-437f-82b7-b9f540c889d7",
+      "name": "Contract Creation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f828f54-57d3-4214-baf5-7f5f5b46c940",
+          "name": "Get an array of documentTemplate objects in a particular project",
+          "request": {
+            "name": "Get an array of documentTemplate objects in a particular project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "document_templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "ID of a specific document template (document template in the user interface)"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of a specific document template"
+                },
+                {
+                  "disabled": false,
+                  "key": "default_folder_id",
+                  "value": "<integer>",
+                  "description": "The folderId which documents created using this template will be saved to"
+                },
+                {
+                  "description": {
+                    "content": " (This can only be one of active deleted)",
+                    "type": "text/plain"
+                  },
+                  "key": "state",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "media_type",
+                  "value": "<string>",
+                  "description": "The media type of the file in the documentTemplate object. Will always be an MS Word MIME type"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1fb3403e-0ca4-4121-90d7-d1abbdeefd12",
+              "name": "JSON array of DocumentTemplates objects or a single DocumentTemplates object if documentTemplateId is used in the path of the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5,\n  \"created_at\": \"2023-01-17T18:10:46.532Z\",\n  \"created_by\": 4,\n  \"name\": \"NDA Contract templates\",\n  \"default_folder_id\": 16,\n  \"media_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"project_id\": 8,\n  \"state\": \"active\",\n  \"options\": {\n    \"old_template\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a82e863-078e-4564-af02-a83fe8f9069b",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f9f6c2a-49cc-41fd-b17b-b67409497a17",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c7c41494-bff4-47d3-80d7-1beb9de97f6c",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "efded3c2-519a-4b67-a91d-55f77e03bda7",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89d3bbb2-380e-4238-a233-b47bbd3142bb",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c979ca98-394c-4dd1-9dcf-01f2b69fab5b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d44b230f-567f-44d8-bc78-ec325d6a1bf8",
+          "name": "Get a documentTemplate object in a particular project",
+          "request": {
+            "name": "Get a documentTemplate object in a particular project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "document_templates",
+                ":document-template-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of a specific document template"
+                },
+                {
+                  "disabled": false,
+                  "key": "default_folder_id",
+                  "value": "<integer>",
+                  "description": "The folderId which documents created using this template will be saved to"
+                },
+                {
+                  "description": {
+                    "content": " (This can only be one of active deleted)",
+                    "type": "text/plain"
+                  },
+                  "key": "state",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "media_type",
+                  "value": "<string>",
+                  "description": "The media type of the file in the documentTemplate object. Will always be an MS Word MIME type"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document-template-id",
+                  "description": "(Required) ID of a specific document template (document template in the user interface)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "422c2f93-065c-43b0-bc7e-63bd1921a1ba",
+              "name": "JSON array of DocumentTemplates objects or a single DocumentTemplates object if documentTemplateId is used in the path of the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5,\n  \"created_at\": \"2023-01-17T18:10:46.532Z\",\n  \"created_by\": 4,\n  \"name\": \"NDA Contract templates\",\n  \"default_folder_id\": 16,\n  \"media_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"project_id\": 8,\n  \"state\": \"active\",\n  \"options\": {\n    \"old_template\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "676a9362-a4d2-4908-85be-cd1a2168f155",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a53da573-6269-4b4d-94aa-7f2808aee032",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96156545-01b3-45ee-8d36-5df2c075f502",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bafcfe2d-cbd7-4f8d-90c7-952ceaafd5f3",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "600758e4-aec1-4b6a-bf3d-fb0be5c28ea3",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a8f1117b-fbca-4279-a9cb-c2295ebd9985",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": ""
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    },
+                    {
+                      "key": "old_template",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "694161c9-8543-4e1e-88a7-bf377f41f6be",
+          "name": "Get the JSON array of DocumentTemplateFields (or single DocumentTemplaeField object if only one in present in the the DocumentTemplate) necessary to create a contract for a particular document template ID",
+          "request": {
+            "name": "Get the JSON array of DocumentTemplateFields (or single DocumentTemplaeField object if only one in present in the the DocumentTemplate) necessary to create a contract for a particular document template ID",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "document_templates",
+                ":document-template-id",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "ID of a specific document template field"
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "Name of a specific document template field. Corresponds to its name on the document template itself"
+                },
+                {
+                  "disabled": false,
+                  "key": "datatype",
+                  "value": "<string>",
+                  "description": "Data type accepted by that field - will usually be generic:text, which is free text"
+                },
+                {
+                  "disabled": false,
+                  "key": "field_order",
+                  "value": "<integer>",
+                  "description": "Where positionally the field is on the document template, top to bottom and left to right"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_data_field_id",
+                  "value": "<string>",
+                  "description": "The documentTemplateFieldId of the field this field is a child of, for example in a nested loop."
+                },
+                {
+                  "description": {
+                    "content": "This is where options for the field are stored.",
+                    "type": "text/plain"
+                  },
+                  "key": "options",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "Time of Creation"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "User ID of Creator"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of a specific document template"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document-template-id",
+                  "description": "(Required) ID of a specific document template (document template in the user interface)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1da8b1c-db6d-481b-ad71-49cbf928d38a",
+              "name": "JSON array of DocumentTemplateField objects or a single DocumentTemplateField object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5,\n  \"created_at\": \"2023-01-17T18:10:46.532Z\",\n  \"created_by\": 4,\n  \"name\": \"NDA Contract templates\",\n  \"default_folder_id\": 16,\n  \"media_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"project_id\": 8,\n  \"state\": \"active\",\n  \"options\": {\n    \"old_template\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0440d9dd-af72-43d0-a382-923122d7318d",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e9d9438f-0299-4c46-a53f-4ada7ee99651",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0d65e4b-1a58-42ce-98c3-28463cf9598d",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "51762053-8423-400a-acb0-f2ed1274e729",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e10d72a9-998f-4b7c-a2cc-215c5ece5cde",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4da47e46-7420-450d-8706-51bbc3662c9b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    ":document-template-id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datatype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_order",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_data_field_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2021-10-25T11:58:31.879Z"
+                    },
+                    {
+                      "key": "created_by",
+                      "value": "4"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document-template-id",
+                      "description": "(Required) ID of a specific document template (document template in the user interface)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea160fd7-8da1-4ad8-90cd-0587bd9ba614",
+          "name": "Create a Contract in Luminance",
+          "request": {
+            "name": "Create a Contract in Luminance",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "document_templates",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_template_id\": \"<integer>\",\n  \"filename\": \"<string>\",\n  \"project_id\": \"<integer>\",\n  \"matter_version_name\": \"<string>\",\n  \"matter_name\": \"<string>\",\n  \"folder_id\": \"<integer>\",\n  \"fields\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cfe0a3b9-4a04-4a0d-80ad-de6fe23d8f65",
+              "name": "Success Message for a document created via the templates/create endpoint",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"name\": \"New NDA\",\n  \"project_id\": 5,\n  \"folder_id\": 43,\n  \"version\": 1,\n  \"version_matter\": 1654\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e8cd647-baf0-4910-bd0a-7b857384adff",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8579bcae-1adc-4417-9ff6-2e50e21d6ef1",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e3be8495-4e56-440d-bb92-55ce183beb7c",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08f98b88-2f8f-4e6c-9591-41f24954d0d6",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82b325d3-0637-4d41-a55c-1ddfe8c8f3a2",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "128ab7b7-7dbd-4a25-8ce0-02c4e4caf1fd",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"non-loopedfield\": \"This is the text in this field\",\n  \"filename\": \"New Contract\",\n  \"project_id\": 1,\n  \"matter_version_name\": \"V1\",\n  \"matter_name\": \"New Matter\",\n  \"folder_id\": 6,\n  \"fields\": {\n    \"value_field_1\": \"foo\",\n    \"value_field_2\": \"This is an NDA\",\n    \"loopfield\": [\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      },\n      {\n        \"value_field_parented_to_loop_1\": \"text\",\n        \"value_field_parented_to_loop_2\": \"text\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d4a266d3-56a9-4917-82fe-7150f6007e32",
+    "name": "Luminance Contract Creation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Contract Creation across 2 of this provider's published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

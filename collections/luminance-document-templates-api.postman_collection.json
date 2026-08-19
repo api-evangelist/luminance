@@ -1,0 +1,739 @@
+{
+  "item": [
+    {
+      "id": "070879cb-6a10-4a21-be7b-0ac87f837ed5",
+      "name": "Document Templates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "206ae4ab-7b36-42da-aae7-60c109e923fe",
+          "name": "List document templates in project",
+          "request": {
+            "name": "List document templates in project",
+            "description": {
+              "content": "Contract/document templates for the project. Use GET .../document_templates/{id}/fields to get the schema required for contract creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "document_templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "Filter by document template ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "default_folder_id",
+                  "value": "<integer>",
+                  "description": "Folder ID where documents created from this template are saved"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "active or deleted"
+                },
+                {
+                  "disabled": false,
+                  "key": "media_type",
+                  "value": "<string>",
+                  "description": "Media type (e.g. MS Word MIME type)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2faaef17-af11-4c96-9961-60d2e24cf142",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "document_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "default_folder_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"name\": \"Joe Bloggs\",\n    \"project_id\": 1,\n    \"default_folder_id\": 1,\n    \"media_type\": \"application/pdf\",\n    \"state\": \"active\",\n    \"options\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1b6b4a9-0cc0-4af7-8aef-6b77b8029f9b",
+          "name": "Get document template by id",
+          "request": {
+            "name": "Get document template by id",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "document_templates",
+                ":document_template_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_template_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72d74c18-0e8e-438b-8839-a5be77e31b09",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "document_templates",
+                    ":document_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"project_id\": 1,\n  \"default_folder_id\": 1,\n  \"media_type\": \"application/pdf\",\n  \"state\": \"active\",\n  \"options\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99e6f4e6-2300-439f-8604-dbac07818961",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "document_templates",
+                    ":document_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11b46cb6-f5aa-462e-83ff-aed5d471d0ad",
+          "name": "Get document template fields (for contract creation)",
+          "request": {
+            "name": "Get document template fields (for contract creation)",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "document_templates",
+                ":document_template_id",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_template_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c51492f4-b1b3-43b5-baae-48fe9eefadaa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "document_templates",
+                    ":document_template_id",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"key\": \"example_key\",\n  \"field_order\": 0,\n  \"document_template_id\": 1,\n  \"parent_data_field_id\": 1,\n  \"datatype\": \"string\",\n  \"options\": {},\n  \"type\": \"document\",\n  \"conditions\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6482b48f-e965-497a-8a94-6cd87c833af7",
+          "name": "Create contract (matter + generated document from template)",
+          "request": {
+            "name": "Create contract (matter + generated document from template)",
+            "description": {
+              "content": "Get template fields from GET .../document_templates/{id}/fields; the data object keys match field keys (e.g. singleInputFieldKey for type datatag). For nested/loop fields use arrays of objects. See docuvault Contract Creation and Postman Contract Generation collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "document_templates",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_template_id\": \"<integer>\",\n  \"data\": \"<object>\",\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"workflow_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2bf853f8-5422-463e-a46d-f00903a4db44",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_template_id\": \"<integer>\",\n  \"data\": \"<object>\",\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"workflow_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2465a6ae-bef8-44c9-8815-757e48fe359a",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "document_templates",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_template_id\": \"<integer>\",\n  \"data\": \"<object>\",\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"workflow_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0c44cd31-b9fc-4ba3-a0a3-b1a0c0028aee",
+    "name": "Luminance Public API v2 Document Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token` (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`, `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n   ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded' \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**, and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization: Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n",
+      "type": "text/plain"
+    }
+  }
+}

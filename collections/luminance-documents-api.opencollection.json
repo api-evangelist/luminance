@@ -1,0 +1,1283 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Documents API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Information on a Document collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "654",
+                "type": "query",
+                "description": "Unique Document ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "folder_id",
+                "value": "6",
+                "type": "query",
+                "description": "Unique Folder ID(s)"
+              },
+              {
+                "name": "parent_id",
+                "value": "",
+                "type": "query",
+                "description": "If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email"
+              },
+              {
+                "name": "name",
+                "value": "This is a contract.docx",
+                "type": "query",
+                "description": "Name of document"
+              },
+              {
+                "name": "media_type",
+                "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "type": "query",
+                "description": "MIME type detected for the document"
+              },
+              {
+                "name": "state",
+                "value": "import_complete",
+                "type": "query",
+                "description": "An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'."
+              },
+              {
+                "name": "version_group",
+                "value": "256",
+                "type": "query",
+                "description": "When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document."
+              },
+              {
+                "name": "version",
+                "value": "2",
+                "type": "query",
+                "description": "if a file 'replaces' another file, its version will increment."
+              },
+              {
+                "name": "version_state",
+                "value": "active",
+                "type": "query",
+                "description": "When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Document collection"
+        },
+        {
+          "info": {
+            "name": "Delete a collection of Documents.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "deletionparameters",
+                "value": "",
+                "type": "query",
+                "description": "Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a collection of Documents."
+        },
+        {
+          "info": {
+            "name": "Initiates Traffic Light Analysis on a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/documents/:document-id/traffic_light_analysis",
+            "params": [
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Initiates Traffic Light Analysis on a document"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Single Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/documents/:document-id",
+            "params": [
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Single Document"
+        },
+        {
+          "info": {
+            "name": "Delete a Single Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/documents/:document-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Single Document"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Document collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/folders/:folder-id/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "654",
+                "type": "query",
+                "description": "Unique Document ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "folder_id",
+                "value": "6",
+                "type": "query",
+                "description": "Unique Folder ID(s)"
+              },
+              {
+                "name": "parent_id",
+                "value": "",
+                "type": "query",
+                "description": "If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email"
+              },
+              {
+                "name": "name",
+                "value": "This is a contract.docx",
+                "type": "query",
+                "description": "Name of document"
+              },
+              {
+                "name": "media_type",
+                "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "type": "query",
+                "description": "MIME type detected for the document"
+              },
+              {
+                "name": "state",
+                "value": "import_complete",
+                "type": "query",
+                "description": "An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'."
+              },
+              {
+                "name": "version_group",
+                "value": "256",
+                "type": "query",
+                "description": "When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document."
+              },
+              {
+                "name": "version",
+                "value": "2",
+                "type": "query",
+                "description": "if a file 'replaces' another file, its version will increment."
+              },
+              {
+                "name": "version_state",
+                "value": "active",
+                "type": "query",
+                "description": "When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Document collection"
+        },
+        {
+          "info": {
+            "name": "Delete a Document collection in a specific folder path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/folders/:folder-id/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "deletionparameters",
+                "value": "",
+                "type": "query",
+                "description": "Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Document collection in a specific folder path"
+        },
+        {
+          "info": {
+            "name": "Get Information on a single Document in a specific folder path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/folders/:folder-id/documents/:document-id",
+            "params": [
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a single Document in a specific folder path"
+        },
+        {
+          "info": {
+            "name": "Delete a Document object in a specific folder path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/folders/:folder-id/documents/:document-id",
+            "params": [
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Document object in a specific folder path"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Document collection in a specific task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/:task-id/reviews/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "654",
+                "type": "query",
+                "description": "Unique Document ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "folder_id",
+                "value": "6",
+                "type": "query",
+                "description": "Unique Folder ID(s)"
+              },
+              {
+                "name": "parent_id",
+                "value": "",
+                "type": "query",
+                "description": "If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email"
+              },
+              {
+                "name": "name",
+                "value": "This is a contract.docx",
+                "type": "query",
+                "description": "Name of document"
+              },
+              {
+                "name": "media_type",
+                "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "type": "query",
+                "description": "MIME type detected for the document"
+              },
+              {
+                "name": "state",
+                "value": "import_complete",
+                "type": "query",
+                "description": "An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'."
+              },
+              {
+                "name": "version_group",
+                "value": "256",
+                "type": "query",
+                "description": "When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document."
+              },
+              {
+                "name": "version",
+                "value": "2",
+                "type": "query",
+                "description": "if a file 'replaces' another file, its version will increment."
+              },
+              {
+                "name": "version_state",
+                "value": "active",
+                "type": "query",
+                "description": "When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Document collection in a specific task"
+        },
+        {
+          "info": {
+            "name": "Delete multiple documents in a particular task path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/:task-id/reviews/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "deletionparameters",
+                "value": "",
+                "type": "query",
+                "description": "Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete multiple documents in a particular task path"
+        },
+        {
+          "info": {
+            "name": "Get Information on a single Document in a specific task path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/:task-id/reviews/documents/:document-id",
+            "params": [
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a single Document in a specific task path"
+        },
+        {
+          "info": {
+            "name": "Delete a single Document in a particular task path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/:task-id/reviews/documents/:document-id",
+            "params": [
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "deletionparameters",
+                "value": "",
+                "type": "query",
+                "description": "Any one or more of the following parameters MUST be used as a query parameter in the deletion request. Please see the 'Document' schema for more information on each parameter"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a single Document in a particular task path"
+        },
+        {
+          "info": {
+            "name": "Downloads the file content for a single Document object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/documents/:document-id/download",
+            "params": [
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "enable_token_based_linking",
+                "value": "",
+                "type": "query",
+                "description": "Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Downloads the file content for a single Document object"
+        },
+        {
+          "info": {
+            "name": "Downloads the file content for a single Document object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/folders/:folder-id/documents/:document-id/download",
+            "params": [
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "enable_token_based_linking",
+                "value": "",
+                "type": "query",
+                "description": "Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Downloads the file content for a single Document object"
+        },
+        {
+          "info": {
+            "name": "Downloads the file content for a single Document object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/tasks/:task-id/reviews/documents/:document-id/download",
+            "params": [
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "enable_token_based_linking",
+                "value": "",
+                "type": "query",
+                "description": "Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Downloads the file content for a single Document object"
+        },
+        {
+          "info": {
+            "name": "Upload a single document to a specific folder path",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/folders/:folder-id/upload",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "matter_id",
+                "value": "675",
+                "type": "query",
+                "description": "matterId of the matter you wish to upload the document into."
+              },
+              {
+                "name": "type",
+                "value": "attachment",
+                "type": "query",
+                "description": "An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version."
+              },
+              {
+                "name": "name",
+                "value": "This is a contract.docx",
+                "type": "query",
+                "description": "Name of document"
+              },
+              {
+                "name": "replace",
+                "value": "This is a contract.docx",
+                "type": "query",
+                "description": "Whether, if a document of the same name already exists in the current folder, to 'replace' that document (existing document will be set to version_state:replaced, and version_group will change to the document_id of the document being uploaded), or if 'false' will return a 422 error code and the request will not complete."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "The body of the request should contain the file you wish to upload, as a base64 encoded string."
+        },
+        {
+          "info": {
+            "name": "List documents in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parent_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "media_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version_group",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version_state",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List documents in a project"
+        },
+        {
+          "info": {
+            "name": "Delete documents by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete documents by filter"
+        },
+        {
+          "info": {
+            "name": "Get document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get document"
+        },
+        {
+          "info": {
+            "name": "Delete single document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete single document"
+        },
+        {
+          "info": {
+            "name": "Download document data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id/download",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "enable_token_linking",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download document data file"
+        },
+        {
+          "info": {
+            "name": "Start traffic light analysis for a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id/traffic_light_analysis",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start traffic light analysis for a document"
+        },
+        {
+          "info": {
+            "name": "List document annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pretty",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List document annotations"
+        },
+        {
+          "info": {
+            "name": "Retrieve annotation text",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id/annotations/annotationText",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fullParagraph",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve annotation text"
+        },
+        {
+          "info": {
+            "name": "List document notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id/notes",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List document notes"
+        },
+        {
+          "info": {
+            "name": "Get document note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/documents/:document_id/notes/:id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get document note"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

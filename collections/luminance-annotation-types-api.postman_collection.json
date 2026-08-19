@@ -1,0 +1,350 @@
+{
+  "item": [
+    {
+      "id": "c4eb8554-38ea-4071-bc48-0bd8cbe5cd51",
+      "name": "Annotation Types",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cca8b179-123d-47b3-90d4-55dde9db7c85",
+          "name": "List annotation types",
+          "request": {
+            "name": "List annotation types",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pre_built",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8fd8c66e-756d-486d-be52-2007014fb0b4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pre_built",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"type\": \"document\",\n    \"key\": \"example_key\",\n    \"system\": false,\n    \"name\": \"Joe Bloggs\",\n    \"options\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55cae273-7f5b-47bf-89da-293bd3b9bbb6",
+          "name": "Get annotation type by id",
+          "request": {
+            "name": "Get annotation type by id",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_types",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3900ae57-031c-418d-8693-8869d98e7753",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_types",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"type\": \"document\",\n  \"key\": \"example_key\",\n  \"system\": false,\n  \"name\": \"Joe Bloggs\",\n  \"options\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9bd689b-8290-451c-98ac-5ba16839815d",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_types",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3774601f-17de-4881-9a89-f678f0ed54aa",
+    "name": "Luminance Public API v2 Annotation Types API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token` (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`, `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n   ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded' \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**, and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization: Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n",
+      "type": "text/plain"
+    }
+  }
+}

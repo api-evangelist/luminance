@@ -1,0 +1,767 @@
+{
+  "item": [
+    {
+      "id": "15d87f91-c3d7-488b-b4d1-9d051925e974",
+      "name": "Annotation Sources",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5884597-1cce-48ee-ac96-510ac666b0cf",
+          "name": "List annotation sources",
+          "request": {
+            "name": "List annotation sources",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_type_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "room_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "workflow_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_source_relation_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03c82591-41a1-4ef1-9511-b9559f700c71",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "room_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workflow_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"annotation_type_id\": 1,\n    \"room_id\": 1,\n    \"workflow_id\": 1,\n    \"annotation_source_relation_id\": 1,\n    \"content\": \"Sample text\",\n    \"state\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b460ea9-648d-44d8-9459-33f75aade122",
+          "name": "Create annotation source",
+          "request": {
+            "name": "Create annotation source",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotation_type_id\": \"<integer>\",\n  \"room_id\": \"<integer>\",\n  \"workflow_id\": \"<integer>\",\n  \"annotation_source_relation_id\": \"<integer>\",\n  \"content\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "335b28ca-6906-49f6-a87d-726f8b73c9d7",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotation_type_id\": 97,\n  \"room_id\": 1,\n  \"workflow_id\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 1,\n  \"room_id\": 1,\n  \"workflow_id\": 1,\n  \"annotation_source_relation_id\": 1,\n  \"content\": {},\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47987110-964f-4eb2-a313-3491faf97f7d",
+          "name": "Update annotation sources by filter",
+          "request": {
+            "name": "Update annotation sources by filter",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_type_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "room_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "workflow_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "annotation_source_relation_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotation_type_id\": \"<integer>\",\n  \"room_id\": \"<integer>\",\n  \"workflow_id\": \"<integer>\",\n  \"annotation_source_relation_id\": \"<integer>\",\n  \"content\": \"<object>\",\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bfc229af-edd2-4c85-930b-4c098ab237fe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_type_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "room_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workflow_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annotation_source_relation_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"annotation_type_id\": 1,\n    \"room_id\": 1,\n    \"workflow_id\": 1,\n    \"annotation_source_relation_id\": 1,\n    \"content\": \"Sample text\",\n    \"state\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dde70f45-70ed-4915-9b26-74b14fc3d56a",
+          "name": "Get annotation source",
+          "request": {
+            "name": "Get annotation source",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_sources",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "758ad6bf-77b6-4726-a651-5dbb0f324a76",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 1,\n  \"room_id\": 1,\n  \"workflow_id\": 1,\n  \"annotation_source_relation_id\": 1,\n  \"content\": \"Sample text\",\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e96a3a12-0e27-4f7b-b606-13bb2b8e0a6f",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce16ae67-050b-4944-8228-2d8fda2ca1b2",
+          "name": "Update annotation source",
+          "request": {
+            "name": "Update annotation source",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "annotation_sources",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotation_type_id\": \"<integer>\",\n  \"room_id\": \"<integer>\",\n  \"workflow_id\": \"<integer>\",\n  \"annotation_source_relation_id\": \"<integer>\",\n  \"content\": \"<object>\",\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "374297e7-336f-4e69-9805-cc74bd7779f9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "annotation_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"annotation_type_id\": 1,\n  \"room_id\": 1,\n  \"workflow_id\": 1,\n  \"annotation_source_relation_id\": 1,\n  \"content\": \"Sample text\",\n  \"state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2ec56df7-93e3-46f5-b8fd-511f93c09389",
+    "name": "Luminance Public API v2 Annotation Sources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token` (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`, `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n   ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded' \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**, and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization: Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n",
+      "type": "text/plain"
+    }
+  }
+}

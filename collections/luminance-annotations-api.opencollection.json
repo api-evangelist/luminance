@@ -1,0 +1,1024 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Annotations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Annotations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Annotation Types that have been created on your instance as a whole.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/annotation_types",
+            "params": [
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query",
+                "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of data stored by the annotation e.g. 'language'"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Key used to identify the annotation"
+              },
+              {
+                "name": "pre-built",
+                "value": "",
+                "type": "query",
+                "description": "Whether this annotation is reflects an out-of-the-box Luminance concept (\"True\"), or the concept has been created in your instance (\"False\")"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The display name for the annotation in platform"
+              },
+              {
+                "name": "options",
+                "value": "",
+                "type": "query",
+                "description": "Options associated with the annotation, the options field will display available values if the type is generic:enum."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Annotation Types that have been created on your instance as a whole."
+        },
+        {
+          "info": {
+            "name": "Get information on a specific Annotation Type ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/annotation_types/:annotation-type-id",
+            "params": [
+              {
+                "name": "annotation-type-id",
+                "value": "",
+                "type": "path",
+                "description": "Annotation Type ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get information on a specific Annotation Type ID"
+        },
+        {
+          "info": {
+            "name": "Get an array of JSON object Annotations added to a matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Annotation ID of an Annotation attached to a Matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of JSON object Annotations added to a matter"
+        },
+        {
+          "info": {
+            "name": "Create an annotation on a matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/annotations",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create an annotation on a matter"
+        },
+        {
+          "info": {
+            "name": "Patch the content of multiple matter annotations to a different value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Annotation ID of an Annotation attached to a Matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query",
+                "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of an Annotation attached to a Matter"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Patch the content of multiple matter annotations to a different value"
+        },
+        {
+          "info": {
+            "name": "Get an array of JSON object Annotations added to a matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/annotations/:annotation-id",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "annotation-id",
+                "value": "",
+                "type": "path",
+                "description": "Annotation ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of JSON object Annotations added to a matter"
+        },
+        {
+          "info": {
+            "name": "Patch the content of a particular matter annotation to a different value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project-id/matters/:matter-id/annotations/:annotation-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "annotation-id",
+                "value": "",
+                "type": "path",
+                "description": "Annotation ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Patch the content of a particular matter annotation to a different value"
+        },
+        {
+          "info": {
+            "name": "Get Information on Annotations for a single Document object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/documents/:document-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Annotation ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of data stored by the annotation e.g. 'language'"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query",
+                "description": "There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey available when calling the /annotation_types endpoint"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on Annotations for a single Document object"
+        },
+        {
+          "info": {
+            "name": "Get Information on Annotations for a single Document object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/folders/:folder-id/documents/:document-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Annotation ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of data stored by the annotation e.g. 'language'"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query",
+                "description": "There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey available when calling the /annotation_types endpoint"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on Annotations for a single Document object"
+        },
+        {
+          "info": {
+            "name": "Get Information on Annotations for a single Document object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/tasks/:task-id/reviews/documents/:document-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Annotation ID"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of data stored by the annotation e.g. 'language'"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query",
+                "description": "There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey available when calling the /annotation_types endpoint"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on Annotations for a single Document object"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Single Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/documents/:document-id/annotations/annotationText",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "This parameter refers to the annotationId you wish to retrieve the underlying text from the Document on. It should be repeated to return results from multiple annotationIds"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Single Annotation"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Single Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/folders/:folder-id/documents/:document-id/annotations/annotationText",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "folder-id",
+                "value": "",
+                "type": "path",
+                "description": "Folder ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "This parameter refers to the annotationId you wish to retrieve the underlying text from the Document on. It should be repeated to return results from multiple annotationIds"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Single Annotation"
+        },
+        {
+          "info": {
+            "name": "Get Information on a Single Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/tasks/:task-id/reviews/documents/:document-id/annotations/annotationText",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "This parameter refers to the annotationId you wish to retrieve the underlying text from the Document on. It should be repeated to return results from multiple annotationIds"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on a Single Annotation"
+        },
+        {
+          "info": {
+            "name": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/annotation_sources",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "annotation_source_id",
+                "value": "",
+                "type": "query",
+                "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query",
+                "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Project ID"
+              },
+              {
+                "name": "annotation_source_relation_id",
+                "value": "",
+                "type": "query",
+                "description": "annotation_source_relation_id is not currently an interactable element via the API"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters"
+        },
+        {
+          "info": {
+            "name": "Create a new annotation_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/annotation_sources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new annotation_source"
+        },
+        {
+          "info": {
+            "name": "Modify annotation_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/annotation_sources",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "annotation_source_id",
+                "value": "",
+                "type": "query",
+                "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query",
+                "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique Project ID"
+              },
+              {
+                "name": "annotation_source_relation_id",
+                "value": "",
+                "type": "query",
+                "description": "annotation_source_relation_id is not currently an interactable element via the API"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Modify annotation_sources"
+        },
+        {
+          "info": {
+            "name": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/annotation_sources/:annotation_source_id",
+            "params": [
+              {
+                "name": "annotation_source_id",
+                "value": "",
+                "type": "query",
+                "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get information on a particular annotation_source_id. Each annotation_source can be used to populate values users are able to select from in-platform when interacting with Matters"
+        },
+        {
+          "info": {
+            "name": "Modify annotation_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/annotation_sources/:annotation_source_id",
+            "params": [
+              {
+                "name": "annotation_source_id",
+                "value": "",
+                "type": "query",
+                "description": "annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Modify annotation_sources"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

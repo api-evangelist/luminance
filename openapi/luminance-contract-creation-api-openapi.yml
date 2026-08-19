@@ -1,0 +1,584 @@
+openapi: 3.2.0
+info:
+  title: Luminance Contract Creation API
+  version: '1.0'
+  description: 'Operations tagged Contract Creation across 2 of this provider''s published API definitions:
+    luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml. Each path carries
+    the servers of the definition it was published in.'
+tags:
+- name: Contract Creation
+paths:
+  /projects/{project-id}/document_templates:
+    get:
+      tags:
+      - Contract Creation
+      summary: Get an array of documentTemplate objects in a particular project
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/documentTemplateId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/documentTemplateName'
+      - $ref: '#/components/parameters/defaultFolderId'
+      - $ref: '#/components/parameters/documentTemplateState'
+      - $ref: '#/components/parameters/mediaType'
+      - $ref: '#/components/parameters/documentTemplateOptions'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_templates_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates/{document-template-id}:
+    get:
+      tags:
+      - Contract Creation
+      summary: Get a documentTemplate object in a particular project
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-template-id'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/documentTemplateName'
+      - $ref: '#/components/parameters/defaultFolderId'
+      - $ref: '#/components/parameters/documentTemplateState'
+      - $ref: '#/components/parameters/mediaType'
+      - $ref: '#/components/parameters/documentTemplateOptions'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_templates_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates/{document-template-id}/fields:
+    get:
+      tags:
+      - Contract Creation
+      summary: Get the JSON array of DocumentTemplateFields (or single DocumentTemplaeField object if
+        only one in present in the the DocumentTemplate) necessary to create a contract for a particular
+        document template ID
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/document-template-id'
+      - $ref: '#/components/parameters/documentTemplateFieldId'
+      - $ref: '#/components/parameters/documentTemplateFieldKey'
+      - $ref: '#/components/parameters/documentTemplateFieldDataType'
+      - $ref: '#/components/parameters/documentTemplateFieldOrder'
+      - $ref: '#/components/parameters/documentTemplateFieldParentDataFieldId'
+      - $ref: '#/components/parameters/documentTemplateFieldOptions'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/documentTemplateFieldName'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_template_fields_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/document_templates/create:
+    post:
+      tags:
+      - Contract Creation
+      summary: Create a Contract in Luminance
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentTemplatePayload'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/document_template_create_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  responses:
+    document_template_fields_200:
+      description: JSON array of DocumentTemplateField objects or a single DocumentTemplateField object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplateFields'
+          example:
+            id: 5
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            name: NDA Contract templates
+            default_folder_id: 16
+            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            project_id: 8
+            state: active
+            options:
+              old_template: true
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    document_templates_200:
+      description: JSON array of DocumentTemplates objects or a single DocumentTemplates object if documentTemplateId
+        is used in the path of the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplates'
+          example:
+            id: 5
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            name: NDA Contract templates
+            default_folder_id: 16
+            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            project_id: 8
+            state: active
+            options:
+              old_template: true
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform
+        this action
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    document_template_create_200:
+      description: Success Message for a document created via the templates/create endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplateCreate'
+          example:
+            id: 4
+            name: New NDA
+            project_id: 5
+            folder_id: 43
+            version: 1
+            version_matter: 1654
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact
+        Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  parameters:
+    documentTemplateFieldName:
+      in: query
+      name: name
+      description: Name of a specific document template
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    defaultFolderId:
+      name: default_folder_id
+      in: query
+      description: The folderId which documents created using this template will be saved to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateFieldOptions:
+      name: options
+      in: query
+      description: This is where options for the field are stored.
+      required: false
+      type: object
+    documentTemplateOptions:
+      name: options
+      in: query
+      description: Configuration options for the document template
+      required: false
+      schema:
+        type: object
+        example:
+          old_template: true
+    documentTemplateFieldId:
+      name: id
+      in: query
+      description: ID of a specific document template field
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateName:
+      name: name
+      in: query
+      description: Name of a specific document template
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldParentDataFieldId:
+      name: parent_data_field_id
+      in: query
+      description: The documentTemplateFieldId of the field this field is a child of, for example in a
+        nested loop.
+      required: false
+      schema:
+        type: string
+        minimum: 0
+    document-template-id:
+      name: document-template-id
+      in: path
+      description: ID of a specific document template (document template in the user interface)
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    documentTemplateState:
+      in: query
+      name: state
+      required: false
+      type: string
+      enum: active deleted
+      example: active
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    documentTemplateId:
+      name: id
+      in: query
+      description: ID of a specific document template (document template in the user interface)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateFieldKey:
+      name: key
+      in: query
+      description: Name of a specific document template field. Corresponds to its name on the document
+        template itself
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldDataType:
+      name: datatype
+      in: query
+      description: Data type accepted by that field - will usually be generic:text, which is free text
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    mediaType:
+      name: media_type
+      in: query
+      description: The media type of the file in the documentTemplate object. Will always be an MS Word
+        MIME type
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    documentTemplateFieldOrder:
+      name: field_order
+      in: query
+      description: Where positionally the field is on the document template, top to bottom and left to
+        right
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+  schemas:
+    DocumentTemplates:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the DocumentTemplate assigned by Luminance
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-17T18:10:46.532Z'
+        created_by:
+          type: integer
+          example: 4
+        name:
+          type: string
+          example: NDA Contract template
+        default_folder_id:
+          type: integer
+          example: 7342
+        media_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        project_id:
+          type: integer
+          example: 6
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+        options:
+          type: object
+          example:
+            old_template: true
+    DocumentTemplateFields:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: ID of a specific document template field
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-17T18:10:46.532Z'
+        created_by:
+          type: integer
+          example: 4
+        name:
+          type: string
+          example: NDA Clause text
+          description: Name of a specific document template
+        key:
+          type: string
+          description: Name of a specific document template field. Corresponds to its name on the document
+            template itself
+          example: _d1_NDA_Clause_Text
+        field_order:
+          type: integer
+          format: int32
+          example: 3
+          description: Where positionally the field is on the document template, top to bottom and left
+            to right
+        document_template_id:
+          type: integer
+          example: 2
+        parent_data_field_id:
+          type: integer
+          format: int32
+          description: The documentTemplateFieldId of the field this field is a child of, for example
+            in a nested loop.
+        datatype:
+          type: string
+          description: Data type accepted by that field - will usually be generic:text, which is free
+            text
+          example: generic:text
+        options:
+          type: object
+          properties:
+            presets:
+              type: array
+              items:
+                type: string
+              example: []
+            isVirtual:
+              type: boolean
+              example: true
+            isSingleInputonly:
+              type: boolean
+              example: true
+              description: Attributes in a clause loop will have this property indicating, if the value
+                is True, that multiple of these fields can be entered and looped
+            singleinputFieldKey:
+              type: string
+              example: clause_text
+              description: indicates the muteable field key that should be used in the DocumentTemplatePayload,
+                which will be specific to each document template.
+        type:
+          type: string
+          enum:
+          - loop
+          - datatag
+          - value
+          description: Each field will be of the type 'loop', 'datatag' or 'value'. The only field types
+            which need to be considered when making a POST request to create a contract, are the 'datatag'
+            type tags
+        conditions:
+          type: object
+          properties:
+            parent_data_field_key:
+              type: string
+              example: null
+          description: In a 'value' type DocumentTemplateField, the parent_data_field_key will specify
+            the DocumentTemplateFieldskey of the 'loop' type field item, if the field can accept multiple
+            values as it is nested in a loop. Other DocumentTemplateFieldtypes will not have a parent_data_field_key
+            and will be entered only once in the Post request DocumentTemplatePayload.
+    DocumentTemplatePayload:
+      type: object
+      properties:
+        document_template_id:
+          required: true
+          type: integer
+          format: int32
+          description: This is the documentTemplateId you will create a contract using
+        filename:
+          required: true
+          type: string
+          description: The filename the resulting Document object should have
+        project_id:
+          required: true
+          type: integer
+          format: int32
+          description: The projectId the document template can be found in
+        matter_version_name:
+          type: string
+          required: true
+          description: The name the resulting MatterVersion should have which the new document will be
+            saved to
+        matter_name:
+          required: true
+          type: string
+          description: The name the resulting Matter should have which the document will be saved to
+        folder_id:
+          required: false
+          type: integer
+          format: int32
+          description: The folderId of the folder in Luminance the new document should be saved to
+        fields:
+          type: object
+          description: The names of the fields in this object will vary depending on the fields for the
+            specific documentTemplateFields in the /documentTemplateFields endpoint for the documenTemplateId
+            in the payload. Every 'value' type field in DocumentTemplateFields objects should be specified
+            in the payload. The field name is found in the DocumentTemplateFields.options.singleInputFieldKey.
+            Any 'loop' type DocumentTemplateFields must also be specified, but will not be a key-value
+            pairing. These will be key-object pairings, and any 'value' type DocumentTemplateFields with
+            the DocumentTemplateFields.conditions.parent_data_field_key value set to the 'loop' type DocumentTemplateFields
+            object's DocumentTemplateFields.options.singleInputFieldKey will comprise the keys in the
+            key-value pairing for the 'loop' type key-object. Multiple can be sent in an array. See example.
+      example:
+        non-loopedfield: This is the text in this field
+        filename: New Contract
+        project_id: 1
+        matter_version_name: V1
+        matter_name: New Matter
+        folder_id: 6
+        fields:
+          value_field_1: foo
+          value_field_2: This is an NDA
+          loopfield:
+          - value_field_parented_to_loop_1: text
+            value_field_parented_to_loop_2: text
+          - value_field_parented_to_loop_1: text
+            value_field_parented_to_loop_2: text
+    DocumentTemplateCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the Document object created
+        name:
+          type: string
+          example: '2023-01-17T18:10:46.532Z'
+          description: Filename for the Document object created
+        project_id:
+          type: integer
+          example: 4
+          description: Unique projectId for the project the document has been created in
+        folder_id:
+          type: integer
+          example: 7342
+          description: folderId of the Folder object the document has been created in
+        version:
+          type: integer
+          example: 45
+          description: This is the documentVersion for the newly created Document object, not related
+            to matterVersion
+        version_matter:
+          type: integer
+          example: 45
+          description: This is the documentVersionMatter for the newly created Document object, not related
+            to matterVersion
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml

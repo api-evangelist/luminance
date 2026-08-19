@@ -1,0 +1,5754 @@
+{
+  "item": [
+    {
+      "id": "0599085a-09ee-45f4-98d2-abeed6602e1a",
+      "name": "Folders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f5cecfd-3473-4c36-b17b-a03fcb013c61",
+          "name": "Get Folder Collection",
+          "request": {
+            "name": "Get Folder Collection",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_id",
+                  "value": "<integer>",
+                  "description": "The folder Id of the Parent Folder"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of Folder"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Current State of Folder"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "folder",
+                  "description": "Folder type"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "da1efca2-fecc-4c33-848d-5ac9890d4c7e",
+              "name": "JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"folder\": {\n    \"id\": 52597,\n    \"created_at\": \"2022-09-21T11:56:08.195Z\",\n    \"created_by\": 4,\n    \"parent_id\": null,\n    \"name\": \"All Documents\",\n    \"media_type\": null,\n    \"project_id\": 444,\n    \"state\": \"active\",\n    \"type\": \"folder\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7991abb5-2baa-4e43-8a1b-7237fbc0749a",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f726507c-6ef4-44cc-ae4f-d2effc0607ed",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "29402361-2c81-403e-90a1-f0df755c80e0",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d38aba39-d65d-427a-b607-82d5fa692c18",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2dd3e84a-a10d-46b3-9e8d-5414dd91929a",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8549b805-1699-46aa-bd70-091c9d5746f2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16b85391-630d-45b6-932a-7944aa9d4226",
+          "name": "Create a folder",
+          "request": {
+            "name": "Create a folder",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parent_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"type\": \"folder\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fcf765b4-afe7-4752-9367-80b646286276",
+              "name": "JSON array of single newly created Folder object with POST request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"folder\": {\n    \"id\": 52597,\n    \"created_at\": \"2022-09-21T11:56:08.195Z\",\n    \"created_by\": 4,\n    \"parent_id\": 16,\n    \"name\": \"New Folder\",\n    \"media_type\": null,\n    \"project_id\": 4,\n    \"state\": \"active\",\n    \"type\": \"folder\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c309d168-7b04-4d86-9527-9d4bb147f97c",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b02114a4-bf6b-487b-8f23-e97639e9795b",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61689d3b-fdbc-4a33-bdf6-a2dab4c947fe",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "915281d2-7025-4363-b53d-b6b78e9b0aae",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e548e4ff-423d-4280-9068-5a8dbd9aeec3",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "48d5d975-f59e-40f7-a41c-e2c25df59a9d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 52597,\n  \"name\": \"Foo Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfd863b7-e770-4b9c-9449-431bc0c58d0a",
+          "name": "Patch information on a Folder Collection",
+          "request": {
+            "name": "Patch information on a Folder Collection",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_id",
+                  "value": "<integer>",
+                  "description": "The folder Id of the Parent Folder"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of Folder"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Current State of Folder"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "folder",
+                  "description": "Folder type"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"media_type\": null,\n  \"state\": \"<string>\",\n  \"type\": \"folder\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f8c1914f-7822-41b1-89da-83ac22d05c6b",
+              "name": "JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"folder\": {\n    \"id\": 52597,\n    \"created_at\": \"2022-09-21T11:56:08.195Z\",\n    \"created_by\": 4,\n    \"parent_id\": null,\n    \"name\": \"All Documents\",\n    \"media_type\": null,\n    \"project_id\": 444,\n    \"state\": \"active\",\n    \"type\": \"folder\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "771a904f-8ca9-486c-8090-da582cac2b0a",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "12c384c2-12cf-4fca-bd3c-63406f38f759",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "832432fc-5c29-4623-8dd1-d6d05c0a9b9d",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6a154c10-bbf2-4e21-9e32-ef49d4142b54",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6041706-3b83-4f60-b109-746ebf752848",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "493e15c1-3854-4f1e-893c-51b2ce340a56",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "folder"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bbc7b42-1828-4fe5-af50-84ff97226f68",
+          "name": "Get Information on a Single Folder",
+          "request": {
+            "name": "Get Information on a Single Folder",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "folders",
+                ":folder-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder-id",
+                  "description": "(Required) Folder ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "306cb237-da03-4922-aedd-4660d2ebe264",
+              "name": "JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"folder\": {\n    \"id\": 52597,\n    \"created_at\": \"2022-09-21T11:56:08.195Z\",\n    \"created_by\": 4,\n    \"parent_id\": null,\n    \"name\": \"All Documents\",\n    \"media_type\": null,\n    \"project_id\": 444,\n    \"state\": \"active\",\n    \"type\": \"folder\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d7ae2f1-d130-444b-8c1f-62e3dfdab408",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a24a8194-9d06-4735-b612-214a007ebe84",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bf1fe79-ac03-4dae-b6dc-204d0dbd84aa",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c39c42e-9049-49bf-8129-03c818f0db0a",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a29a6b7d-1759-4b26-8c0d-cb8c94869896",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e62d4e4d-c3ef-4bcd-90ab-359679f4dc8f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e77a43a2-4192-4f42-9782-53ba6e8f6edb",
+          "name": "Modify Information on a Single Folder",
+          "request": {
+            "name": "Modify Information on a Single Folder",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project-id",
+                "folders",
+                ":folder-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of objects that can be retrieved."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder-id",
+                  "description": "(Required) Folder ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project-id",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://moniker.app.luminance.com/auth/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"media_type\": null,\n  \"state\": \"<string>\",\n  \"type\": \"folder\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6aad7a1-6ced-48e6-9443-fa25436bdcee",
+              "name": "JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"folder\": {\n    \"id\": 52597,\n    \"created_at\": \"2022-09-21T11:56:08.195Z\",\n    \"created_by\": 4,\n    \"parent_id\": null,\n    \"name\": \"All Documents\",\n    \"media_type\": null,\n    \"project_id\": 444,\n    \"state\": \"active\",\n    \"type\": \"folder\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b44672c-ba3a-4e3b-a2c7-5c31f68e0e04",
+              "name": "Unauthorized - the authentication provided was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "26e0d31f-a73e-49eb-ae95-354d72dbac50",
+              "name": "Forbidden - the authenticated user does not have sufficient permissions to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5554d231-8fe9-4aa5-8b8e-ce39dd706581",
+              "name": "Method not allowed (calling api with wrong method)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98ad6a43-86eb-4554-a9a6-5aed177bb720",
+              "name": "Unprocessable Entity - the request was well formed, but not processable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "251866e9-0ffd-45b9-8f04-efc87bc49430",
+              "name": "Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67ca4314-14f5-4458-87c6-df5b26d19e37",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project-id",
+                    "folders",
+                    ":folder-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder-id",
+                      "description": "(Required) Folder ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project-id",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"All Documents\",\n  \"media_type\": null,\n  \"state\": \"active\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b48f832d-ed60-4cac-976d-515f330dc664",
+          "name": "List folders",
+          "request": {
+            "name": "List folders",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "600cb4bb-a19e-41c4-949d-2d9d97a01d1c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"parent_id\": 1,\n    \"name\": \"Joe Bloggs\",\n    \"media_type\": \"application/pdf\",\n    \"project_id\": 1,\n    \"state\": \"active\",\n    \"type\": \"document\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b31d3abb-de58-4811-820b-36b5f392c06e",
+          "name": "Create folder",
+          "request": {
+            "name": "Create folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parent_id\": \"<integer,null>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb2f0b37-8e9a-4f2f-b0bc-d6f32bf14ee3",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_id\": 1,\n  \"name\": \"My Folder\",\n  \"type\": \"folder\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"parent_id\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"media_type\": \"application/pdf\",\n  \"project_id\": 1,\n  \"state\": \"active\",\n  \"type\": \"document\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1683644-1147-4c18-bb82-b6456a423b2e",
+          "name": "Update folders by filter",
+          "request": {
+            "name": "Update folders by filter",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3301eb39-9498-4ad3-b711-a6c39573f892",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"parent_id\": 1,\n    \"name\": \"Joe Bloggs\",\n    \"media_type\": \"application/pdf\",\n    \"project_id\": 1,\n    \"state\": \"active\",\n    \"type\": \"document\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bab280f-d700-414c-83c6-898cb070f9c9",
+          "name": "Delete folders by filter",
+          "request": {
+            "name": "Delete folders by filter",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "be8766af-c759-4293-8651-df3d1e35253a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a97158f-907a-4898-9dc3-444e2f2dbf3b",
+          "name": "Get folder",
+          "request": {
+            "name": "Get folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b0cae1d2-c87d-4e2c-a765-df7d3128bbea",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"parent_id\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"media_type\": \"application/pdf\",\n  \"project_id\": 1,\n  \"state\": \"active\",\n  \"type\": \"document\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "719b5931-8b62-4a2d-911b-8fade46c324a",
+          "name": "Update folder",
+          "request": {
+            "name": "Update folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d932345-64ee-4ef1-9992-98d3b9567a03",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"parent_id\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"media_type\": \"application/pdf\",\n  \"project_id\": 1,\n  \"state\": \"active\",\n  \"type\": \"document\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23a0c914-1ad6-4323-a33e-6bc02a03652d",
+          "name": "Delete folder",
+          "request": {
+            "name": "Delete folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dd4f6be2-11b8-411f-bb5e-0850935689f9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27a86aa1-1ec9-4602-a226-8f82af17ec1f",
+          "name": "Upload a document into a folder",
+          "request": {
+            "name": "Upload a document into a folder",
+            "description": {
+              "content": "Body must be a base64-encoded file. See query params for metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "upload"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-upload-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "replace",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "matter_version_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "matter_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "task_id",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "a9b11a20-ed17-4303-83c6-e04b05d7e68a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-upload-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "replace",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "matter_version_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "matter_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "task_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"folder_id\": 1,\n  \"parent_id\": 1,\n  \"project_id\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"media_type\": \"application/pdf\",\n  \"state\": \"active\",\n  \"version_group\": 1,\n  \"version\": \"4.1.7\",\n  \"version_state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36fc7d16-d1d4-4864-b080-d9bbe65404ca",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-upload-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "replace",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "matter_version_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "matter_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "task_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3069bc7-363d-48d6-b05d-c97b30da2eeb",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-upload-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "replace",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "matter_version_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "matter_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "task_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19022493-0035-4e14-9831-7dd4d75c107a",
+          "name": "List documents in folder",
+          "request": {
+            "name": "List documents in folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "531416ce-2963-4487-8468-ac206a10a054",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"created_at\": \"2024-01-15T12:00:00.000Z\",\n    \"created_by\": 1,\n    \"folder_id\": 1,\n    \"parent_id\": 1,\n    \"project_id\": 1,\n    \"name\": \"Joe Bloggs\",\n    \"media_type\": \"application/pdf\",\n    \"state\": \"active\",\n    \"version_group\": 1,\n    \"version\": \"4.1.7\",\n    \"version_state\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f0c6c29-df0e-45bb-850c-c965a4b39026",
+          "name": "Delete documents in folder by filter",
+          "request": {
+            "name": "Delete documents in folder by filter",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6dab6dd3-0712-4719-9516-d7e1dfbcccd6",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8127f7ed-4e8c-4fe2-b6c2-715c550c0c10",
+          "name": "Get document in folder",
+          "request": {
+            "name": "Get document in folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents",
+                ":document_id"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-document_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cd61f3c2-8e75-4613-91f3-6621f880c323",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"folder_id\": 1,\n  \"parent_id\": 1,\n  \"project_id\": 1,\n  \"name\": \"Joe Bloggs\",\n  \"media_type\": \"application/pdf\",\n  \"state\": \"active\",\n  \"version_group\": 1,\n  \"version\": \"4.1.7\",\n  \"version_state\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "549ec94b-beb1-4285-972c-52f1309ac15c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39bae868-5dbb-4140-b095-7f66c8dccbc4",
+          "name": "Delete document in folder",
+          "request": {
+            "name": "Delete document in folder",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents",
+                ":document_id"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-document_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a74c31b6-1677-470a-9bf3-818efd1d8905",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "370a8649-dcc3-40a5-af96-236ec18781f6",
+          "name": "List document annotations (folder-scoped path)",
+          "request": {
+            "name": "List document annotations (folder-scoped path)",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents",
+                ":document_id",
+                "annotations"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-document_id-annotations-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "80fb63d0-af42-4740-ad8b-7e4620d0c0a2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id",
+                    "annotations"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-annotations-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"created_at\": \"2024-01-15T12:00:00.000Z\",\n  \"created_by\": 1,\n  \"document_id\": 1,\n  \"type\": \"document\",\n  \"roles\": [\n    \"admin\"\n  ],\n  \"content\": \"Sample text\",\n  \"state\": \"active\",\n  \"external_reference\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cf2fe85-8a58-475d-a410-29da4e1072b0",
+          "name": "Retrieve annotation text (folder-scoped path)",
+          "request": {
+            "name": "Retrieve annotation text (folder-scoped path)",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents",
+                ":document_id",
+                "annotations",
+                "annotationText"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-document_id-annotations-annotationText-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "fullParagraph",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d32273d6-8f90-4788-8310-2108c809a016",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id",
+                    "annotations",
+                    "annotationText"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-annotations-annotationText-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fullParagraph",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"Sample text\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "784b9709-c0f0-40b3-8f45-2d28ed305cd7",
+          "name": "Download document file (folder-scoped path)",
+          "request": {
+            "name": "Download document file (folder-scoped path)",
+            "description": {},
+            "url": {
+              "path": [
+                "api2",
+                "projects",
+                ":project_id",
+                "folders",
+                ":folder_id",
+                "documents",
+                ":document_id",
+                "download"
+              ],
+              "host": [
+                "{{api2-projects-project_id-folders-folder_id-documents-document_id-download-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "enable_token_linking",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Instance moniker (e.g. acme)",
+                  "type": "any",
+                  "value": "{{moniker}}",
+                  "key": "moniker"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fe3a608-3bf5-4c93-85d9-afb33002dd31",
+              "name": "File stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-download-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enable_token_linking",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8cc238fd-1577-46df-8d39-98ebafca152c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api2",
+                    "projects",
+                    ":project_id",
+                    "folders",
+                    ":folder_id",
+                    "documents",
+                    ":document_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{api2-projects-project_id-folders-folder_id-documents-document_id-download-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enable_token_linking",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Instance moniker (e.g. acme)",
+                      "type": "any",
+                      "value": "{{moniker}}",
+                      "key": "moniker"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "baseUrl"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-upload-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-documents-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-documents-document_id-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-documents-document_id-annotations-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-documents-document_id-annotations-annotationText-Url"
+    },
+    {
+      "description": {
+        "content": "Instance moniker (e.g. acme)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "moniker"
+    },
+    {
+      "type": "string",
+      "value": "https://{{moniker}}.app.luminance.com",
+      "key": "api2-projects-project_id-folders-folder_id-documents-document_id-download-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "ff0e3620-1466-4de3-bc30-7f953512abdb",
+    "name": "Luminance Folders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Folders across 3 of this provider's published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

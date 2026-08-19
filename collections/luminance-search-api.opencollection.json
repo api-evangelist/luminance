@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Public API v2 Search API",
+    "version": "1.5"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aggregated search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/search",
+            "params": [
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "One of `documents` or `matters`"
+              }
+            ]
+          },
+          "docs": "Aggregated search"
+        },
+        {
+          "info": {
+            "name": "Search documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/search/documents"
+          },
+          "docs": "Search documents"
+        },
+        {
+          "info": {
+            "name": "Search matters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/search/matters"
+          },
+          "docs": "Search matters"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

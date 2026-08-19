@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Traffic Light Analysis API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Traffic Light Analysis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from and a contract type for that document, resulting in a precedent type task being created for the specified module",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project-id/tasks/knowledge_bank_from_template",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "async",
+                "value": "",
+                "type": "query",
+                "description": "Whether to make the call synchronously or wait for the precedent type task to be created asynchronously when creating a Knowledge Bank from template."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from and a contract type for that document, resulting in a precedent type task being created for the specified module"
+        },
+        {
+          "info": {
+            "name": "Get a JSON object containing the Traffic Light Analysis results for AI review completed on a single document. this may have been initiated from the {document-id}/traffic_light_analysis endpoint, in which case the analysis may not be immediately available, there will be up to a few minutes to wait. The response will be an empty array until complete.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/tasks/:task-id/reviews/:review-id/analysis",
+            "params": [
+              {
+                "name": "review-id",
+                "value": "",
+                "type": "path",
+                "description": "Review ID"
+              },
+              {
+                "name": "task-id",
+                "value": "",
+                "type": "path",
+                "description": "Task ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a JSON object containing the Traffic Light Analysis results for AI review completed on a single document. this may have been initiated from the {document-id}/traffic_light_analysis endpoint, in which case the analysis may not be immediately available, there will be up to a few minutes to wait. The response will be an empty array until complete."
+        },
+        {
+          "info": {
+            "name": "Initiates Traffic Light Analysis on a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project-id/documents/:document-id/traffic_light_analysis",
+            "params": [
+              {
+                "name": "document-id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Initiates Traffic Light Analysis on a document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

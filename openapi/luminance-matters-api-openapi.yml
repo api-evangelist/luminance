@@ -1,0 +1,2070 @@
+openapi: 3.2.0
+info:
+  title: Luminance Matters API
+  version: '1.0'
+  description: 'Operations tagged Matters across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Matters
+paths:
+  /projects/{project-id}/matters:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter objects in a particular project
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Matters
+      summary: Create a New Matter
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: The only value which needs to be passed in is a matterName. See the documents/upload endpoints for information on how to upload a document to that matter. The matter will not be visible in the user interface until this is complete.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  required: true
+                  type: string
+                  example: New Matter Name
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      summary: Patch information on Matter objects
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter object with a particular matterId in a particular project
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      summary: Patch information on a single Matter object
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterName'
+      - $ref: '#/components/parameters/matterState'
+      - $ref: '#/components/parameters/matterInfo'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/create:
+    post:
+      tags:
+      - Matters
+      summary: Create a New Matter with required matter tags and/or optional matter tags configured for the project. These can be mandatory if configured for the project.
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: The value which need to be passed in is a matterName plus an object with any required matter annotations (see below schema). See the documents/upload endpoints for information on how to upload a document to that matter. The matter will not be visible in the user interface until this is complete.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  required: true
+                  type: string
+                  example: New Matter Name
+                required_matter_annotations:
+                  required: true
+                  type: array
+                  items:
+                    type: object
+                  description: Each item in the array represents a single Annotation which needs to be added to the Matter on creation.
+                  properties:
+                    $ref: '#/components/parameters/MatterAnnotationArrayObject'
+                  example:
+                    annotation_type_id: 347
+                    content:
+                      name: London
+                      country: GB
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matters_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter versions for a matter in a particular project including a record of current and previous drafts and current attachments to the matter
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matterVersionId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/documentId'
+      - $ref: '#/components/parameters/matterVersionType'
+      - $ref: '#/components/parameters/matterVersionState'
+      - $ref: '#/components/parameters/matterVersionAssignedTo'
+      - $ref: '#/components/parameters/matterVersionAssignedAt'
+      - $ref: '#/components/parameters/matterVersionName'
+      - $ref: '#/components/parameters/matterVersionInfo'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_versions_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users:
+    get:
+      tags:
+      - Matters
+      summary: Gets a list of user names and IDs which can be assigned to a matter version
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/userName'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_version_assignable_users_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assign:
+    patch:
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-version-id'
+      tags:
+      - Matters
+      summary: Assigns an available user to the matter version
+      requestBody:
+        description: Please use the /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users endpoint to find out which userIds can be assigned to a particular matter version
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 4
+            example:
+              user_id: 4
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_assignable_users_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/versions/add_attachment:
+    post:
+      tags:
+      - Matters
+      summary: Creates a new matter version of type attachment to a matter containing the specified document ID
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: Send the document_id of the document, which must be in the same project as the matter, that you wish to add as an attachment to the matter
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+                  example: 67
+              required:
+              - document_id
+      minimum: 0
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/matter_version_add_attachment_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/annotations:
+    get:
+      tags:
+      - Matters
+      summary: Get an array of JSON object Annotations added to a matter
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matterAnnotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/matterAnnotationTypeId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/annotationState'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Matters
+      summary: Create an annotation on a matter
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            description: Define the annotationTypeId and the annotationContent for it. The content including required property names and data types of an annotation may vary depending on the annotationTypeId
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                  example: 367
+                content:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      example: Agreement
+            example:
+              annotation_type_id: 344
+              content:
+                value: Agreement
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/annotation_create_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      summary: Patch the content of multiple matter annotations to a different value
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/matterAnnotationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/annotationTypeId'
+      - $ref: '#/components/parameters/annotationContent'
+      - $ref: '#/components/parameters/matterAnnotationState'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterAnnotationPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/annotations/{annotation-id}:
+    get:
+      tags:
+      - Matters
+      summary: Get an array of JSON object Annotations added to a matter
+      parameters:
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/annotation-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Matters
+      summary: Patch the content of a particular matter annotation to a different value
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/annotation-id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatterAnnotationPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_annotations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/matters/{matter-id}/relations:
+    get:
+      tags:
+      - Matters
+      summary: Get the matter all the matters a matter is related to
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/matter-id'
+      - $ref: '#/components/parameters/matterRelationId'
+      - $ref: '#/components/parameters/createdAt'
+      - $ref: '#/components/parameters/createdBy'
+      - $ref: '#/components/parameters/sourceId'
+      - $ref: '#/components/parameters/targetId'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/matter_relations_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/projects/{project_id}/matters:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: List matters
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: info
+        schema:
+          type: string
+        description: Filter by matter info (hidden in UI)
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Matter'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Matters
+      summary: Create matter (alternate to matters/create)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Matters
+      summary: Update matters by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Matters
+      summary: Delete matters by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/create:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    post:
+      tags:
+      - Matters
+      summary: Create matter (and optional annotations and version)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+                workflow_id:
+                  type: integer
+                create_version:
+                  type: boolean
+                required_matter_annotations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      annotation_type_id:
+                        type: integer
+                      content:
+                        type: object
+                generate_document:
+                  type: object
+                  properties:
+                    document_template_id:
+                      type: integer
+                    data:
+                      type: object
+              required:
+              - name
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: Get matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Matter'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Matters
+      summary: Update matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+                info:
+                  type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                workflow_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                state: active
+                info: {}
+                pretty_id: MAT-001
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Matters
+      summary: Delete matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/annotations:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: List matter annotations
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Matters
+      summary: Create matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group_id:
+                  type: integer
+                annotation_type_id:
+                  type: integer
+                content:
+                  type: object
+                state:
+                  type: string
+      responses:
+        '201':
+          description: Created
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Matters
+      summary: Update matter annotations by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Matters
+      summary: Delete matter annotations by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/annotations/{annotation_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: Get matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: annotation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Matters
+      summary: Update matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: annotation_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                annotation_type_id: 1
+                content: Sample text
+                state: active
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Matters
+      summary: Delete matter annotation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: annotation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/relations:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: List matter relations
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                source_id: 1
+                target_id: 1
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Matters
+      summary: Create relation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_id:
+                  type: integer
+                target_id:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Matters
+      summary: Delete relations by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/relations/{relation_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: Get relation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: relation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                source_id: 1
+                target_id: 1
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Matters
+      summary: Delete relation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: relation_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/events:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: List matter events
+      description: Only selected event types are supported.
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: type
+        description: Filter by supported event types
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                updated_at: '2024-01-15T12:00:00.000Z'
+                updated_by: 1
+                type: document
+                matter_id: 1
+                content: Sample text
+        '422':
+          description: Invalid type
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/versions:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: List matter versions
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                document_id: 1
+                type: document
+                state: active
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                name: Joe Bloggs
+                info: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/versions/{version_id}/assignable_users:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Matters
+      summary: List assignable users for version
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: version_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                document_id: 1
+                type: document
+                state: active
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                name: Joe Bloggs
+                info: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/versions/{version_id}/assign:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    patch:
+      tags:
+      - Matters
+      summary: Assign a version to a user
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: version_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+              required:
+              - user_id
+      responses:
+        '201':
+          description: Created
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/matters/{matter_id}/versions/add_attachment:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    post:
+      tags:
+      - Matters
+      summary: Add a document as attachment to matter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: matter_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+              required:
+              - document_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                matter_id: 1
+                document_id: 1
+                type: document
+                state: active
+                assigned_to: 1
+                assigned_at: '2024-01-15T12:00:00.000Z'
+                name: Joe Bloggs
+                info: {}
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    matter_version_assignable_users_200:
+      description: JSON array of users available to be assigned to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersionsAssignableUsers'
+          example:
+            name: Support User
+            id: 4
+    matter_annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterAnnotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            matter_id: 7342
+            annotation_type_id: 347
+            content:
+              timestamp: '2027-04-07T00:00:00.000Z'
+            state: active
+    matter_version_add_attachment_200:
+      description: JSON object with the Matter Version created to add an attachment to a matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersion'
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    annotation_create_200:
+      description: JSON object of matter annotations after POSTing to create the matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/annotationId'
+          example:
+            version: 1.3.0
+            api2_version: 1.3.0
+            product: corporate
+    matter_version_assignable_users_201:
+      description: User has been assigned to a matter version successfully
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    matter_relations_200:
+      description: JSON array of Relations for a single matter
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterRelation'
+          example:
+            id: 415
+            created_at: '2023-04-19T12:20:39.200Z'
+            created_by: 33
+            source_id: 4
+            target_id: 5
+    matters_200:
+      description: JSON array of Matters or a single JSON matter object if matter ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Matters'
+          example:
+            id: 415
+            created_at: '2023-04-19T12:20:39.200Z'
+            created_by: 33
+            project_id: 4
+            name: New Matter
+            state: active
+            info: {}
+    matter_versions_200:
+      description: JSON array of Matter Versions or a single JSON matter version object if matter version ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterVersion'
+          example:
+            id: 415
+            created_at: '2024-07-09T09:29:39.035Z'
+            created_by: 32
+            updated_at: '2024-07-09T09:29:39.035Z'
+            updated_by: 32
+            group_id: 1
+            workflow_stage_id: 6
+            document_id: 208
+            type: attachment
+            state: inactive
+            assigned_to: None
+            assigned_at: None
+            name: Contract Version 1
+            info: {}
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  schemas:
+    MatterVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        updated_by:
+          type: integer
+          example: 32
+        group_id:
+          type: integer
+          example: 1
+          description: This is the matterId the version is assigned to
+        workflow_stage_id:
+          type: integer
+          example: 1
+          description: This is the Workflow stage ID in the workflow editor the matter is in.
+        type:
+          type: string
+          enum:
+          - attachment
+          - draft
+          - version
+          description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
+        state:
+          type: string
+          enum:
+          - active
+          - inactive
+          - deleted
+          - executed
+          description: An active matter version is the most recent draft or version type version of the contratc on the matter. Inactive versions are earlier in time than the most recent draft or version. An executed version has progressed to the end of a workflow and been executed. An attachment type version will always be inactive. Deleted versions mean the matter itself has been deleted.
+        assigned_to:
+          type: integer
+          example: 5
+          description: userId of the user the matter version is assigned to. Can be 'None'.
+        assigned_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.300Z'
+        info:
+          type: array
+          example: {}
+          description: Not typically used to store data.
+    MatterAnnotationPatch:
+      type: object
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 400
+          required: true
+          description: See the api2/annotation_types endpoint for specifics of the annotation_type_ids enabled on your instance.
+        content:
+          type: object
+          properties:
+            value:
+              type: string
+              example: Agreement
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+          description: Can be used to patch the annotation to state deleted to delete the annotation from the user interface.
+    Matter:
+      type: object
+      description: Matter (group) object (see API2_Schema matters table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        state:
+          type: string
+        info:
+          type: object
+        type:
+          type: string
+        key:
+          type: string
+        project_id:
+          type: integer
+    MatterAnnotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        matter_id:
+          type: integer
+          example: 7342
+        annotation_type_id:
+          type: integer
+          example: 347
+          description: This corresponds to annotationTypeId available when calling the /annotation_types endpoint
+        content:
+          type: object
+          example:
+            timestamp: '2027-04-07T00:00:00.000Z'
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+    MatterVersionsAssignableUsers:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Support User
+          description: userName of the Assignable user
+        id:
+          type: integer
+          example: 4
+          description: userID of the Assignable user
+    Matters:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+          description: unique Matter Id
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        project_id:
+          type: integer
+          format: int32
+          example: 4
+        name:
+          type: string
+          example: New Matter
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+        info:
+          type: array
+          example: {}
+          description: Not typically used to store data.
+    MatterRelation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 415
+          description: unique Matter Relation
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.200Z'
+        created_by:
+          type: integer
+          example: 32
+        source_id:
+          type: integer
+          format: int32
+          example: 4
+          description: Unique matter_id of the matter being related
+        target_id:
+          type: integer
+          format: int32
+          example: 4
+          description: Unique matter_id of the second matter in the relationship
+    MatterPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New Matter
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+          description: Can be used to patch the Matter to state deleted to delete the Matter from the user interface.
+        info:
+          type: object
+          properties:
+            high_priority:
+              type: boolean
+              example: false
+          required: false
+          description: Information is not typically used in the user interface. Can be used as a custom object to store notes.
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    matterRelationId:
+      name: id
+      in: query
+      description: ID of the relation a source matterId has to a target matterId
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterAnnotationState:
+      name: state
+      in: query
+      description: State of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - deleted
+    matterAnnotationTypeId:
+      name: id
+      in: query
+      description: Unique Annotation Type ID for the Annotation attached to the Matter, can also be queried via the /annotation_types endpoint
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+    matterVersionInfo:
+      name: info
+      in: query
+      description: State
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionState:
+      name: state
+      in: query
+      description: Current State of the matter version
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    userId:
+      name: id
+      in: query
+      description: Unique User ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matter-version-id:
+      name: matter-version-id
+      in: path
+      description: Matter Version Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationTypeId:
+      name: annotation_type_id
+      in: query
+      description: annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint
+      required: false
+      schema:
+        type: integer
+        example: 64
+        minimum: 0
+    userName:
+      name: username
+      in: query
+      description: Username used in login credentials
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterId:
+      name: id
+      in: query
+      description: Matter ID of Matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionName:
+      name: name
+      in: query
+      description: Information about the matter hidden in the user interface
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    matterVersionType:
+      name: type
+      in: query
+      type: string
+      example: attachment
+      required: false
+      enum:
+      - attachment
+      - draft
+      - version
+      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
+    sourceId:
+      name: source_id
+      in: query
+      description: matterId of the matter which is the source of the relationship in a particular matter relation
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterAnnotationId:
+      name: id
+      in: query
+      description: Annotation ID of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionAssignedAt:
+      name: assigned_at
+      in: query
+      description: Date and time the matter version was last assigned to a user
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+    matter-id:
+      name: matter-id
+      in: path
+      description: Matter Id
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterInfo:
+      name: info
+      in: query
+      description: Information about the matter hidden in the user interface
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    matterVersionId:
+      name: id
+      in: query
+      description: Version ID of a version of a document contained in a matter
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    targetId:
+      name: target_id
+      in: query
+      description: matterId of the matter which is the target of the relationship in a particular matter relation
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterName:
+      name: name
+      in: query, body
+      description: Display name of Matter
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    annotationContent:
+      name: content
+      in: query
+      description: The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId
+      required: false
+      schema:
+        type: object
+        properties:
+          value:
+            type: string
+            example: Agreement
+    matterState:
+      name: state
+      in: query
+      description: Current State of Matter
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    annotation-id:
+      name: annotation-id
+      in: path
+      description: Annotation ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    matterVersionAssignedTo:
+      name: assigned_to
+      in: query
+      description: User ID of the user a matter is assigned to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationState:
+      name: state
+      in: query
+      description: State of the annotation
+      required: false
+      type: string
+      enum:
+      - active
+      - deleted
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml

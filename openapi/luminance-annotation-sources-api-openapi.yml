@@ -1,0 +1,264 @@
+openapi: 3.2.0
+info:
+  title: Luminance Public API v2 Annotation Sources API
+  version: '1.5'
+  description: "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token` (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`, `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n   ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded' \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**, and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization: Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n"
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+security:
+- bearerAuth: []
+tags:
+- name: Annotation Sources
+paths:
+  /api2/annotation_sources:
+    get:
+      tags:
+      - Annotation Sources
+      summary: List annotation sources
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_type_id
+        schema:
+          type: integer
+      - in: query
+        name: room_id
+        schema:
+          type: integer
+      - in: query
+        name: workflow_id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_source_relation_id
+        schema:
+          type: integer
+      - in: query
+        name: state
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+    post:
+      tags:
+      - Annotation Sources
+      summary: Create annotation source
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                room_id:
+                  type: integer
+                workflow_id:
+                  type: integer
+                annotation_source_relation_id:
+                  type: integer
+                content:
+                  type: object
+            example:
+              annotation_type_id: 97
+              room_id: 1
+              workflow_id: null
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: {}
+                state: active
+    patch:
+      tags:
+      - Annotation Sources
+      summary: Update annotation sources by filter
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_type_id
+        schema:
+          type: integer
+      - in: query
+        name: room_id
+        schema:
+          type: integer
+      - in: query
+        name: workflow_id
+        schema:
+          type: integer
+      - in: query
+        name: annotation_source_relation_id
+        schema:
+          type: integer
+      - in: query
+        name: state
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                room_id:
+                  type: integer
+                workflow_id:
+                  type: integer
+                annotation_source_relation_id:
+                  type: integer
+                content:
+                  type: object
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+  /api2/annotation_sources/{id}:
+    get:
+      tags:
+      - Annotation Sources
+      summary: Get annotation source
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+        '404':
+          description: Not found
+    patch:
+      tags:
+      - Annotation Sources
+      summary: Update annotation source
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotation_type_id:
+                  type: integer
+                room_id:
+                  type: integer
+                workflow_id:
+                  type: integer
+                annotation_source_relation_id:
+                  type: integer
+                content:
+                  type: object
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                annotation_type_id: 1
+                room_id: 1
+                workflow_id: 1
+                annotation_source_relation_id: 1
+                content: Sample text
+                state: active
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '

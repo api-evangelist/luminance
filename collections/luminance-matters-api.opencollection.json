@@ -1,0 +1,1660 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Matters API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Matters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the matter objects in a particular project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Matter ID of Matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of Matter"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "Information about the matter hidden in the user interface"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the matter objects in a particular project"
+        },
+        {
+          "info": {
+            "name": "Create a New Matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a New Matter"
+        },
+        {
+          "info": {
+            "name": "Patch information on Matter objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Matter ID of Matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of Matter"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "Information about the matter hidden in the user interface"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Patch information on Matter objects"
+        },
+        {
+          "info": {
+            "name": "Get the matter object with a particular matterId in a particular project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of Matter"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "Information about the matter hidden in the user interface"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the matter object with a particular matterId in a particular project"
+        },
+        {
+          "info": {
+            "name": "Patch information on a single Matter object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of Matter"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "Information about the matter hidden in the user interface"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Patch information on a single Matter object"
+        },
+        {
+          "info": {
+            "name": "Create a New Matter with required matter tags and/or optional matter tags configured for the project. These can be mandatory if configured for the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/create",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a New Matter with required matter tags and/or optional matter tags configured for the project. These can be mandatory if configured for the project."
+        },
+        {
+          "info": {
+            "name": "Get the matter versions for a matter in a particular project including a record of current and previous drafts and current attachments to the matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/versions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Version ID of a version of a document contained in a matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "type",
+                "value": "attachment",
+                "type": "query",
+                "description": "An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of the matter version"
+              },
+              {
+                "name": "assigned_to",
+                "value": "",
+                "type": "query",
+                "description": "User ID of the user a matter is assigned to"
+              },
+              {
+                "name": "assigned_at",
+                "value": "",
+                "type": "query",
+                "description": "Date and time the matter version was last assigned to a user"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Information about the matter hidden in the user interface"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "State"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the matter versions for a matter in a particular project including a record of current and previous drafts and current attachments to the matter"
+        },
+        {
+          "info": {
+            "name": "Gets a list of user names and IDs which can be assigned to a matter version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/versions/:matter-version-id/assignable_users",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username used in login credentials"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique User ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-version-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Version Id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a list of user names and IDs which can be assigned to a matter version"
+        },
+        {
+          "info": {
+            "name": "Assigns an available user to the matter version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/versions/:matter-version-id/assign",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-version-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Version Id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Assigns an available user to the matter version"
+        },
+        {
+          "info": {
+            "name": "Creates a new matter version of type attachment to a matter containing the specified document ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/versions/add_attachment",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new matter version of type attachment to a matter containing the specified document ID"
+        },
+        {
+          "info": {
+            "name": "Get an array of JSON object Annotations added to a matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Annotation ID of an Annotation attached to a Matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the annotation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of JSON object Annotations added to a matter"
+        },
+        {
+          "info": {
+            "name": "Create an annotation on a matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/annotations",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create an annotation on a matter"
+        },
+        {
+          "info": {
+            "name": "Patch the content of multiple matter annotations to a different value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Annotation ID of an Annotation attached to a Matter"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "annotation_type_id",
+                "value": "",
+                "type": "query",
+                "description": "annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query",
+                "description": "The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of an Annotation attached to a Matter"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Patch the content of multiple matter annotations to a different value"
+        },
+        {
+          "info": {
+            "name": "Get an array of JSON object Annotations added to a matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/annotations/:annotation-id",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "annotation-id",
+                "value": "",
+                "type": "path",
+                "description": "Annotation ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of JSON object Annotations added to a matter"
+        },
+        {
+          "info": {
+            "name": "Patch the content of a particular matter annotation to a different value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/annotations/:annotation-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "annotation-id",
+                "value": "",
+                "type": "path",
+                "description": "Annotation ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Patch the content of a particular matter annotation to a different value"
+        },
+        {
+          "info": {
+            "name": "Get the matter all the matters a matter is related to",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/relations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the relation a source matterId has to a target matterId"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "matterId of the matter which is the source of the relationship in a particular matter relation"
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "query",
+                "description": "matterId of the matter which is the target of the relationship in a particular matter relation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the matter all the matters a matter is related to"
+        },
+        {
+          "info": {
+            "name": "List matters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "info",
+                "value": "",
+                "type": "query",
+                "description": "Filter by matter info (hidden in UI)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List matters"
+        },
+        {
+          "info": {
+            "name": "Create matter (alternate to matters/create)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create matter (alternate to matters/create)"
+        },
+        {
+          "info": {
+            "name": "Update matters by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update matters by filter"
+        },
+        {
+          "info": {
+            "name": "Delete matters by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete matters by filter"
+        },
+        {
+          "info": {
+            "name": "Create matter (and optional annotations and version)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/create",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create matter (and optional annotations and version)"
+        },
+        {
+          "info": {
+            "name": "Get matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get matter"
+        },
+        {
+          "info": {
+            "name": "Update matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update matter"
+        },
+        {
+          "info": {
+            "name": "Delete matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete matter"
+        },
+        {
+          "info": {
+            "name": "List matter annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List matter annotations"
+        },
+        {
+          "info": {
+            "name": "Create matter annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create matter annotation"
+        },
+        {
+          "info": {
+            "name": "Update matter annotations by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update matter annotations by filter"
+        },
+        {
+          "info": {
+            "name": "Delete matter annotations by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete matter annotations by filter"
+        },
+        {
+          "info": {
+            "name": "Get matter annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations/:annotation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "annotation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get matter annotation"
+        },
+        {
+          "info": {
+            "name": "Update matter annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations/:annotation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "annotation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update matter annotation"
+        },
+        {
+          "info": {
+            "name": "Delete matter annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/annotations/:annotation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "annotation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete matter annotation"
+        },
+        {
+          "info": {
+            "name": "List matter relations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/relations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List matter relations"
+        },
+        {
+          "info": {
+            "name": "Create relation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/relations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create relation"
+        },
+        {
+          "info": {
+            "name": "Delete relations by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/relations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete relations by filter"
+        },
+        {
+          "info": {
+            "name": "Get relation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/relations/:relation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "relation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get relation"
+        },
+        {
+          "info": {
+            "name": "Delete relation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/relations/:relation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "relation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete relation"
+        },
+        {
+          "info": {
+            "name": "List matter events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/events",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by supported event types"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Only selected event types are supported."
+        },
+        {
+          "info": {
+            "name": "List matter versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/versions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List matter versions"
+        },
+        {
+          "info": {
+            "name": "List assignable users for version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/versions/:version_id/assignable_users",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List assignable users for version"
+        },
+        {
+          "info": {
+            "name": "Assign a version to a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/versions/:version_id/assign",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Assign a version to a user"
+        },
+        {
+          "info": {
+            "name": "Add a document as attachment to matter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/matters/:matter_id/versions/add_attachment",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "matter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a document as attachment to matter"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

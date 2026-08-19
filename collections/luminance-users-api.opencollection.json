@@ -1,0 +1,430 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Users API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Users Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/users",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique User ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username used in login credentials"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of Associated Account this User is Added to"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Current State of User"
+              },
+              {
+                "name": "multi_factor_auth_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If `true` MFA is Enabled for this User"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint provides a list of users available on the environment. Only Service Users with Administrator level permissions can access this list."
+        },
+        {
+          "info": {
+            "name": "Get a specific user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/users/:user-id",
+            "params": [
+              {
+                "name": "user-id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a user with the specific user id provided"
+        },
+        {
+          "info": {
+            "name": "Get Information on the User being used for Authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/users/me",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on the User being used for Authentication"
+        },
+        {
+          "info": {
+            "name": "Get Information on the permissions assigned to users on a per project basis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/project_users",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user permission object"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query",
+                "description": "Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on the permissions assigned to users on a per project basis"
+        },
+        {
+          "info": {
+            "name": "Get Information on the user permissions object associated with a specific permissions object ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/project_users/:project-user-id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user permission object"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Information on the user permissions object associated with a specific permissions object ID"
+        },
+        {
+          "info": {
+            "name": "Gets a list of user names and IDs which can be assigned to a matter version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/versions/:matter-version-id/assignable_users",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username used in login credentials"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique User ID"
+              },
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-version-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Version Id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a list of user names and IDs which can be assigned to a matter version"
+        },
+        {
+          "info": {
+            "name": "Assigns an available user to the matter version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{moniker}.app.luminance.com/projects/:project-id/matters/:matter-id/versions/:matter-version-id/assign",
+            "params": [
+              {
+                "name": "matter-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Id"
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "matter-version-id",
+                "value": "",
+                "type": "path",
+                "description": "Matter Version Id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Assigns an available user to the matter version"
+        },
+        {
+          "info": {
+            "name": "List users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/users",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Unique user ID"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username (login)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "Associated account ID"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "User state (e.g. active)"
+              },
+              {
+                "name": "multi_factor_auth_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If true, MFA is enabled for this user"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of objects to skip (pagination)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Only Service Users with Administrator permissions can access this list."
+        },
+        {
+          "info": {
+            "name": "Get user by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get user by id"
+        },
+        {
+          "info": {
+            "name": "Get current user (the user associated with the authentication token)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/users/me",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get current user (the user associated with the authentication token)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

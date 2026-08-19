@@ -1,0 +1,300 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Contract Creation API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contract Creation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an array of documentTemplate objects in a particular project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/document_templates",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of a specific document template (document template in the user interface)"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of a specific document template"
+              },
+              {
+                "name": "default_folder_id",
+                "value": "",
+                "type": "query",
+                "description": "The folderId which documents created using this template will be saved to"
+              },
+              {
+                "name": "state",
+                "value": "active",
+                "type": "query"
+              },
+              {
+                "name": "media_type",
+                "value": "",
+                "type": "query",
+                "description": "The media type of the file in the documentTemplate object. Will always be an MS Word MIME type"
+              },
+              {
+                "name": "options",
+                "value": "",
+                "type": "query",
+                "description": "Configuration options for the document template"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of documentTemplate objects in a particular project"
+        },
+        {
+          "info": {
+            "name": "Get a documentTemplate object in a particular project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/document_templates/:document-template-id",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-template-id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a specific document template (document template in the user interface)"
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of a specific document template"
+              },
+              {
+                "name": "default_folder_id",
+                "value": "",
+                "type": "query",
+                "description": "The folderId which documents created using this template will be saved to"
+              },
+              {
+                "name": "state",
+                "value": "active",
+                "type": "query"
+              },
+              {
+                "name": "media_type",
+                "value": "",
+                "type": "query",
+                "description": "The media type of the file in the documentTemplate object. Will always be an MS Word MIME type"
+              },
+              {
+                "name": "options",
+                "value": "",
+                "type": "query",
+                "description": "Configuration options for the document template"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a documentTemplate object in a particular project"
+        },
+        {
+          "info": {
+            "name": "Get the JSON array of DocumentTemplateFields (or single DocumentTemplaeField object if only one in present in the the DocumentTemplate) necessary to create a contract for a particular document template ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project-id/document_templates/:document-template-id/fields",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects that can be retrieved."
+              },
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "document-template-id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a specific document template (document template in the user interface)"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID of a specific document template field"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Name of a specific document template field. Corresponds to its name on the document template itself"
+              },
+              {
+                "name": "datatype",
+                "value": "",
+                "type": "query",
+                "description": "Data type accepted by that field - will usually be generic:text, which is free text"
+              },
+              {
+                "name": "field_order",
+                "value": "",
+                "type": "query",
+                "description": "Where positionally the field is on the document template, top to bottom and left to right"
+              },
+              {
+                "name": "parent_data_field_id",
+                "value": "",
+                "type": "query",
+                "description": "The documentTemplateFieldId of the field this field is a child of, for example in a nested loop."
+              },
+              {
+                "name": "options",
+                "value": "",
+                "type": "query",
+                "description": "This is where options for the field are stored."
+              },
+              {
+                "name": "created_at",
+                "value": "2021-10-25T11:58:31.879Z",
+                "type": "query",
+                "description": "Time of Creation"
+              },
+              {
+                "name": "created_by",
+                "value": "4",
+                "type": "query",
+                "description": "User ID of Creator"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of a specific document template"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the JSON array of DocumentTemplateFields (or single DocumentTemplaeField object if only one in present in the the DocumentTemplate) necessary to create a contract for a particular document template ID"
+        },
+        {
+          "info": {
+            "name": "Create a Contract in Luminance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project-id/document_templates/create",
+            "params": [
+              {
+                "name": "project-id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://moniker.app.luminance.com/auth/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Contract in Luminance"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

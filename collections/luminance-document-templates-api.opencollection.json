@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Luminance Public API v2 Document Templates API",
+    "version": "1.5"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List document templates in project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/document_templates",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by document template ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "default_folder_id",
+                "value": "",
+                "type": "query",
+                "description": "Folder ID where documents created from this template are saved"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "active or deleted"
+              },
+              {
+                "name": "media_type",
+                "value": "",
+                "type": "query",
+                "description": "Media type (e.g. MS Word MIME type)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Contract/document templates for the project. Use GET .../document_templates/{id}/fields to get the schema required for contract creation."
+        },
+        {
+          "info": {
+            "name": "Get document template by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/document_templates/:document_template_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_template_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get document template by id"
+        },
+        {
+          "info": {
+            "name": "Get document template fields (for contract creation)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/document_templates/:document_template_id/fields",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_template_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get document template fields (for contract creation)"
+        },
+        {
+          "info": {
+            "name": "Create contract (matter + generated document from template)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{moniker}.app.luminance.com/api2/projects/:project_id/document_templates/create",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get template fields from GET .../document_templates/{id}/fields; the data object keys match field keys (e.g. singleInputFieldKey for type datatag). For nested/loop fields use arrays of objects. See docuvault Contract Creation and Postman Contract Generation collection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1093 @@
+openapi: 3.2.0
+info:
+  title: Luminance Folders API
+  version: '1.0'
+  description: 'Operations tagged Folders across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{moniker}.app.luminance.com
+  description: Your Luminance instance
+  variables:
+    moniker:
+      default: your-instance
+      description: Instance moniker (e.g. acme)
+tags:
+- name: Folders
+paths:
+  /projects/{project-id}/folders:
+    get:
+      tags:
+      - Folders
+      summary: Get Folder Collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folderParentId'
+      - $ref: '#/components/parameters/folderName'
+      - $ref: '#/components/parameters/folderState'
+      - $ref: '#/components/parameters/folderType'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+      - Folders
+      summary: Create a folder
+      parameters:
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: A POST request which creates a folder parented to the folder of the specified parent id.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderPost'
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          $ref: '#/components/responses/folder_201'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Folders
+      summary: Patch information on a Folder Collection
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project-id'
+      - $ref: '#/components/parameters/folderParentId'
+      - $ref: '#/components/parameters/folderName'
+      - $ref: '#/components/parameters/folderState'
+      - $ref: '#/components/parameters/folderType'
+      requestBody:
+        description: A PATCH request which can change folder attributes, including moving and deleting them.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /projects/{project-id}/folders/{folder-id}:
+    get:
+      tags:
+      - Folders
+      summary: Get Information on a Single Folder
+      parameters:
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    patch:
+      tags:
+      - Folders
+      summary: Modify Information on a Single Folder
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/folder-id'
+      - $ref: '#/components/parameters/project-id'
+      requestBody:
+        description: A PATCH request which can change folder attributes, including moving and deleting them.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderPatch'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          $ref: '#/components/responses/folder_200'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '405':
+          $ref: '#/components/responses/405'
+        '422':
+          $ref: '#/components/responses/422'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /api2/projects/{project_id}/folders:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: List folders
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Folder_2'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Folders
+      summary: Create folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent_id:
+                  type:
+                  - integer
+                  - 'null'
+                name:
+                  type: string
+                type:
+                  type: string
+            example:
+              parent_id: 1
+              name: My Folder
+              type: folder
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Folders
+      summary: Update folders by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Folders
+      summary: Delete folders by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: Get folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder_2'
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Folders
+      summary: Update folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+            example:
+              state: active
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                parent_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                project_id: 1
+                state: active
+                type: document
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Folders
+      summary: Delete folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}/upload:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    post:
+      tags:
+      - Folders
+      summary: Upload a document into a folder
+      description: Body must be a base64-encoded file. See query params for metadata.
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: replace
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      - in: query
+        name: matter_version_type
+        schema:
+          type: string
+          enum:
+          - attachment
+          - version
+      - in: query
+        name: matter_id
+        schema:
+          type: integer
+      - in: query
+        name: task_id
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '201':
+          description: Created
+        '422':
+          description: Validation error
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}/documents:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: List documents in folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+              example:
+              - id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Folders
+      summary: Delete documents in folder by filter
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: Get document in folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                folder_id: 1
+                parent_id: 1
+                project_id: 1
+                name: Joe Bloggs
+                media_type: application/pdf
+                state: active
+                version_group: 1
+                version: 4.1.7
+                version_state: active
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Folders
+      summary: Delete document in folder
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: List document annotations (folder-scoped path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                created_at: '2024-01-15T12:00:00.000Z'
+                created_by: 1
+                document_id: 1
+                type: document
+                roles:
+                - admin
+                content: Sample text
+                state: active
+                external_reference: {}
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations/annotationText:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: Retrieve annotation text (folder-scoped path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: id
+        required: true
+        schema:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+      - in: query
+        name: fullParagraph
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                text: Sample text
+      security:
+      - bearerAuth: []
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/download:
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
+    get:
+      tags:
+      - Folders
+      summary: Download document file (folder-scoped path)
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - in: path
+        name: folder_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: enable_token_linking
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not found
+      security:
+      - bearerAuth: []
+components:
+  responses:
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    folder_200:
+      description: JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+          example:
+            folder:
+              id: 52597
+              created_at: '2022-09-21T11:56:08.195Z'
+              created_by: 4
+              parent_id: null
+              name: All Documents
+              media_type: null
+              project_id: 444
+              state: active
+              type: folder
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    folder_201:
+      description: JSON array of single newly created Folder object with POST request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+          example:
+            folder:
+              id: 52597
+              created_at: '2022-09-21T11:56:08.195Z'
+              created_by: 4
+              parent_id: 16
+              name: New Folder
+              media_type: null
+              project_id: 4
+              state: active
+              type: folder
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+  parameters:
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+    folderName:
+      name: name
+      in: query
+      description: Name of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    folderParentId:
+      name: parent_id
+      in: query
+      description: The folder Id of the Parent Folder
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    folderType:
+      name: type
+      in: query
+      description: Folder type
+      schema:
+        type: string
+        enum:
+        - folder
+        - custodian
+        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+        default: folder
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderState:
+      name: state
+      in: query
+      description: Current State of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - deleted
+  schemas:
+    Document:
+      type: object
+      description: Document object (see API2_Schema documents table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        folder_id:
+          type:
+          - integer
+          - 'null'
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        project_id:
+          type: integer
+        media_type:
+          type: string
+        state:
+          type: string
+        version_group:
+          type: integer
+        version:
+          type: integer
+        version_state:
+          type: string
+          description: active, draft, or replaced
+    FolderPost:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          example: 52597
+          description: ID of the folder the new folder will be created in
+        name:
+          type: string
+          example: Foo Folder
+          description: Name for the new folder
+        type:
+          type: string
+          example: folder
+          enum:
+          - folder
+          - custodian
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+          default: folder
+      required:
+      - parent_id
+      - name
+    FolderPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          example: All Documents
+          required: false
+        media_type:
+          type: string
+          default: null
+          example: null
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+        type:
+          type: string
+          enum:
+          - custodian
+          - folder
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+          default: folder
+          example: folder
+          required: false
+    Folder:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 52597
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-09-21T11:56:08.195Z'
+        created_by:
+          type: integer
+          example: 4
+        parent_id:
+          type: integer
+          default: null
+          example: null
+        name:
+          type: string
+          example: All Documents
+        media_type:
+          type: string
+          default: null
+          example: null
+        project_id:
+          type: integer
+          example: 444
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+        type:
+          type: string
+          enum:
+          - custodian
+          - folder
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+          default: folder
+          example: folder
+    Folder_2:
+      type: object
+      description: Folder object (see API2_Schema folders table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        name:
+          type: string
+        project_id:
+          type: integer
+        state:
+          type: string
+        type:
+          type: string
+          description: folder or custodian
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Access token from the OAuth2 client credentials flow. See the Authentication section above for how to obtain a token (curl to your instance token endpoint); then paste the access_token here.
+
+        '
+x-refined-from:
+- luminance-api-v1-3-openapi-original.yml
+- luminance-api-v1-4-openapi-original.yml
+- luminance-public-api-v2-openapi-original.yml
