@@ -43,6 +43,8 @@ apis:
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -236,6 +238,8 @@ apis:
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -316,6 +320,8 @@ apis:
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -349,6 +355,8 @@ apis:
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
