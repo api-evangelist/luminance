@@ -14,6 +14,18 @@ description: 'Luminance Technologies Ltd. is a UK-headquartered legal-AI company
   against the customer instance token endpoint, and API traffic is rate limited to 100
   requests every 10 minutes.'
 url: https://raw.githubusercontent.com/api-evangelist/luminance/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://api.luminance.com/img/general_resources/luminance_logos/Luminance-logo.png
 x-type: company
 x-source: harvest:secondary-market
