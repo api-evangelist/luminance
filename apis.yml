@@ -136,6 +136,8 @@ apis:
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
+  - Annotation
+  tags_raw:
   - Annotations
   properties:
   - type: OpenAPI
@@ -232,6 +234,8 @@ apis:
   humanURL: https://api.luminance.com/swagger-docsv150
   baseURL: https://your-instance.app.luminance.com/api2
   tags:
+  - Matter
+  tags_raw:
   - Matters
   properties:
   - type: OpenAPI
