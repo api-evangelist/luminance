@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Luminance Users API
   version: '1.0'
-  description: 'Operations tagged Users across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Users across 2 of this provider''s published API definitions: luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{moniker}.app.luminance.com
   description: Your Luminance instance
@@ -45,6 +45,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getUsers
+      x-operation-id-source: derived
   /users/{user-id}:
     get:
       tags:
@@ -70,6 +72,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getUsersByUserId
+      x-operation-id-source: derived
   /users/me:
     get:
       tags:
@@ -92,6 +96,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getUsersMe
+      x-operation-id-source: derived
   /project_users:
     get:
       tags:
@@ -122,11 +128,13 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectUsers
+      x-operation-id-source: derived
   /project_users/{project-user-id}:
     get:
       tags:
       - Users
-      summary: Get Information on the user permissions object associated with a specific permissions object ID
+      summary: Get Information on the user permissions object associated with a specific…
       parameters:
       - $ref: '#/components/parameters/project-user-id'
       security:
@@ -146,6 +154,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectUsersByProjectUserId
+      x-operation-id-source: derived
   /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assignable_users:
     get:
       tags:
@@ -175,6 +185,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdMattersByMatterIdVersionsByMatterVersionIdAssignableUsers
+      x-operation-id-source: derived
   /projects/{project-id}/matters/{matter-id}/versions/{matter-version-id}/assign:
     patch:
       parameters:
@@ -214,14 +226,9 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: patchProjectsByProjectIdMattersByMatterIdVersionsByMatterVersionIdAssign
+      x-operation-id-source: derived
   /api2/users:
-    servers:
-    - url: https://{moniker}.app.luminance.com
-      description: Your Luminance instance
-      variables:
-        moniker:
-          default: your-instance
-          description: Instance moniker (e.g. acme)
     get:
       tags:
       - Users
@@ -293,7 +300,8 @@ paths:
                 state: active
       security:
       - bearerAuth: []
-  /api2/users/{id}:
+      operationId: getApi2Users
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -301,6 +309,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/users/{id}:
     get:
       tags:
       - Users
@@ -331,7 +340,8 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
-  /api2/users/me:
+      operationId: getApi2UsersById
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -339,6 +349,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/users/me:
     get:
       tags:
       - Users
@@ -361,10 +372,21 @@ paths:
                 state: active
       security:
       - bearerAuth: []
+      operationId: getApi2UsersMe
+      x-operation-id-source: derived
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
 components:
   responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '401':
+      description: Unauthorized - the authentication provided was invalid
     matter_version_assignable_users_200:
       description: JSON array of users available to be assigned to a matter
       content:
@@ -389,16 +411,10 @@ components:
             account_id: 2
             state: active
             multi_factor_auth_enabled: true
-    '500':
-      description: Internal server error
+    '405':
+      description: Method not allowed (calling api with wrong method)
     '403':
       description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    matter_version_assignable_users_201:
-      description: User has been assigned to a matter version successfully
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     project_users_200:
       description: Array of JSON objects describing user permissions assigned across your instance at a project level, or a single JSON user permissions object if user permission object ID is referenced in the path
       content:
@@ -414,17 +430,30 @@ components:
             roles:
             - admin
             - power
+    '500':
+      description: Internal server error
     '422':
       description: Unprocessable Entity - the request was well formed, but not processable
+    matter_version_assignable_users_201:
+      description: User has been assigned to a matter version successfully
   parameters:
-    mfaEnabled:
-      name: multi_factor_auth_enabled
+    projectUserId:
+      name: id
       in: query
-      description: If `true` MFA is Enabled for this User
+      description: ID of the user permission object
       required: false
       schema:
-        type: boolean
-        format: boolean
+        type: integer
+        format: int32
+        minimum: 0
+    userId:
+      name: id
+      in: query
+      description: Unique User ID
+      required: false
+      schema:
+        type: integer
+        format: int32
         minimum: 0
     project-id:
       name: project-id
@@ -456,24 +485,24 @@ components:
         type: integer
         format: int32
         minimum: 0
-    userId:
-      name: id
-      in: query
-      description: Unique User ID
-      required: false
+    matter-version-id:
+      name: matter-version-id
+      in: path
+      description: Matter Version Id
+      required: true
       schema:
         type: integer
         format: int32
         minimum: 0
-    projectUserRoles:
-      name: roles
+    mfaEnabled:
+      name: multi_factor_auth_enabled
       in: query
-      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project.
+      description: If `true` MFA is Enabled for this User
       required: false
       schema:
-        type: array
-        items:
-          type: string
+        type: boolean
+        format: boolean
+        minimum: 0
     project-user-id:
       name: id
       in: query
@@ -483,19 +512,10 @@ components:
         type: integer
         format: int32
         minimum: 0
-    accountId:
-      name: account_id
-      in: query
-      description: ID of Associated Account this User is Added to
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    matter-version-id:
-      name: matter-version-id
+    matter-id:
+      name: matter-id
       in: path
-      description: Matter Version Id
+      description: Matter Id
       required: true
       schema:
         type: integer
@@ -510,6 +530,35 @@ components:
         type: string
         format: string
         minimum: 0
+    projectUserRoles:
+      name: roles
+      in: query
+      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
     projectUserType:
       name: type
       in: query
@@ -519,11 +568,11 @@ components:
         type: string
         format: string
         minimum: 0
-    matter-id:
-      name: matter-id
-      in: path
-      description: Matter Id
-      required: true
+    accountId:
+      name: account_id
+      in: query
+      description: ID of Associated Account this User is Added to
+      required: false
       schema:
         type: integer
         format: int32
@@ -547,35 +596,6 @@ components:
         type: integer
         format: int32
         minimum: 0
-    projectUserId:
-      name: id
-      in: query
-      description: ID of the user permission object
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    createdBy:
-      name: created_by
-      in: query
-      description: User ID of Creator
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 4
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
   schemas:
     MatterVersionsAssignableUsers:
       type: object
@@ -588,32 +608,6 @@ components:
           type: integer
           example: 4
           description: userID of the Assignable user
-    ProjectUsers:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        created_at:
-          type: string
-          format: date-time
-          example: '2021-10-25T12:35:02.385Z'
-        project_id:
-          type: integer
-          example: 3
-        user_id:
-          type: integer
-          example: 8
-        type:
-          type: string
-          enum:
-          - admin
-          - standard
-        roles:
-          type: array
-          example:
-          - admin
-          - power
     User:
       type: object
       properties:
@@ -646,6 +640,32 @@ components:
         multi_factor_auth_enabled:
           type: boolean
           example: false
+    ProjectUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-10-25T12:35:02.385Z'
+        project_id:
+          type: integer
+          example: 3
+        user_id:
+          type: integer
+          example: 8
+        type:
+          type: string
+          enum:
+          - admin
+          - standard
+        roles:
+          type: array
+          example:
+          - admin
+          - power
     User_2:
       type: object
       description: User object (see API2_Schema users table)
@@ -686,6 +706,5 @@ components:
 
         '
 x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
 - luminance-api-v1-4-openapi-original.yml
 - luminance-public-api-v2-openapi-original.yml

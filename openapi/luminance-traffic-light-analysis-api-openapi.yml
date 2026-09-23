@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
+  version: 1.4.0
   title: Luminance Traffic Light Analysis API
-  version: '1.0'
-  description: 'Operations tagged Traffic Light Analysis across 2 of this provider''s published API definitions:
-    luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml. Each path carries
-    the servers of the definition it was published in.'
+  description: 'Overview
+
+    Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication.'
 tags:
 - name: Traffic Light Analysis
 paths:
@@ -12,9 +12,7 @@ paths:
     post:
       tags:
       - Traffic Light Analysis
-      summary: Create a new criteria-based Knowledge Bank by specifying a document to create knowledge
-        bank positions from and a contract type for that document, resulting in a precedent type task
-        being created for the specified module
+      summary: Create a new criteria-based Knowledge Bank by specifying a document to create…
       requestBody:
         description: See schema for options and required information in body of request
         required: true
@@ -42,14 +40,13 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdTasksKnowledgeBankFromTemplate
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}/reviews/{review-id}/analysis:
     get:
       tags:
       - Traffic Light Analysis
-      summary: Get a JSON object containing the Traffic Light Analysis results for AI review completed
-        on a single document. this may have been initiated from the {document-id}/traffic_light_analysis
-        endpoint, in which case the analysis may not be immediately available, there will be up to a few
-        minutes to wait. The response will be an empty array until complete.
+      summary: Get a JSON object containing the Traffic Light Analysis results for AI review…
       parameters:
       - $ref: '#/components/parameters/review-id'
       - $ref: '#/components/parameters/task-id'
@@ -73,6 +70,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviewsByReviewIdAnalysis
+      x-operation-id-source: derived
   /projects/{project-id}/documents/{document-id}/traffic_light_analysis:
     post:
       tags:
@@ -82,8 +81,7 @@ paths:
       - $ref: '#/components/parameters/document-id'
       - $ref: '#/components/parameters/project-id'
       requestBody:
-        description: Send the taskId of the 'precedent' type Task (Knowledge Bank in the User Interface)
-          which will be used to run traffic light analysis against the documentId in the path
+        description: Send the taskId of the 'precedent' type Task (Knowledge Bank in the User Interface) which will be used to run traffic light analysis against the documentId in the path
         required: true
         content:
           application/json:
@@ -112,25 +110,18 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdDocumentsByDocumentIdTrafficLightAnalysis
+      x-operation-id-source: derived
 components:
   responses:
-    traffic_light_analysis_202:
-      description: Message confirming Traffic Light Analysis has started on a particular document specified
-        in the message response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Traffic Light Analysis started on document 896
-    '405':
-      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '404':
+      description: Not Found
     knowledge_bank_from_template_202:
-      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from
-        template. Bear in mind that while the task may be created, positions may take longer to generate
-        (up to 15 minutes).
+      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
       content:
         application/json:
           schema:
@@ -139,16 +130,26 @@ components:
               example: Knowledge Bank created. Generating positions from provided template.
             task_id:
               type: integer
-              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank
-                in the user interface
+              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
           example:
             message: Knowledge Bank created. Generating positions from provided template.
             task_id: 130
     '401':
       description: Unauthorized - the authentication provided was invalid
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact
-        Luminance's support team.
+    traffic_light_analysis_202:
+      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Traffic Light Analysis started on document 896
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
     review_analysis_200:
       description: JSON array of objects representing AI outputs from Traffic Light Analysis
       content:
@@ -156,30 +157,37 @@ components:
           schema:
             $ref: '#/components/schemas/traffic_light_analysis'
           example: null
-    '404':
-      description: Not Found
-    '500':
-      description: Internal server error
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform
-        this action
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
+    '405':
+      description: Method not allowed (calling api with wrong method)
+  schemas:
+    KnowledgeBankFromTemplate:
+      type: object
+      description: Payload necessary to create a knowledge bank from a specified document ID of the specified contract type
+      properties:
+        document_id:
+          type: integer
+          example: 698
+          description: The document ID to find positional information in and generate a knowledge bank from
+        contract_type:
+          type: string
+          enum:
+          - non%2Ddisclosure-agreement
+          - services-agreement
+          example: non%2Ddisclosure-agreement
+          description: Select the from the available Luminance contract type modules which can be used to generate positions from ontracts of that type
+        include_luminance_basis:
+          type: boolean
+          example: false
+          description: Whether or not to include standard Luminance position information in this knowledge bank from the selected module, or only to use position information found in the specified document ID
+        name:
+          type: string
+          example: New Knowledge Bank from for Master Services Agreement
+          description: the name for the new Knowledge Bank created
   parameters:
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     async:
       name: async
       in: query
-      description: Whether to make the call synchronously or wait for the precedent type task to be created
-        asynchronously when creating a Knowledge Bank from template.
+      description: Whether to make the call synchronously or wait for the precedent type task to be created asynchronously when creating a Knowledge Bank from template.
       required: true
       schema:
         type: boolean
@@ -194,15 +202,6 @@ components:
         type: integer
         format: int32
         minimum: 0
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     review-id:
       name: review-id
       in: path
@@ -212,41 +211,27 @@ components:
         type: integer
         format: int32
         minimum: 0
-  schemas:
-    KnowledgeBankFromTemplate:
-      type: object
-      description: Payload necessary to create a knowledge bank from a specified document ID of the specified
-        contract type
-      properties:
-        document_id:
-          type: integer
-          example: 698
-          description: The document ID to find positional information in and generate a knowledge bank
-            from
-        contract_type:
-          type: string
-          enum:
-          - non%2Ddisclosure-agreement
-          - services-agreement
-          example: non%2Ddisclosure-agreement
-          description: Select the from the available Luminance contract type modules which can be used
-            to generate positions from ontracts of that type
-        include_luminance_basis:
-          type: boolean
-          example: false
-          description: Whether or not to include standard Luminance position information in this knowledge
-            bank from the selected module, or only to use position information found in the specified
-            document ID
-        name:
-          type: string
-          example: New Knowledge Bank from for Master Services Agreement
-          description: the name for the new Knowledge Bank created
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
   securitySchemes:
     OAuth2:
       type: oauth2
       flows:
         clientCredentials:
           tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
-x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
-- luminance-api-v1-4-openapi-original.yml

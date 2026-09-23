@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Luminance Public API v2 Document Templates API
   version: '1.5'
-  description: "Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication. This API is engineered to seamlessly integrate your software with the Luminance Platform, leveraging its objects and endpoints to enhance your applications.\n\nWith this API, you can create integrations that allow direct access to folders, tasks, and documents stored in Luminance. Additionally, you can track document progress through reviews or utilize machine learning capabilities via annotations and Traffic Light Analysis.\n\nThe Luminance API is designed with developers in mind, providing comprehensive documentation and robust support to ensure smooth integration. It adheres to industry standards, ensuring compatibility and security. Developers can take advantage of the API's flexibility to build custom solutions, automate workflows, and enhance overall efficiency within their applications.\n\nAPI requests are rate limited for security reasons to 100 requests every 10 minutes.\n\nThis version of the API is deployed by standard to Luminance product versions 1.43.0 onwards\n\n## Authentication (OAuth2 client credentials)\n\nTo test endpoints from this document you need an access token. Use the **Authorize** button and enter the token as described below.\n\n1. **Prerequisites**\n   Ensure you have a Client ID and Client Secret (configured as a Service User).\n\n2. **Encode credentials**\n   Base64-encode the string `<client-id>:<client-secret>`. For example:\n   `echo -n '<client-id>:<client-secret>' | base64`\n\n3. **Request a token**\n   Send a POST request to your instance token endpoint:\n   - URL: `https://<moniker>.app.luminance.com/auth/oauth2/token` (replace `<moniker>` with your instance moniker).\n   - Headers: `Content-Type: application/x-www-form-urlencoded`, `Authorization: Basic <base64_encoded_credentials>`.\n   - Body: `grant_type=client_credentials`.\n\n   Example:\n   ```\n   curl 'https://<moniker>.app.luminance.com/auth/oauth2/token' \\\n     -X POST \\\n     -H 'Content-Type: application/x-www-form-urlencoded' \\\n     -H 'Authorization: Basic <base64_encoded_credentials>' \\\n     -d 'grant_type=client_credentials'\n   ```\n\n4. **Use the token**\n   The response includes `access_token`. In this UI, click **Authorize**, choose **bearerAuth**, and paste the `access_token` value (no \"Bearer \" prefix needed). Then call any endpoint; the request will send `Authorization: Bearer <access_token>`.\n\n5. **Example API call**\n   Once authorized, use the token in the `Authorization` header for requests, e.g.:\n   `curl 'https://<moniker>.app.luminance.com/api2/<chosen-path>' -H 'Authorization: Bearer <access_token>'`\n"
+  description: Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication.
 servers:
 - url: https://{moniker}.app.luminance.com
   description: Your Luminance instance
@@ -76,6 +76,8 @@ paths:
                 media_type: application/pdf
                 state: active
                 options: {}
+      operationId: getApi2ProjectsByProjectIdDocumentTemplates
+      x-operation-id-source: derived
   /api2/projects/{project_id}/document_templates/{document_template_id}:
     get:
       tags:
@@ -107,6 +109,8 @@ paths:
                 options: {}
         '404':
           description: Not found
+      operationId: getApi2ProjectsByProjectIdDocumentTemplatesByDocumentTemplateId
+      x-operation-id-source: derived
   /api2/projects/{project_id}/document_templates/{document_template_id}/fields:
     get:
       tags:
@@ -139,6 +143,8 @@ paths:
                 options: {}
                 type: document
                 conditions: {}
+      operationId: getApi2ProjectsByProjectIdDocumentTemplatesByDocumentTemplateIdFields
+      x-operation-id-source: derived
   /api2/projects/{project_id}/document_templates/create:
     post:
       tags:
@@ -158,8 +164,28 @@ paths:
           description: Created
         '422':
           description: Validation error
+      operationId: postApi2ProjectsByProjectIdDocumentTemplatesCreate
+      x-operation-id-source: derived
 components:
   schemas:
+    DocumentTemplateCreateRequest:
+      type: object
+      description: Payload for POST document_templates/create (contract creation). Get field keys from GET .../document_templates/{id}/fields; pass values in data keyed by field keys (e.g. singleInputFieldKey from fields of type datatag).
+      properties:
+        document_template_id:
+          type: integer
+        data:
+          type: object
+          description: Key-value map of template field keys to values
+        name:
+          type: string
+        state:
+          type: string
+        workflow_id:
+          type: integer
+      required:
+      - document_template_id
+      - data
     DocumentTemplate:
       type: object
       description: Document template for contract generation (see API2_Schema document_templates table)
@@ -183,24 +209,6 @@ components:
           type: string
         options:
           type: object
-    DocumentTemplateCreateRequest:
-      type: object
-      description: Payload for POST document_templates/create (contract creation). Get field keys from GET .../document_templates/{id}/fields; pass values in data keyed by field keys (e.g. singleInputFieldKey from fields of type datatag).
-      properties:
-        document_template_id:
-          type: integer
-        data:
-          type: object
-          description: Key-value map of template field keys to values
-        name:
-          type: string
-        state:
-          type: string
-        workflow_id:
-          type: integer
-      required:
-      - document_template_id
-      - data
   parameters:
     projectId:
       in: path

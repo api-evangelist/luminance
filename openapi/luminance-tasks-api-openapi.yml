@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Luminance Tasks API
   version: '1.0'
-  description: 'Operations tagged Tasks across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Tasks across 2 of this provider''s published API definitions: luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{moniker}.app.luminance.com
   description: Your Luminance instance
@@ -17,7 +17,7 @@ paths:
     get:
       tags:
       - Tasks
-      summary: Get a list of tasks in a particular project, including alerts and knowledge banks
+      summary: Get a list of tasks in a particular project, including alerts and knowledge…
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/project-id'
@@ -45,6 +45,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasks
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}:
     get:
       tags:
@@ -70,11 +72,13 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskId
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/knowledge_bank_from_template:
     post:
       tags:
       - Tasks
-      summary: Create a new criteria-based Knowledge Bank by specifying a document to create knowledge bank positions from and a contract type for that document, resulting in a precedent type task being created for the specified module
+      summary: Create a new criteria-based Knowledge Bank by specifying a document to create…
       requestBody:
         description: See schema for options and required information in body of request
         required: true
@@ -102,14 +106,9 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdTasksKnowledgeBankFromTemplate
+      x-operation-id-source: derived
   /api2/projects/{project_id}/tasks:
-    servers:
-    - url: https://{moniker}.app.luminance.com
-      description: Your Luminance instance
-      variables:
-        moniker:
-          default: your-instance
-          description: Instance moniker (e.g. acme)
     get:
       tags:
       - Tasks
@@ -140,7 +139,8 @@ paths:
                 tags: []
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}:
+      operationId: getApi2ProjectsByProjectIdTasks
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -148,6 +148,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}:
     get:
       tags:
       - Tasks
@@ -183,7 +184,8 @@ paths:
                 tags: []
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/knowledge_bank_from_template:
+      operationId: getApi2ProjectsByProjectIdTasksByTaskId
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -191,6 +193,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/knowledge_bank_from_template:
     post:
       tags:
       - Tasks
@@ -223,7 +226,8 @@ paths:
           description: Validation error
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews:
+      operationId: postApi2ProjectsByProjectIdTasksKnowledgeBankFromTemplate
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -231,6 +235,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews:
     get:
       tags:
       - Tasks
@@ -262,6 +267,8 @@ paths:
                 outcome: null
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviews
+      x-operation-id-source: derived
     post:
       tags:
       - Tasks
@@ -292,6 +299,8 @@ paths:
           description: Created
       security:
       - bearerAuth: []
+      operationId: postApi2ProjectsByProjectIdTasksByTaskIdReviews
+      x-operation-id-source: derived
     patch:
       tags:
       - Tasks
@@ -329,7 +338,8 @@ paths:
                 outcome: null
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}:
+      operationId: patchApi2ProjectsByProjectIdTasksByTaskIdReviews
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -337,6 +347,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}:
     get:
       tags:
       - Tasks
@@ -373,6 +384,8 @@ paths:
                 outcome: null
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsByReviewId
+      x-operation-id-source: derived
     patch:
       tags:
       - Tasks
@@ -415,7 +428,8 @@ paths:
                 outcome: null
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis:
+      operationId: patchApi2ProjectsByProjectIdTasksByTaskIdReviewsByReviewId
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -423,6 +437,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/{review_id}/analysis:
     get:
       tags:
       - Tasks
@@ -451,7 +466,8 @@ paths:
                 missing_components: {}
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents:
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsByReviewIdAnalysis
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -459,6 +475,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents:
     get:
       tags:
       - Tasks
@@ -492,6 +509,8 @@ paths:
                 version_state: active
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsDocuments
+      x-operation-id-source: derived
     delete:
       tags:
       - Tasks
@@ -508,7 +527,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}:
+      operationId: deleteApi2ProjectsByProjectIdTasksByTaskIdReviewsDocuments
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -516,6 +536,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}:
     get:
       tags:
       - Tasks
@@ -556,6 +577,8 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentId
+      x-operation-id-source: derived
     delete:
       tags:
       - Tasks
@@ -577,7 +600,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/download:
+      operationId: deleteApi2ProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentId
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -585,6 +609,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/download:
     get:
       tags:
       - Tasks
@@ -613,7 +638,8 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations:
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdDownload
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -621,6 +647,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations:
     get:
       tags:
       - Tasks
@@ -657,7 +684,8 @@ paths:
                 external_reference: {}
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations/annotationText:
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdAnnotations
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -665,6 +693,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/tasks/{task_id}/reviews/documents/{document_id}/annotations/annotationText:
     get:
       tags:
       - Tasks
@@ -708,14 +737,19 @@ paths:
                 text: Sample text
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdAnnotationsAnnotationText
+      x-operation-id-source: derived
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
 components:
   responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '500':
-      description: Internal server error
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     '401':
       description: Unauthorized - the authentication provided was invalid
     task_200:
@@ -746,6 +780,8 @@ components:
             auto_sync: false
             type: task
             tags: []
+    '405':
+      description: Method not allowed (calling api with wrong method)
     knowledge_bank_from_template_202:
       description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
       content:
@@ -760,8 +796,10 @@ components:
           example:
             message: Knowledge Bank created. Generating positions from provided template.
             task_id: 130
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
     '422':
       description: Unprocessable Entity - the request was well formed, but not processable
   parameters:
@@ -774,30 +812,6 @@ components:
         type: integer
         format: int32
         minimum: 0
-    projectId:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
-    taskId:
-      name: id
-      in: query
-      description: Unique Task ID(s)
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    auto_sync:
-      name: auto_sync
-      in: query
-      description: If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run
-      required: false
-      schema:
-        type: boolean
-        format: boolean
-        minimum: 0
     async:
       name: async
       in: query
@@ -807,51 +821,6 @@ components:
         type: boolean
         format: boolean
         minimum: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    moniker:
-      name: moniker
-      in: query
-      description: Shortened Name of Project
-      required: false
-      schema:
-        type: string
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    createdBy:
-      name: created_by
-      in: query
-      description: User ID of Creator
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 4
-    TaskName:
-      name: name
-      in: query
-      description: Name of Task
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
     taskDescription:
       name: description
       in: query
@@ -860,6 +829,15 @@ components:
       schema:
         type: string
         format: string
+        minimum: 0
+    auto_sync:
+      name: auto_sync
+      in: query
+      description: If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run
+      required: false
+      schema:
+        type: boolean
+        format: boolean
         minimum: 0
     taskType:
       name: type
@@ -873,6 +851,66 @@ components:
         - precedent
         - alert
         - comparison
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    TaskName:
+      name: name
+      in: query
+      description: Name of Task
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project or Workflow
+      required: false
+      schema:
+        type: string
+    taskId:
+      name: id
+      in: query
+      description: Unique Task ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   schemas:
     Task:
       type: object
@@ -980,6 +1018,5 @@ components:
 
         '
 x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
 - luminance-api-v1-4-openapi-original.yml
 - luminance-public-api-v2-openapi-original.yml

@@ -41,6 +41,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdWorkflows
+      x-operation-id-source: derived
   /projects/{project-id}/workflows/{workflow-id}:
     get:
       tags:
@@ -65,14 +67,9 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdWorkflowsByWorkflowId
+      x-operation-id-source: derived
   /api2/projects/{project_id}/workflows:
-    servers:
-    - url: https://{moniker}.app.luminance.com
-      description: Your Luminance instance
-      variables:
-        moniker:
-          default: your-instance
-          description: Instance moniker (e.g. acme)
     get:
       tags:
       - Workflows
@@ -111,7 +108,8 @@ paths:
                 project_id: 1
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/workflows/{id}:
+      operationId: getApi2ProjectsByProjectIdWorkflows
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -119,6 +117,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/workflows/{id}:
     get:
       tags:
       - Workflows
@@ -146,10 +145,19 @@ paths:
                 project_id: 1
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdWorkflowsById
+      x-operation-id-source: derived
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
 components:
   responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
     workflows_200:
       description: JSON array of workflows
       content:
@@ -163,16 +171,16 @@ components:
             moniker: nda
             name: NDA Workflow
             project_id: 2
-    '401':
-      description: Unauthorized - the authentication provided was invalid
     '429':
       description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '500':
-      description: Internal server error
+    '401':
+      description: Unauthorized - the authentication provided was invalid
     '403':
       description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
+    '500':
+      description: Internal server error
+    '405':
+      description: Method not allowed (calling api with wrong method)
   schemas:
     Workflow:
       type: object
@@ -199,6 +207,15 @@ components:
           type: integer
           example: 6
   parameters:
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
     workflowName:
       name: name
       in: query
@@ -219,21 +236,6 @@ components:
         format: date-time
         minimum: 0
       example: '2021-10-25T11:58:31.879Z'
-    projectId:
-      name: id
-      in: query
-      description: Unique Project ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    projectId_2:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
     moniker:
       name: moniker
       in: query
@@ -250,6 +252,12 @@ components:
         type: integer
         format: int32
         minimum: 0
+    projectId_2:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     OAuth2:
       type: oauth2

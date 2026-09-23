@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Luminance Documents API
   version: '1.0'
-  description: 'Operations tagged Documents across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Documents across 2 of this provider''s published API definitions: luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{moniker}.app.luminance.com
   description: Your Luminance instance
@@ -49,10 +49,12 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdDocuments
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
-      summary: Delete a collection of Documents.
+      summary: Delete a collection of Documents
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/project-id'
@@ -142,6 +144,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: deleteProjectsByProjectIdDocuments
+      x-operation-id-source: derived
   /projects/{project-id}/documents/{document-id}/traffic_light_analysis:
     post:
       tags:
@@ -180,6 +184,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdDocumentsByDocumentIdTrafficLightAnalysis
+      x-operation-id-source: derived
   /projects/{project-id}/documents/{document-id}:
     get:
       tags:
@@ -205,6 +211,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdDocumentsByDocumentId
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -229,6 +237,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: deleteProjectsByProjectIdDocumentsByDocumentId
+      x-operation-id-source: derived
   /projects/{project-id}/folders/{folder-id}/documents:
     get:
       tags:
@@ -266,6 +276,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdFoldersByFolderIdDocuments
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -360,6 +372,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: deleteProjectsByProjectIdFoldersByFolderIdDocuments
+      x-operation-id-source: derived
   /projects/{project-id}/folders/{folder-id}/documents/{document-id}:
     get:
       tags:
@@ -386,6 +400,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentId
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -411,6 +427,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: deleteProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentId
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}/reviews/documents:
     get:
       tags:
@@ -448,6 +466,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocuments
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -542,6 +562,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: deleteProjectsByProjectIdTasksByTaskIdReviewsDocuments
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}:
     get:
       tags:
@@ -568,6 +590,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentId
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -662,6 +686,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: deleteProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentId
+      x-operation-id-source: derived
   /projects/{project-id}/documents/{document-id}/download:
     get:
       tags:
@@ -688,6 +714,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdDocumentsByDocumentIdDownload
+      x-operation-id-source: derived
   /projects/{project-id}/folders/{folder-id}/documents/{document-id}/download:
     get:
       tags:
@@ -715,6 +743,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdDownload
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}/reviews/documents/{document-id}/download:
     get:
       tags:
@@ -742,6 +772,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdDownload
+      x-operation-id-source: derived
   /projects/{project-id}/folders/{folder-id}/upload:
     post:
       tags:
@@ -798,14 +830,9 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdFoldersByFolderIdUpload
+      x-operation-id-source: derived
   /api2/projects/{project_id}/documents:
-    servers:
-    - url: https://{moniker}.app.luminance.com
-      description: Your Luminance instance
-      variables:
-        moniker:
-          default: your-instance
-          description: Instance moniker (e.g. acme)
     get:
       tags:
       - Documents
@@ -872,6 +899,8 @@ paths:
                 version_state: active
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdDocuments
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -887,7 +916,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}:
+      operationId: deleteApi2ProjectsByProjectIdDocuments
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -895,6 +925,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}:
     get:
       tags:
       - Documents
@@ -930,6 +961,8 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdDocumentsByDocumentId
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
@@ -948,7 +981,8 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}/download:
+      operationId: deleteApi2ProjectsByProjectIdDocumentsByDocumentId
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -956,6 +990,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}/download:
     get:
       tags:
       - Documents
@@ -990,7 +1025,8 @@ paths:
           description: Unprocessable Entity
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis:
+      operationId: getApi2ProjectsByProjectIdDocumentsByDocumentIdDownload
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -998,6 +1034,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}/traffic_light_analysis:
     post:
       tags:
       - Documents
@@ -1029,7 +1066,8 @@ paths:
           description: Validation error
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}/annotations:
+      operationId: postApi2ProjectsByProjectIdDocumentsByDocumentIdTrafficLightAnalysis
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -1037,6 +1075,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}/annotations:
     get:
       tags:
       - Documents
@@ -1095,7 +1134,8 @@ paths:
                 external_reference: {}
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}/annotations/annotationText:
+      operationId: getApi2ProjectsByProjectIdDocumentsByDocumentIdAnnotations
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -1103,6 +1143,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}/annotations/annotationText:
     get:
       tags:
       - Documents
@@ -1143,7 +1184,8 @@ paths:
           description: Validation error
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}/notes:
+      operationId: getApi2ProjectsByProjectIdDocumentsByDocumentIdAnnotationsAnnotationText
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -1151,6 +1193,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}/notes:
     get:
       tags:
       - Documents
@@ -1183,7 +1226,8 @@ paths:
                 document_wide: {}
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/documents/{document_id}/notes/{id}:
+      operationId: getApi2ProjectsByProjectIdDocumentsByDocumentIdNotes
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -1191,6 +1235,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/documents/{document_id}/notes/{id}:
     get:
       tags:
       - Documents
@@ -1228,26 +1273,204 @@ paths:
                 document_wide: {}
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdDocumentsByDocumentIdNotesById
+      x-operation-id-source: derived
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
 components:
+  parameters:
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentName:
+      name: name
+      in: query
+      description: Name of document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: This is a contract.docx
+    enable_token_based_linking:
+      name: enable_token_based_linking
+      in: query
+      description: Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx.
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    document-id:
+      name: document-id
+      in: path
+      description: Document ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionType:
+      name: type
+      in: query
+      type: string
+      example: attachment
+      required: false
+      enum:
+      - attachment
+      - draft
+      - version
+      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
+    documentVersionState:
+      name: version_state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - draft
+        - replaced
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
+      example: active
+    documentVersion:
+      name: version
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: if a file 'replaces' another file, its version will increment.
+      example: 2
+    documentVersionGroup:
+      name: version_group
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document.
+      example: 256
+    parentId:
+      name: parent_id
+      in: query
+      description: If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderId:
+      name: folder_id
+      in: query
+      description: Unique Folder ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 6
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    documentMedia_type:
+      name: media_type
+      in: query
+      description: MIME type detected for the document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    documentState:
+      name: state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - import_pending
+        - import_complete
+        - import_failure
+        - upload_failure
+        - import_extracted
+        - upload_cancelled
+      description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'.
+      example: import_complete
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    traffic_light_analysis_202:
-      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Traffic Light Analysis started on document 896
-    '500':
-      description: Internal server error
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '204':
-      description: Request completed, but no response payload body will be present (attributed to a successful deletion request)
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     '401':
       description: Unauthorized - the authentication provided was invalid
     documents_200:
@@ -1269,47 +1492,29 @@ components:
             version_group: 369689
             version: 1
             version_state: active
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    document_download_200:
-      description: Response containing a single document downloaded from the instance. The media type of the response will be contained in the content-type header and is entirely dependent on the media type uploaded to Luminance, which accepts any MIME-type following RFC 6838.
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
     '422':
       description: Unprocessable Entity - the request was well formed, but not processable
+    traffic_light_analysis_202:
+      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Traffic Light Analysis started on document 896
+    '204':
+      description: Request completed, but no response payload body will be present (attributed to a successful deletion request)
+    document_download_200:
+      description: Response containing a single document downloaded from the instance. The media type of the response will be contained in the content-type header and is entirely dependent on the media type uploaded to Luminance, which accepts any MIME-type following RFC 6838.
   schemas:
-    Document_2:
-      type: object
-      description: Document object (see API2_Schema documents table)
-      properties:
-        id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        created_by:
-          type: integer
-        name:
-          type: string
-        folder_id:
-          type:
-          - integer
-          - 'null'
-        parent_id:
-          type:
-          - integer
-          - 'null'
-        project_id:
-          type: integer
-        media_type:
-          type: string
-        state:
-          type: string
-        version_group:
-          type: integer
-        version:
-          type: integer
-        version_state:
-          type: string
-          description: active, draft, or replaced
     Document:
       type: object
       properties:
@@ -1365,191 +1570,40 @@ components:
           - draft
           - replaced
           description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
-  parameters:
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentId:
-      name: id
-      in: query
-      description: Unique Document ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 654
-    projectId:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
-    documentState:
-      name: state
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - import_pending
-        - import_complete
-        - import_failure
-        - upload_failure
-        - import_extracted
-        - upload_cancelled
-      description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'.
-      example: import_complete
-    parentId:
-      name: parent_id
-      in: query
-      description: If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentName:
-      name: name
-      in: query
-      description: Name of document
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-      example: This is a contract.docx
-    documentMedia_type:
-      name: media_type
-      in: query
-      description: MIME type detected for the document
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-      example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-    matterVersionType:
-      name: type
-      in: query
-      type: string
-      example: attachment
-      required: false
-      enum:
-      - attachment
-      - draft
-      - version
-      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
-    documentVersionGroup:
-      name: version_group
-      in: query
-      type: integer
-      required: false
-      minimum: 0
-      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document.
-      example: 256
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    enable_token_based_linking:
-      name: enable_token_based_linking
-      in: query
-      description: Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx.
-      required: false
-      schema:
-        type: boolean
-        format: boolean
-        minimum: 0
-    documentVersionState:
-      name: version_state
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - active
-        - draft
-        - replaced
-      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
-      example: active
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    createdBy:
-      name: created_by
-      in: query
-      description: User ID of Creator
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 4
-    document-id:
-      name: document-id
-      in: path
-      description: Document ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    folder-id:
-      name: folder-id
-      in: path
-      description: Folder ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    folderId:
-      name: folder_id
-      in: query
-      description: Unique Folder ID(s)
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 6
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
-    documentVersion:
-      name: version
-      in: query
-      type: integer
-      required: false
-      minimum: 0
-      description: if a file 'replaces' another file, its version will increment.
-      example: 2
+    Document_2:
+      type: object
+      description: Document object (see API2_Schema documents table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        folder_id:
+          type:
+          - integer
+          - 'null'
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        project_id:
+          type: integer
+        media_type:
+          type: string
+        state:
+          type: string
+        version_group:
+          type: integer
+        version:
+          type: integer
+        version_state:
+          type: string
+          description: active, draft, or replaced
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -1564,6 +1618,5 @@ components:
 
         '
 x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
 - luminance-api-v1-4-openapi-original.yml
 - luminance-public-api-v2-openapi-original.yml

@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
+  version: 1.4.0
   title: Luminance Root API
-  version: '1.0'
-  description: 'Operations tagged Root across 2 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml,
-    luminance-api-v1-4-openapi-original.yml. Each path carries the servers of the definition it was published
-    in.'
+  description: 'Overview
+
+    Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication.'
 tags:
 - name: Root
 paths:
@@ -13,8 +13,7 @@ paths:
       tags:
       - Root
       summary: Get System Data
-      description: 'This endpoint provides system data, including: Luminance version, API2 version, and
-        product type.'
+      description: 'This endpoint provides system data, including: Luminance version, API2 version, and product type.'
       security:
       - OAuth2: []
       responses:
@@ -32,32 +31,9 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getRoot
+      x-operation-id-source: derived
 components:
-  responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact
-        Luminance's support team.
-    system_200:
-      description: JSON object of system data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/System'
-          example:
-            version: 1.16.0
-            api2_version: 1.2.0
-            product: corporate
-    '500':
-      description: Internal server error
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform
-        this action
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
   schemas:
     System:
       type: object
@@ -71,12 +47,32 @@ components:
         product:
           type: string
           example: corporate
+  responses:
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    system_200:
+      description: JSON object of system data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/System'
+          example:
+            version: 1.16.0
+            api2_version: 1.2.0
+            product: corporate
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
+    '405':
+      description: Method not allowed (calling api with wrong method)
   securitySchemes:
     OAuth2:
       type: oauth2
       flows:
         clientCredentials:
           tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
-x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
-- luminance-api-v1-4-openapi-original.yml

@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Luminance Folders API
   version: '1.0'
-  description: 'Operations tagged Folders across 3 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml, luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Folders across 2 of this provider''s published API definitions: luminance-api-v1-4-openapi-original.yml, luminance-public-api-v2-openapi-original.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{moniker}.app.luminance.com
   description: Your Luminance instance
@@ -42,6 +42,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdFolders
+      x-operation-id-source: derived
     post:
       tags:
       - Folders
@@ -72,6 +74,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdFolders
+      x-operation-id-source: derived
     patch:
       tags:
       - Folders
@@ -107,6 +111,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: patchProjectsByProjectIdFolders
+      x-operation-id-source: derived
   /projects/{project-id}/folders/{folder-id}:
     get:
       tags:
@@ -132,6 +138,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdFoldersByFolderId
+      x-operation-id-source: derived
     patch:
       tags:
       - Folders
@@ -164,14 +172,9 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: patchProjectsByProjectIdFoldersByFolderId
+      x-operation-id-source: derived
   /api2/projects/{project_id}/folders:
-    servers:
-    - url: https://{moniker}.app.luminance.com
-      description: Your Luminance instance
-      variables:
-        moniker:
-          default: your-instance
-          description: Instance moniker (e.g. acme)
     get:
       tags:
       - Folders
@@ -219,6 +222,8 @@ paths:
                 type: document
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdFolders
+      x-operation-id-source: derived
     post:
       tags:
       - Folders
@@ -263,6 +268,8 @@ paths:
                 type: document
       security:
       - bearerAuth: []
+      operationId: postApi2ProjectsByProjectIdFolders
+      x-operation-id-source: derived
     patch:
       tags:
       - Folders
@@ -321,6 +328,8 @@ paths:
                 type: document
       security:
       - bearerAuth: []
+      operationId: patchApi2ProjectsByProjectIdFolders
+      x-operation-id-source: derived
     delete:
       tags:
       - Folders
@@ -352,7 +361,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}:
+      operationId: deleteApi2ProjectsByProjectIdFolders
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -360,6 +370,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}:
     get:
       tags:
       - Folders
@@ -390,6 +401,8 @@ paths:
                 type: document
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdFoldersByFolderId
+      x-operation-id-source: derived
     patch:
       tags:
       - Folders
@@ -431,6 +444,8 @@ paths:
                 type: document
       security:
       - bearerAuth: []
+      operationId: patchApi2ProjectsByProjectIdFoldersByFolderId
+      x-operation-id-source: derived
     delete:
       tags:
       - Folders
@@ -447,7 +462,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}/upload:
+      operationId: deleteApi2ProjectsByProjectIdFoldersByFolderId
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -455,6 +471,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}/upload:
     post:
       tags:
       - Folders
@@ -534,7 +551,8 @@ paths:
           description: Validation error
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}/documents:
+      operationId: postApi2ProjectsByProjectIdFoldersByFolderIdUpload
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -542,6 +560,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}/documents:
     get:
       tags:
       - Folders
@@ -577,6 +596,8 @@ paths:
                 version_state: active
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdFoldersByFolderIdDocuments
+      x-operation-id-source: derived
     delete:
       tags:
       - Folders
@@ -593,7 +614,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}:
+      operationId: deleteApi2ProjectsByProjectIdFoldersByFolderIdDocuments
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -601,6 +623,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}:
     get:
       tags:
       - Folders
@@ -641,6 +664,8 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentId
+      x-operation-id-source: derived
     delete:
       tags:
       - Folders
@@ -662,7 +687,8 @@ paths:
           description: No Content
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations:
+      operationId: deleteApi2ProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentId
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -670,6 +696,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations:
     get:
       tags:
       - Folders
@@ -706,7 +733,8 @@ paths:
                 external_reference: {}
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations/annotationText:
+      operationId: getApi2ProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdAnnotations
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -714,6 +742,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/annotations/annotationText:
     get:
       tags:
       - Folders
@@ -757,7 +786,8 @@ paths:
                 text: Sample text
       security:
       - bearerAuth: []
-  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/download:
+      operationId: getApi2ProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdAnnotationsAnnotationText
+      x-operation-id-source: derived
     servers:
     - url: https://{moniker}.app.luminance.com
       description: Your Luminance instance
@@ -765,6 +795,7 @@ paths:
         moniker:
           default: your-instance
           description: Instance moniker (e.g. acme)
+  /api2/projects/{project_id}/folders/{folder_id}/documents/{document_id}/download:
     get:
       tags:
       - Folders
@@ -800,10 +831,17 @@ paths:
           description: Not found
       security:
       - bearerAuth: []
+      operationId: getApi2ProjectsByProjectIdFoldersByFolderIdDocumentsByDocumentIdDownload
+      x-operation-id-source: derived
+    servers:
+    - url: https://{moniker}.app.luminance.com
+      description: Your Luminance instance
+      variables:
+        moniker:
+          default: your-instance
+          description: Instance moniker (e.g. acme)
 components:
   responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
     folder_200:
       description: JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path
       content:
@@ -821,10 +859,18 @@ components:
               project_id: 444
               state: active
               type: folder
-    '500':
-      description: Internal server error
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '401':
+      description: Unauthorized - the authentication provided was invalid
     '403':
       description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
     folder_201:
       description: JSON array of single newly created Folder object with POST request
       content:
@@ -842,145 +888,7 @@ components:
               project_id: 4
               state: active
               type: folder
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-  parameters:
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    projectId:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
-    folderName:
-      name: name
-      in: query
-      description: Name of Folder
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    folderParentId:
-      name: parent_id
-      in: query
-      description: The folder Id of the Parent Folder
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    folderType:
-      name: type
-      in: query
-      description: Folder type
-      schema:
-        type: string
-        enum:
-        - folder
-        - custodian
-        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
-        default: folder
-    folder-id:
-      name: folder-id
-      in: path
-      description: Folder ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    folderState:
-      name: state
-      in: query
-      description: Current State of Folder
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-        enum:
-        - active
-        - deleted
   schemas:
-    Document:
-      type: object
-      description: Document object (see API2_Schema documents table)
-      properties:
-        id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        created_by:
-          type: integer
-        name:
-          type: string
-        folder_id:
-          type:
-          - integer
-          - 'null'
-        parent_id:
-          type:
-          - integer
-          - 'null'
-        project_id:
-          type: integer
-        media_type:
-          type: string
-        state:
-          type: string
-        version_group:
-          type: integer
-        version:
-          type: integer
-        version_state:
-          type: string
-          description: active, draft, or replaced
-    FolderPost:
-      type: object
-      properties:
-        parent_id:
-          type: integer
-          example: 52597
-          description: ID of the folder the new folder will be created in
-        name:
-          type: string
-          example: Foo Folder
-          description: Name for the new folder
-        type:
-          type: string
-          example: folder
-          enum:
-          - folder
-          - custodian
-          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
-          default: folder
-      required:
-      - parent_id
-      - name
     FolderPatch:
       type: object
       properties:
@@ -1050,6 +958,28 @@ components:
           description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
           default: folder
           example: folder
+    FolderPost:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          example: 52597
+          description: ID of the folder the new folder will be created in
+        name:
+          type: string
+          example: Foo Folder
+          description: Name for the new folder
+        type:
+          type: string
+          example: folder
+          enum:
+          - folder
+          - custodian
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+          default: folder
+      required:
+      - parent_id
+      - name
     Folder_2:
       type: object
       description: Folder object (see API2_Schema folders table)
@@ -1074,6 +1004,116 @@ components:
         type:
           type: string
           description: folder or custodian
+    Document:
+      type: object
+      description: Document object (see API2_Schema documents table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        name:
+          type: string
+        folder_id:
+          type:
+          - integer
+          - 'null'
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        project_id:
+          type: integer
+        media_type:
+          type: string
+        state:
+          type: string
+        version_group:
+          type: integer
+        version:
+          type: integer
+        version_state:
+          type: string
+          description: active, draft, or replaced
+  parameters:
+    folderType:
+      name: type
+      in: query
+      description: Folder type
+      schema:
+        type: string
+        enum:
+        - folder
+        - custodian
+        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+        default: folder
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    folderName:
+      name: name
+      in: query
+      description: Name of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    folderState:
+      name: state
+      in: query
+      description: Current State of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - deleted
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderParentId:
+      name: parent_id
+      in: query
+      description: The folder Id of the Parent Folder
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -1088,6 +1128,5 @@ components:
 
         '
 x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
 - luminance-api-v1-4-openapi-original.yml
 - luminance-public-api-v2-openapi-original.yml

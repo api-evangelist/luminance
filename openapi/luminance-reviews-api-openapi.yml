@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
+  version: 1.4.0
   title: Luminance Reviews API
-  version: '1.0'
-  description: 'Operations tagged Reviews across 2 of this provider''s published API definitions: luminance-api-v1-3-openapi-original.yml,
-    luminance-api-v1-4-openapi-original.yml. Each path carries the servers of the definition it was published
-    in.'
+  description: 'Overview
+
+    Luminance offers a RESTful HTTP-based API utilizing JSON as the primary serialization format and OAuth2 for authentication.'
 tags:
 - name: Reviews
 paths:
@@ -41,6 +41,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviews
+      x-operation-id-source: derived
     post:
       tags:
       - Reviews
@@ -52,8 +54,7 @@ paths:
         required: true
         content:
           application/json:
-            description: Define the documentId which will have a review created for it in the relevant
-              task
+            description: Define the documentId which will have a review created for it in the relevant task
             schema:
               type: object
               properties:
@@ -79,6 +80,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: postProjectsByProjectIdTasksByTaskIdReviews
+      x-operation-id-source: derived
     patch:
       tags:
       - Reviews
@@ -127,9 +130,9 @@ paths:
                   - approved
                   - rejected
                   - None
-                  description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set
-                    up approvals before a document can pass through a particular workflow stage. This
-                    indicates whether those approvals have been completed or rejected.
+                  description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document can pass through a particular workflow stage. This indicates whether those approvals have been completed or rejected.
+      operationId: patchProjectsByProjectIdTasksByTaskIdReviews
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}/reviews/{review-id}:
     get:
       tags:
@@ -158,6 +161,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviewsByReviewId
+      x-operation-id-source: derived
     patch:
       tags:
       - Reviews
@@ -199,9 +204,7 @@ paths:
                   - approved
                   - rejected
                   - None
-                  description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set
-                    up approvals before a document can pass through a particular workflow stage. This
-                    indicates whether those approvals have been completed or rejected.
+                  description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document can pass through a particular workflow stage. This indicates whether those approvals have been completed or rejected.
       security:
       - OAuth2: []
       responses:
@@ -219,14 +222,13 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: patchProjectsByProjectIdTasksByTaskIdReviewsByReviewId
+      x-operation-id-source: derived
   /projects/{project-id}/tasks/{task-id}/reviews/{review-id}/analysis:
     get:
       tags:
       - Reviews
-      summary: Get a JSON object containing the Traffic Light Analysis results for AI review completed
-        on a single document. this may have been initiated from the {document-id}/traffic_light_analysis
-        endpoint, in which case the analysis may not be immediately available, there will be up to a few
-        minutes to wait. The response will be an empty array until complete.
+      summary: Get a JSON object containing the Traffic Light Analysis results for AI review…
       parameters:
       - $ref: '#/components/parameters/review-id'
       - $ref: '#/components/parameters/task-id'
@@ -250,10 +252,131 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+      operationId: getProjectsByProjectIdTasksByTaskIdReviewsByReviewIdAnalysis
+      x-operation-id-source: derived
 components:
+  parameters:
+    reviewOutcome:
+      name: outcome
+      in: query
+      description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document can pass through a particular workflow stage. Each individual approval has a separate taskReview which can be set to completed or rejected. Once all are complete, the document can pass through certain workflow stages.
+      required: false
+      schema:
+        type: string
+        enum:
+        - approved
+        - rejected
+        - None
+    review-id:
+      name: review-id
+      in: path
+      description: Review ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    reviewAssignee:
+      name: assigned_to
+      in: query
+      description: User ID of Assignee
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    reviewAssignedAt:
+      name: created_at
+      in: query
+      description: Time of Task Allocation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+    reviewId:
+      name: id
+      in: query
+      description: Unique Review ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    reviewSyncState:
+      name: state
+      in: query
+      description: Whether the document is active, there is a sync_staged for it (the document has been flagged to appear in the task but not added yet), or had a review which has been deleted
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - sync_staged
+        - deleted
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    reviewState:
+      name: review_state
+      in: query
+      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
+      required: false
+      schema:
+        type: string
+        enum:
+        - pending
+        - complete
+    documentReviewId:
+      name: document_id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
   responses:
-    '405':
-      description: Method not allowed (calling api with wrong method)
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '401':
+      description: Unauthorized - the authentication provided was invalid
     review_analysis_200:
       description: JSON array of objects representing AI outputs from Traffic Light Analysis
       content:
@@ -261,26 +384,8 @@ components:
           schema:
             $ref: '#/components/schemas/traffic_light_analysis'
           example: null
-    '404':
-      description: Not Found
-    '500':
-      description: Internal server error
-    review_200:
-      description: JSON array of Reviews or a single review object if review ID is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Review'
-          example:
-            id: 3643
-            created_at: '2018-12-21T14:49:38.331Z'
-            created_by: 7
-            task_id: 16
-            document_id: 2040
-            state: active
-            review_state: pending
-            assigned_to: 7
-            assigned_at: '2018-12-21T14:49:51.292Z'
+    '405':
+      description: Method not allowed (calling api with wrong method)
     review_201:
       description: JSON object of review created by POST method
       content:
@@ -299,136 +404,29 @@ components:
             assigned_at: None
             outcome: None
     '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform
-        this action
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact
-        Luminance's support team.
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
     '422':
       description: Unprocessable Entity - the request was well formed, but not processable
-  parameters:
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentId:
-      name: id
-      in: query
-      description: Unique Document ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 654
-    reviewAssignee:
-      name: assigned_to
-      in: query
-      description: User ID of Assignee
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    reviewState:
-      name: review_state
-      in: query
-      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
-      required: false
-      schema:
-        type: string
-        enum:
-        - pending
-        - complete
-    review-id:
-      name: review-id
-      in: path
-      description: Review ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    reviewSyncState:
-      name: state
-      in: query
-      description: Whether the document is active, there is a sync_staged for it (the document has been
-        flagged to appear in the task but not added yet), or had a review which has been deleted
-      required: false
-      schema:
-        type: string
-        enum:
-        - active
-        - sync_staged
-        - deleted
-    documentReviewId:
-      name: document_id
-      in: query
-      description: Unique Document ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 654
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    reviewOutcome:
-      name: outcome
-      in: query
-      description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals
-        before a document can pass through a particular workflow stage. Each individual approval has a
-        separate taskReview which can be set to completed or rejected. Once all are complete, the document
-        can pass through certain workflow stages.
-      required: false
-      schema:
-        type: string
-        enum:
-        - approved
-        - rejected
-        - None
-    reviewId:
-      name: id
-      in: query
-      description: Unique Review ID(s)
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    reviewAssignedAt:
-      name: created_at
-      in: query
-      description: Time of Task Allocation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
+    '404':
+      description: Not Found
+    review_200:
+      description: JSON array of Reviews or a single review object if review ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+          example:
+            id: 3643
+            created_at: '2018-12-21T14:49:38.331Z'
+            created_by: 7
+            task_id: 16
+            document_id: 2040
+            state: active
+            review_state: pending
+            assigned_to: 7
+            assigned_at: '2018-12-21T14:49:51.292Z'
   schemas:
     Review:
       type: object
@@ -471,15 +469,10 @@ components:
           - approved
           - rejected
           - None
-          description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals
-            before a document can pass through a particular workflow stage. This indicates whether those
-            approvals have been completed or rejected.
+          description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document can pass through a particular workflow stage. This indicates whether those approvals have been completed or rejected.
   securitySchemes:
     OAuth2:
       type: oauth2
       flows:
         clientCredentials:
           tokenUrl: https://moniker.app.luminance.com/auth/oauth2/token
-x-refined-from:
-- luminance-api-v1-3-openapi-original.yml
-- luminance-api-v1-4-openapi-original.yml
