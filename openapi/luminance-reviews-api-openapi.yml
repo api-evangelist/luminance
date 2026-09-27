@@ -255,23 +255,87 @@ paths:
       operationId: getProjectsByProjectIdTasksByTaskIdReviewsByReviewIdAnalysis
       x-operation-id-source: derived
 components:
+  responses:
+    '500':
+      description: Internal server error
+    review_analysis_200:
+      description: JSON array of objects representing AI outputs from Traffic Light Analysis
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/traffic_light_analysis'
+          example: null
+    review_201:
+      description: JSON object of review created by POST method
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+          example:
+            id: 955758409
+            created_at: '2024-07-08T17:35:56.583Z'
+            created_by: 251
+            task_id: 256
+            document_id: 83049
+            state: active
+            review_state: pending
+            assigned_to: None
+            assigned_at: None
+            outcome: None
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    review_200:
+      description: JSON array of Reviews or a single review object if review ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+          example:
+            id: 3643
+            created_at: '2018-12-21T14:49:38.331Z'
+            created_by: 7
+            task_id: 16
+            document_id: 2040
+            state: active
+            review_state: pending
+            assigned_to: 7
+            assigned_at: '2018-12-21T14:49:51.292Z'
+    '404':
+      description: Not Found
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
   parameters:
-    reviewOutcome:
-      name: outcome
+    reviewState:
+      name: review_state
       in: query
-      description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document can pass through a particular workflow stage. Each individual approval has a separate taskReview which can be set to completed or rejected. Once all are complete, the document can pass through certain workflow stages.
+      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
       required: false
       schema:
         type: string
         enum:
-        - approved
-        - rejected
-        - None
-    review-id:
-      name: review-id
-      in: path
-      description: Review ID
-      required: true
+        - pending
+        - complete
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    reviewId:
+      name: id
+      in: query
+      description: Unique Review ID(s)
+      required: false
       schema:
         type: integer
         format: int32
@@ -285,6 +349,17 @@ components:
         type: integer
         format: int32
         minimum: 0
+    reviewOutcome:
+      name: outcome
+      in: query
+      description: If the task is of type 'precedent' i.e. a Knowledge Bank, users can set up approvals before a document can pass through a particular workflow stage. Each individual approval has a separate taskReview which can be set to completed or rejected. Once all are complete, the document can pass through certain workflow stages.
+      required: false
+      schema:
+        type: string
+        enum:
+        - approved
+        - rejected
+        - None
     reviewAssignee:
       name: assigned_to
       in: query
@@ -294,26 +369,17 @@ components:
         type: integer
         format: int32
         minimum: 0
-    reviewAssignedAt:
-      name: created_at
-      in: query
-      description: Time of Task Allocation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-    reviewId:
-      name: id
-      in: query
-      description: Unique Review ID(s)
-      required: false
+    review-id:
+      name: review-id
+      in: path
+      description: Review ID
+      required: true
       schema:
         type: integer
         format: int32
         minimum: 0
-    documentId:
-      name: id
+    documentReviewId:
+      name: document_id
       in: query
       description: Unique Document ID
       required: false
@@ -342,6 +408,15 @@ components:
         type: integer
         format: int32
         minimum: 0
+    reviewAssignedAt:
+      name: created_at
+      in: query
+      description: Time of Task Allocation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
     limit:
       name: limit
       in: query
@@ -352,81 +427,6 @@ components:
         format: int32
         minimum: 0
         default: 50
-    reviewState:
-      name: review_state
-      in: query
-      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
-      required: false
-      schema:
-        type: string
-        enum:
-        - pending
-        - complete
-    documentReviewId:
-      name: document_id
-      in: query
-      description: Unique Document ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 654
-  responses:
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    review_analysis_200:
-      description: JSON array of objects representing AI outputs from Traffic Light Analysis
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/traffic_light_analysis'
-          example: null
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    review_201:
-      description: JSON object of review created by POST method
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Review'
-          example:
-            id: 955758409
-            created_at: '2024-07-08T17:35:56.583Z'
-            created_by: 251
-            task_id: 256
-            document_id: 83049
-            state: active
-            review_state: pending
-            assigned_to: None
-            assigned_at: None
-            outcome: None
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '500':
-      description: Internal server error
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    '404':
-      description: Not Found
-    review_200:
-      description: JSON array of Reviews or a single review object if review ID is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Review'
-          example:
-            id: 3643
-            created_at: '2018-12-21T14:49:38.331Z'
-            created_by: 7
-            task_id: 16
-            document_id: 2040
-            state: active
-            review_state: pending
-            assigned_to: 7
-            assigned_at: '2018-12-21T14:49:51.292Z'
   schemas:
     Review:
       type: object

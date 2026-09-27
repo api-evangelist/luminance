@@ -859,18 +859,18 @@ components:
               project_id: 444
               state: active
               type: folder
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
+    '500':
+      description: Internal server error
     '405':
       description: Method not allowed (calling api with wrong method)
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
     '401':
       description: Unauthorized - the authentication provided was invalid
     '403':
       description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '500':
-      description: Internal server error
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     folder_201:
       description: JSON array of single newly created Folder object with POST request
       content:
@@ -889,6 +889,28 @@ components:
               state: active
               type: folder
   schemas:
+    FolderPost:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          example: 52597
+          description: ID of the folder the new folder will be created in
+        name:
+          type: string
+          example: Foo Folder
+          description: Name for the new folder
+        type:
+          type: string
+          example: folder
+          enum:
+          - folder
+          - custodian
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+          default: folder
+      required:
+      - parent_id
+      - name
     FolderPatch:
       type: object
       properties:
@@ -958,52 +980,6 @@ components:
           description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
           default: folder
           example: folder
-    FolderPost:
-      type: object
-      properties:
-        parent_id:
-          type: integer
-          example: 52597
-          description: ID of the folder the new folder will be created in
-        name:
-          type: string
-          example: Foo Folder
-          description: Name for the new folder
-        type:
-          type: string
-          example: folder
-          enum:
-          - folder
-          - custodian
-          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
-          default: folder
-      required:
-      - parent_id
-      - name
-    Folder_2:
-      type: object
-      description: Folder object (see API2_Schema folders table)
-      properties:
-        id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        created_by:
-          type: integer
-        parent_id:
-          type:
-          - integer
-          - 'null'
-        name:
-          type: string
-        project_id:
-          type: integer
-        state:
-          type: string
-        type:
-          type: string
-          description: folder or custodian
     Document:
       type: object
       description: Document object (see API2_Schema documents table)
@@ -1038,62 +1014,35 @@ components:
         version_state:
           type: string
           description: active, draft, or replaced
+    Folder_2:
+      type: object
+      description: Folder object (see API2_Schema folders table)
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        name:
+          type: string
+        project_id:
+          type: integer
+        state:
+          type: string
+        type:
+          type: string
+          description: folder or custodian
   parameters:
-    folderType:
-      name: type
-      in: query
-      description: Folder type
-      schema:
-        type: string
-        enum:
-        - folder
-        - custodian
-        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
-        default: folder
     folder-id:
       name: folder-id
       in: path
       description: Folder ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    folderName:
-      name: name
-      in: query
-      description: Name of Folder
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    folderState:
-      name: state
-      in: query
-      description: Current State of Folder
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-        enum:
-        - active
-        - deleted
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
       required: true
       schema:
         type: integer
@@ -1107,6 +1056,57 @@ components:
       schema:
         type: integer
         format: int32
+        minimum: 0
+    folderType:
+      name: type
+      in: query
+      description: Folder type
+      schema:
+        type: string
+        enum:
+        - folder
+        - custodian
+        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+        default: folder
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderState:
+      name: state
+      in: query
+      description: Current State of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - deleted
+    folderName:
+      name: name
+      in: query
+      description: Name of Folder
+      required: false
+      schema:
+        type: string
+        format: string
         minimum: 0
     projectId:
       in: path
