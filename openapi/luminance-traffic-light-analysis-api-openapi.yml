@@ -113,62 +113,7 @@ paths:
       operationId: postProjectsByProjectIdDocumentsByDocumentIdTrafficLightAnalysis
       x-operation-id-source: derived
 components:
-  responses:
-    '500':
-      description: Internal server error
-    review_analysis_200:
-      description: JSON array of objects representing AI outputs from Traffic Light Analysis
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/traffic_light_analysis'
-          example: null
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    knowledge_bank_from_template_202:
-      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
-      content:
-        application/json:
-          schema:
-            message:
-              type: string
-              example: Knowledge Bank created. Generating positions from provided template.
-            task_id:
-              type: integer
-              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
-          example:
-            message: Knowledge Bank created. Generating positions from provided template.
-            task_id: 130
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    traffic_light_analysis_202:
-      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Traffic Light Analysis started on document 896
-    '404':
-      description: Not Found
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '401':
-      description: Unauthorized - the authentication provided was invalid
   parameters:
-    review-id:
-      name: review-id
-      in: path
-      description: Review ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     document-id:
       name: document-id
       in: path
@@ -187,15 +132,6 @@ components:
         type: boolean
         format: boolean
         minimum: 0
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     project-id:
       name: project-id
       in: path
@@ -205,6 +141,70 @@ components:
         type: integer
         format: int32
         minimum: 0
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    review-id:
+      name: review-id
+      in: path
+      description: Review ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+  responses:
+    '500':
+      description: Internal server error
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '404':
+      description: Not Found
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    review_analysis_200:
+      description: JSON array of objects representing AI outputs from Traffic Light Analysis
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/traffic_light_analysis'
+          example: null
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    knowledge_bank_from_template_202:
+      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
+      content:
+        application/json:
+          schema:
+            message:
+              type: string
+              example: Knowledge Bank created. Generating positions from provided template.
+            task_id:
+              type: integer
+              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
+          example:
+            message: Knowledge Bank created. Generating positions from provided template.
+            task_id: 130
+    traffic_light_analysis_202:
+      description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Traffic Light Analysis started on document 896
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
   schemas:
     KnowledgeBankFromTemplate:
       type: object

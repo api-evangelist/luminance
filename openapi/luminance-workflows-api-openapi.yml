@@ -155,6 +155,84 @@ paths:
           default: your-instance
           description: Instance moniker (e.g. acme)
 components:
+  responses:
+    '500':
+      description: Internal server error
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    workflows_200:
+      description: JSON array of workflows
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Workflow'
+          example:
+            id: 415
+            created_at: '2023-04-19T12:20:39.200Z'
+            created_by: 33
+            moniker: nda
+            name: NDA Workflow
+            project_id: 2
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+  parameters:
+    workflowId:
+      name: id
+      in: query
+      description: Unique Workflow ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project or Workflow
+      required: false
+      schema:
+        type: string
+    workflowName:
+      name: name
+      in: query
+      description: Name of workflow
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: NDA Workflow
+    projectId_2:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   schemas:
     Workflow:
       type: object
@@ -180,84 +258,6 @@ components:
         project_id:
           type: integer
           example: 6
-  parameters:
-    projectId:
-      name: id
-      in: query
-      description: Unique Project ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    moniker:
-      name: moniker
-      in: query
-      description: Shortened Name of Project or Workflow
-      required: false
-      schema:
-        type: string
-    workflowId:
-      name: id
-      in: query
-      description: Unique Workflow ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    workflowName:
-      name: name
-      in: query
-      description: Name of workflow
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-      example: NDA Workflow
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
-    projectId_2:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
-  responses:
-    '500':
-      description: Internal server error
-    workflows_200:
-      description: JSON array of workflows
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Workflow'
-          example:
-            id: 415
-            created_at: '2023-04-19T12:20:39.200Z'
-            created_by: 33
-            moniker: nda
-            name: NDA Workflow
-            project_id: 2
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '401':
-      description: Unauthorized - the authentication provided was invalid
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -256,8 +256,8 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
-    '500':
-      description: Internal server error
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     review_analysis_200:
       description: JSON array of objects representing AI outputs from Traffic Light Analysis
       content:
@@ -265,6 +265,34 @@ components:
           schema:
             $ref: '#/components/schemas/traffic_light_analysis'
           example: null
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '500':
+      description: Internal server error
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    review_200:
+      description: JSON array of Reviews or a single review object if review ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+          example:
+            id: 3643
+            created_at: '2018-12-21T14:49:38.331Z'
+            created_by: 7
+            task_id: 16
+            document_id: 2040
+            state: active
+            review_state: pending
+            assigned_to: 7
+            assigned_at: '2018-12-21T14:49:51.292Z'
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '404':
+      description: Not Found
     review_201:
       description: JSON object of review created by POST method
       content:
@@ -282,47 +310,18 @@ components:
             assigned_to: None
             assigned_at: None
             outcome: None
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    review_200:
-      description: JSON array of Reviews or a single review object if review ID is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Review'
-          example:
-            id: 3643
-            created_at: '2018-12-21T14:49:38.331Z'
-            created_by: 7
-            task_id: 16
-            document_id: 2040
-            state: active
-            review_state: pending
-            assigned_to: 7
-            assigned_at: '2018-12-21T14:49:51.292Z'
-    '404':
-      description: Not Found
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
   parameters:
-    reviewState:
-      name: review_state
+    reviewAssignedAt:
+      name: created_at
       in: query
-      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
+      description: Time of Task Allocation
       required: false
       schema:
         type: string
-        enum:
-        - pending
-        - complete
-    documentId:
-      name: id
+        format: date-time
+        minimum: 0
+    documentReviewId:
+      name: document_id
       in: query
       description: Unique Document ID
       required: false
@@ -340,6 +339,65 @@ components:
         type: integer
         format: int32
         minimum: 0
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    reviewAssignee:
+      name: assigned_to
+      in: query
+      description: User ID of Assignee
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    reviewState:
+      name: review_state
+      in: query
+      description: Whether the document has been completely reviewd (complete) or is pending review (pending)
+      required: false
+      schema:
+        type: string
+        enum:
+        - pending
+        - complete
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    reviewSyncState:
+      name: state
+      in: query
+      description: Whether the document is active, there is a sync_staged for it (the document has been flagged to appear in the task but not added yet), or had a review which has been deleted
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - sync_staged
+        - deleted
     project-id:
       name: project-id
       in: path
@@ -360,15 +418,6 @@ components:
         - approved
         - rejected
         - None
-    reviewAssignee:
-      name: assigned_to
-      in: query
-      description: User ID of Assignee
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     review-id:
       name: review-id
       in: path
@@ -378,55 +427,6 @@ components:
         type: integer
         format: int32
         minimum: 0
-    documentReviewId:
-      name: document_id
-      in: query
-      description: Unique Document ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 654
-    reviewSyncState:
-      name: state
-      in: query
-      description: Whether the document is active, there is a sync_staged for it (the document has been flagged to appear in the task but not added yet), or had a review which has been deleted
-      required: false
-      schema:
-        type: string
-        enum:
-        - active
-        - sync_staged
-        - deleted
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    reviewAssignedAt:
-      name: created_at
-      in: query
-      description: Time of Task Allocation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
   schemas:
     Review:
       type: object

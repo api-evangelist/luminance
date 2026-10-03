@@ -37,12 +37,14 @@ components:
   responses:
     '500':
       description: Internal server error
-    '405':
-      description: Method not allowed (calling api with wrong method)
     '422':
       description: Unprocessable Entity - the request was well formed, but not processable
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '401':
+      description: Unauthorized - the authentication provided was invalid
     system_200:
       description: JSON object of system data
       content:
@@ -53,10 +55,8 @@ components:
             version: 1.16.0
             api2_version: 1.2.0
             product: corporate
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '401':
-      description: Unauthorized - the authentication provided was invalid
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
   schemas:
     System:
       type: object

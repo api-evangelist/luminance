@@ -1284,18 +1284,14 @@ paths:
           description: Instance moniker (e.g. acme)
 components:
   responses:
-    '500':
-      description: Internal server error
-    document_download_200:
-      description: Response containing a single document downloaded from the instance. The media type of the response will be contained in the content-type header and is entirely dependent on the media type uploaded to Luminance, which accepts any MIME-type following RFC 6838.
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     '401':
       description: Unauthorized - the authentication provided was invalid
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
     '204':
       description: Request completed, but no response payload body will be present (attributed to a successful deletion request)
+    '500':
+      description: Internal server error
     traffic_light_analysis_202:
       description: Message confirming Traffic Light Analysis has started on a particular document specified in the message response
       content:
@@ -1306,10 +1302,6 @@ components:
               message:
                 type: string
                 example: Traffic Light Analysis started on document 896
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
     documents_200:
       description: JSON array of Document objects or a single Document object if documentId is used in the path of the request
       content:
@@ -1329,191 +1321,14 @@ components:
             version_group: 369689
             version: 1
             version_state: active
-  parameters:
-    documentId:
-      name: id
-      in: query
-      description: Unique Document ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 654
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentState:
-      name: state
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - import_pending
-        - import_complete
-        - import_failure
-        - upload_failure
-        - import_extracted
-        - upload_cancelled
-      description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'.
-      example: import_complete
-    folder-id:
-      name: folder-id
-      in: path
-      description: Folder ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    document-id:
-      name: document-id
-      in: path
-      description: Document ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    folderId:
-      name: folder_id
-      in: query
-      description: Unique Folder ID(s)
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 6
-    documentMedia_type:
-      name: media_type
-      in: query
-      description: MIME type detected for the document
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-      example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-    documentName:
-      name: name
-      in: query
-      description: Name of document
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-      example: This is a contract.docx
-    documentVersionGroup:
-      name: version_group
-      in: query
-      type: integer
-      required: false
-      minimum: 0
-      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document.
-      example: 256
-    enable_token_based_linking:
-      name: enable_token_based_linking
-      in: query
-      description: Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx.
-      required: false
-      schema:
-        type: boolean
-        format: boolean
-        minimum: 0
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
-    documentVersion:
-      name: version
-      in: query
-      type: integer
-      required: false
-      minimum: 0
-      description: if a file 'replaces' another file, its version will increment.
-      example: 2
-    parentId:
-      name: parent_id
-      in: query
-      description: If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    createdBy:
-      name: created_by
-      in: query
-      description: User ID of Creator
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 4
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    matterVersionType:
-      name: type
-      in: query
-      type: string
-      example: attachment
-      required: false
-      enum:
-      - attachment
-      - draft
-      - version
-      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
-    documentVersionState:
-      name: version_state
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - active
-        - draft
-        - replaced
-      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
-      example: active
-    projectId:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    document_download_200:
+      description: Response containing a single document downloaded from the instance. The media type of the response will be contained in the content-type header and is entirely dependent on the media type uploaded to Luminance, which accepts any MIME-type following RFC 6838.
   schemas:
     Document:
       type: object
@@ -1604,6 +1419,191 @@ components:
         version_state:
           type: string
           description: active, draft, or replaced
+  parameters:
+    documentId:
+      name: id
+      in: query
+      description: Unique Document ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 654
+    documentName:
+      name: name
+      in: query
+      description: Name of document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: This is a contract.docx
+    documentVersionGroup:
+      name: version_group
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document.
+      example: 256
+    document-id:
+      name: document-id
+      in: path
+      description: Document ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    matterVersionType:
+      name: type
+      in: query
+      type: string
+      example: attachment
+      required: false
+      enum:
+      - attachment
+      - draft
+      - version
+      description: An attachment is not part of a matter's version history, but is typically used to store supporting documentation. A new 'version' is a new document saved as a new version, while a 'draft' version is an updated copy of the previous 'version' type group version.
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    documentMedia_type:
+      name: media_type
+      in: query
+      description: MIME type detected for the document
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+      example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    folderId:
+      name: folder_id
+      in: query
+      description: Unique Folder ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 6
+    documentVersion:
+      name: version
+      in: query
+      type: integer
+      required: false
+      minimum: 0
+      description: if a file 'replaces' another file, its version will increment.
+      example: 2
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentVersionState:
+      name: version_state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - draft
+        - replaced
+      description: When a file with the same filename as another document in a particular folder, is uploaded to that folder, the existing document is set to document_versionState = 'replaced'. The new document version_group is set to the documentId of the 'replaced' document. A 'draft' type version_state indicates the document is currently checked out via the Word Plugin and open for editing.
+      example: active
+    documentState:
+      name: state
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - import_pending
+        - import_complete
+        - import_failure
+        - upload_failure
+        - import_extracted
+        - upload_cancelled
+      description: An 'upload_cancelled' document has been indexed by Luminance, but the upload was cancelled by the user while the process was occurring/. 'upload_failure' documents were not cancelled by the user, but the upload failed for some reason, for example an internet connection dropping. An 'import_pending' document has been uploaded but not analysed by Luminance's AI yet, which happens automatically to turn the document into an 'import_complete' document with document/annotations. If the document cannot be analysed, it becomes 'import_failure'.
+      example: import_complete
+    enable_token_based_linking:
+      name: enable_token_based_linking
+      in: query
+      description: Whether to download a document with tokens added which will allow the document to be identified to its matter/Knowledge Bank in the Word Plugin or not. a 'true' value is only accepted if the document media_type is .doc or .docx.
+      required: false
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    parentId:
+      name: parent_id
+      in: query
+      description: If the document is part of a family of attachments, e.g. a document embedded on a PDF file or attached to an email
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     OAuth2:
       type: oauth2

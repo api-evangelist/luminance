@@ -167,7 +167,32 @@ paths:
       operationId: postApi2ProjectsByProjectIdDocumentTemplatesCreate
       x-operation-id-source: derived
 components:
+  parameters:
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
   schemas:
+    DocumentTemplateCreateRequest:
+      type: object
+      description: Payload for POST document_templates/create (contract creation). Get field keys from GET .../document_templates/{id}/fields; pass values in data keyed by field keys (e.g. singleInputFieldKey from fields of type datatag).
+      properties:
+        document_template_id:
+          type: integer
+        data:
+          type: object
+          description: Key-value map of template field keys to values
+        name:
+          type: string
+        state:
+          type: string
+        workflow_id:
+          type: integer
+      required:
+      - document_template_id
+      - data
     DocumentTemplate:
       type: object
       description: Document template for contract generation (see API2_Schema document_templates table)
@@ -191,31 +216,6 @@ components:
           type: string
         options:
           type: object
-    DocumentTemplateCreateRequest:
-      type: object
-      description: Payload for POST document_templates/create (contract creation). Get field keys from GET .../document_templates/{id}/fields; pass values in data keyed by field keys (e.g. singleInputFieldKey from fields of type datatag).
-      properties:
-        document_template_id:
-          type: integer
-        data:
-          type: object
-          description: Key-value map of template field keys to values
-        name:
-          type: string
-        state:
-          type: string
-        workflow_id:
-          type: integer
-      required:
-      - document_template_id
-      - data
-  parameters:
-    projectId:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     bearerAuth:
       type: http
