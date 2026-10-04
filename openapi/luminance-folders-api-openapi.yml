@@ -841,130 +841,29 @@ paths:
           default: your-instance
           description: Instance moniker (e.g. acme)
 components:
-  responses:
-    folder_201:
-      description: JSON array of single newly created Folder object with POST request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Folder'
-          example:
-            folder:
-              id: 52597
-              created_at: '2022-09-21T11:56:08.195Z'
-              created_by: 4
-              parent_id: 16
-              name: New Folder
-              media_type: null
-              project_id: 4
-              state: active
-              type: folder
-    '500':
-      description: Internal server error
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    folder_200:
-      description: JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Folder'
-          example:
-            folder:
-              id: 52597
-              created_at: '2022-09-21T11:56:08.195Z'
-              created_by: 4
-              parent_id: null
-              name: All Documents
-              media_type: null
-              project_id: 444
-              state: active
-              type: folder
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-  parameters:
-    folderParentId:
-      name: parent_id
-      in: query
-      description: The folder Id of the Parent Folder
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    folder-id:
-      name: folder-id
-      in: path
-      description: Folder ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    folderType:
-      name: type
-      in: query
-      description: Folder type
-      schema:
-        type: string
-        enum:
-        - folder
-        - custodian
-        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
-        default: folder
-    folderName:
-      name: name
-      in: query
-      description: Name of Folder
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    folderState:
-      name: state
-      in: query
-      description: Current State of Folder
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-        enum:
-        - active
-        - deleted
-    projectId:
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: integer
   schemas:
+    FolderPost:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          example: 52597
+          description: ID of the folder the new folder will be created in
+        name:
+          type: string
+          example: Foo Folder
+          description: Name for the new folder
+        type:
+          type: string
+          example: folder
+          enum:
+          - folder
+          - custodian
+          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+          default: folder
+      required:
+      - parent_id
+      - name
     Folder:
       type: object
       properties:
@@ -1006,28 +905,6 @@ components:
           description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
           default: folder
           example: folder
-    FolderPost:
-      type: object
-      properties:
-        parent_id:
-          type: integer
-          example: 52597
-          description: ID of the folder the new folder will be created in
-        name:
-          type: string
-          example: Foo Folder
-          description: Name for the new folder
-        type:
-          type: string
-          example: folder
-          enum:
-          - folder
-          - custodian
-          description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
-          default: folder
-      required:
-      - parent_id
-      - name
     FolderPatch:
       type: object
       properties:
@@ -1114,6 +991,129 @@ components:
         version_state:
           type: string
           description: active, draft, or replaced
+  parameters:
+    folderType:
+      name: type
+      in: query
+      description: Folder type
+      schema:
+        type: string
+        enum:
+        - folder
+        - custodian
+        description: Folder is the default value while Custodian can be useful if the folder is used to denote where the document has come from in Discovery projects.
+        default: folder
+    folderParentId:
+      name: parent_id
+      in: query
+      description: The folder Id of the Parent Folder
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    folder-id:
+      name: folder-id
+      in: path
+      description: Folder ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderName:
+      name: name
+      in: query
+      description: Name of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    folderState:
+      name: state
+      in: query
+      description: Current State of Folder
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        enum:
+        - active
+        - deleted
+    projectId:
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: integer
+  responses:
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    folder_201:
+      description: JSON array of single newly created Folder object with POST request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+          example:
+            folder:
+              id: 52597
+              created_at: '2022-09-21T11:56:08.195Z'
+              created_by: 4
+              parent_id: 16
+              name: New Folder
+              media_type: null
+              project_id: 4
+              state: active
+              type: folder
+    '500':
+      description: Internal server error
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    folder_200:
+      description: JSON array of Folder objects obtained with GET request or modified with PATCH request, or single Folder object if folderId is used in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+          example:
+            folder:
+              id: 52597
+              created_at: '2022-09-21T11:56:08.195Z'
+              created_by: 4
+              parent_id: null
+              name: All Documents
+              media_type: null
+              project_id: 444
+              state: active
+              type: folder
+    '401':
+      description: Unauthorized - the authentication provided was invalid
   securitySchemes:
     OAuth2:
       type: oauth2

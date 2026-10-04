@@ -610,265 +610,7 @@ paths:
       operationId: getProjectsByProjectIdTasksByTaskIdReviewsDocumentsByDocumentIdAnnotationsAnnotationText
       x-operation-id-source: derived
 components:
-  responses:
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    annotation_sources_200:
-      description: JSON array of annotationSource objects available in the instance, or a single JSON annotationSource object if annotationSourceId is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AnnotationSource'
-          example:
-            id: 56
-            created_at: '2021-10-25T11:58:31.879Z'
-            created_by: 1
-            annotation_type_id: 345
-            project_id: 2
-            workflow_id: 3
-            annotation_source_relation_id: null
-            content:
-              type: object
-              example:
-                party: VoicePhone Limited
-                raw_text: Voicephone Ltd.
-            state: active
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    '500':
-      description: Internal server error
-    matter_annotations_200:
-      description: JSON array of Annotation objects structured in the below schema
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/MatterAnnotation'
-          example:
-            id: 37495390
-            created_at: '2023-04-19T12:20:39.100Z'
-            created_by: 4
-            matter_id: 7342
-            annotation_type_id: 347
-            content:
-              timestamp: '2027-04-07T00:00:00.000Z'
-            state: active
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    annotation_source_patch_200:
-      description: JSON object or array of JSON objects of AnnotationSources after PATCHing to modify one or more AnnotationSource objects
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AnnotationSource'
-          example:
-            id: 56
-            created_at: '2021-10-25T11:58:31.879Z'
-            created_by: 1
-            annotation_type_id: 345
-            project_id: 2
-            workflow_id: 3
-            annotation_source_relation_id: null
-            content:
-              type: object
-              example:
-                party: VoicePhone Limited
-                raw_text: Voicephone Ltd.
-            state: active
-    annotationText_200:
-      description: JSON array of clauses (annotation)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AnnotationText'
-          example:
-            id: 37225093,
-            text: Example clause text.
-    annotation_source_create_201:
-      description: JSON object of an AnnotationsSource after POSTing to create one
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AnnotationSource'
-          example:
-            id: 56
-            created_at: '2021-10-25T11:58:31.879Z'
-            created_by: 1
-            annotation_type_id: 345
-            project_id: 2
-            workflow_id: 3
-            annotation_source_relation_id: null
-            content:
-              type: object
-              example:
-                party: VoicePhone Limited
-                raw_text: Voicephone Ltd.
-            state: active
-    annotations_200:
-      description: JSON array of Annotation objects structured in the below schema
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Annotation'
-          example:
-            id: 37495390
-            created_at: '2023-04-19T12:20:39.100Z'
-            created_by: 4
-            document_id: 369998
-            type: entity:party
-            roles:
-            - Counter-Party
-            content:
-              party: VoicePhone Limited.
-              raw_text: Voicephone Ltd.
-            state: active
-    annotation_types_200:
-      description: JSON array of annotationType objects available in the instance, or a single JSON annotationSource object if annotationTypeId is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AnnotationType'
-          example:
-            id: 1
-            created_at: '2021-10-25T11:58:31.879Z'
-            created_by: 1
-            type: entity:datetime
-            key: contract:effective
-            pre-built: true
-            name: Effective Date
-            options: {}
   parameters:
-    annotationTypeOptions:
-      name: options
-      in: query
-      description: Options associated with the annotation, the options field will display available values if the type is generic:enum.
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    annotationTypeKey:
-      name: key
-      in: query
-      description: Key used to identify the annotation
-      required: false
-      schema:
-        type: string
-        format: string
-    annotationTypeName:
-      name: name
-      in: query
-      description: The display name for the annotation in platform
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    annotationState:
-      name: state
-      in: query
-      description: State of the annotation
-      required: false
-      type: string
-      enum:
-      - active
-      - deleted
-    document-id:
-      name: document-id
-      in: path
-      description: Document ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    annotationId:
-      name: id
-      in: query
-      description: Unique Annotation ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    annotationContent:
-      name: content
-      in: query
-      description: The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId
-      required: false
-      schema:
-        type: object
-        properties:
-          value:
-            type: string
-            example: Agreement
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
-    annotationTypeId:
-      name: annotation_type_id
-      in: query
-      description: annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint
-      required: false
-      schema:
-        type: integer
-        example: 64
-        minimum: 0
-    annotationRoles:
-      name: roles
-      in: query
-      description: There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey available when calling the /annotation_types endpoint
-      required: false
-      schema:
-        type: array
-        example:
-        - contract-effective
-    annotation-type-id:
-      name: annotation-type-id
-      in: path
-      description: Annotation Type ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    matterAnnotationId:
-      name: id
-      in: query
-      description: Annotation ID of an Annotation attached to a Matter
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    annotationSourceRelationId:
-      name: annotation_source_relation_id
-      in: query
-      description: annotation_source_relation_id is not currently an interactable element via the API
-      required: false
-      schema:
-        type: integer
-        example: 76
-        minimum: 0
-    projectId:
-      name: id
-      in: query
-      description: Unique Project ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     annotationType:
       name: type
       in: query
@@ -947,15 +689,14 @@ components:
         - title
         - user
         - usertag
-    matterAnnotationTypeId:
-      name: id
+    annotationTypeKey:
+      name: key
       in: query
-      description: Unique Annotation Type ID for the Annotation attached to the Matter, can also be queried via the /annotation_types endpoint
+      description: Key used to identify the annotation
       required: false
       schema:
-        type: integer
-        format: int32
-        minimum: 0
+        type: string
+        format: string
     limit:
       name: limit
       in: query
@@ -966,53 +707,125 @@ components:
         format: int32
         minimum: 0
         default: 50
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    workflowId:
-      name: id
+    annotationTypeId:
+      name: annotation_type_id
       in: query
-      description: Unique Workflow ID
+      description: annotationTypeId for a particular MatterAnnotation. Can be queried via the annotation_types endpoint
       required: false
       schema:
         type: integer
-        format: int32
+        example: 64
         minimum: 0
-    annotation-id:
-      name: annotation-id
+    matter-id:
+      name: matter-id
       in: path
-      description: Annotation ID
+      description: Matter Id
       required: true
       schema:
         type: integer
         format: int32
         minimum: 0
-    matterAnnotationState:
+    annotationState:
       name: state
       in: query
-      description: State of an Annotation attached to a Matter
+      description: State of the annotation
+      required: false
+      type: string
+      enum:
+      - active
+      - deleted
+    annotationContent:
+      name: content
+      in: query
+      description: The content of a particular annotation, which will be a value depending on the annotation's annotationTypeId
       required: false
       schema:
-        type: string
-        enum:
-        - active
-        - deleted
-    createdBy:
-      name: created_by
+        type: object
+        properties:
+          value:
+            type: string
+            example: Agreement
+    annotation-type-id:
+      name: annotation-type-id
+      in: path
+      description: Annotation Type ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationSourceRelationId:
+      name: annotation_source_relation_id
       in: query
-      description: User ID of Creator
+      description: annotation_source_relation_id is not currently an interactable element via the API
+      required: false
+      schema:
+        type: integer
+        example: 76
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    annotationRoles:
+      name: roles
+      in: query
+      description: There will only ever be a single value in the role field for annotations. This corresponds to annotationTypeKey available when calling the /annotation_types endpoint
+      required: false
+      schema:
+        type: array
+        example:
+        - contract-effective
+    annotationSourceId:
+      name: annotation_source_id
+      in: query
+      description: annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface
+      required: false
+      schema:
+        type: integer
+        example: 76
+        minimum: 0
+    annotationTypeOptions:
+      name: options
+      in: query
+      description: Options associated with the annotation, the options field will display available values if the type is generic:enum.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    matterAnnotationTypeId:
+      name: id
+      in: query
+      description: Unique Annotation Type ID for the Annotation attached to the Matter, can also be queried via the /annotation_types endpoint
       required: false
       schema:
         type: integer
         format: int32
         minimum: 0
-      example: 4
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    document-id:
+      name: document-id
+      in: path
+      description: Document ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
     folder-id:
       name: folder-id
       in: path
@@ -1022,10 +835,20 @@ components:
         type: integer
         format: int32
         minimum: 0
-    project-id:
-      name: project-id
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    annotation-id:
+      name: annotation-id
       in: path
-      description: Project ID
+      description: Annotation ID
       required: true
       schema:
         type: integer
@@ -1039,6 +862,53 @@ components:
       schema:
         type: boolean
         default: none
+    matterAnnotationState:
+      name: state
+      in: query
+      description: State of an Annotation attached to a Matter
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - deleted
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    annotationId:
+      name: id
+      in: query
+      description: Unique Annotation ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    workflowId:
+      name: id
+      in: query
+      description: Unique Workflow ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
     annotationTextId:
       name: id
       in: query
@@ -1048,25 +918,372 @@ components:
         type: integer
         format: int32
         example: 6238
-    matter-id:
-      name: matter-id
-      in: path
-      description: Matter Id
-      required: true
+    matterAnnotationId:
+      name: id
+      in: query
+      description: Annotation ID of an Annotation attached to a Matter
+      required: false
       schema:
         type: integer
         format: int32
         minimum: 0
-    annotationSourceId:
-      name: annotation_source_id
+    annotationTypeName:
+      name: name
       in: query
-      description: annotation_source_id for a particular value made available to a users selecting values for that an Annotation when interacting with Matters in the user interface
+      description: The display name for the annotation in platform
       required: false
       schema:
-        type: integer
-        example: 76
+        type: string
+        format: string
         minimum: 0
+  responses:
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    annotation_source_patch_200:
+      description: JSON object or array of JSON objects of AnnotationSources after PATCHing to modify one or more AnnotationSource objects
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationSource'
+          example:
+            id: 56
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            annotation_type_id: 345
+            project_id: 2
+            workflow_id: 3
+            annotation_source_relation_id: null
+            content:
+              type: object
+              example:
+                party: VoicePhone Limited
+                raw_text: Voicephone Ltd.
+            state: active
+    annotation_source_create_201:
+      description: JSON object of an AnnotationsSource after POSTing to create one
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationSource'
+          example:
+            id: 56
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            annotation_type_id: 345
+            project_id: 2
+            workflow_id: 3
+            annotation_source_relation_id: null
+            content:
+              type: object
+              example:
+                party: VoicePhone Limited
+                raw_text: Voicephone Ltd.
+            state: active
+    annotation_sources_200:
+      description: JSON array of annotationSource objects available in the instance, or a single JSON annotationSource object if annotationSourceId is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationSource'
+          example:
+            id: 56
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            annotation_type_id: 345
+            project_id: 2
+            workflow_id: 3
+            annotation_source_relation_id: null
+            content:
+              type: object
+              example:
+                party: VoicePhone Limited
+                raw_text: Voicephone Ltd.
+            state: active
+    annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            document_id: 369998
+            type: entity:party
+            roles:
+            - Counter-Party
+            content:
+              party: VoicePhone Limited.
+              raw_text: Voicephone Ltd.
+            state: active
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    matter_annotations_200:
+      description: JSON array of Annotation objects structured in the below schema
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MatterAnnotation'
+          example:
+            id: 37495390
+            created_at: '2023-04-19T12:20:39.100Z'
+            created_by: 4
+            matter_id: 7342
+            annotation_type_id: 347
+            content:
+              timestamp: '2027-04-07T00:00:00.000Z'
+            state: active
+    annotation_types_200:
+      description: JSON array of annotationType objects available in the instance, or a single JSON annotationSource object if annotationTypeId is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationType'
+          example:
+            id: 1
+            created_at: '2021-10-25T11:58:31.879Z'
+            created_by: 1
+            type: entity:datetime
+            key: contract:effective
+            pre-built: true
+            name: Effective Date
+            options: {}
+    annotationText_200:
+      description: JSON array of clauses (annotation)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotationText'
+          example:
+            id: 37225093,
+            text: Example clause text.
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '401':
+      description: Unauthorized - the authentication provided was invalid
   schemas:
+    AnnotationSourcePatch:
+      type: object
+      description: Payload required to PATCH an annotationSourceId
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 345
+          description: Please note only AnnotationTypeIds which have the following annotationType values are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party', 'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId populates.
+          required: true
+        project_id:
+          type: integer
+          example: Voicephone project
+          description: The content for this annotationSourceId will be available only in the identified project. Set to null if the annotationSourceId should be available in all projects.
+          required: false
+        workflow_id:
+          type: integer
+          example: NDA Workflow
+          description: The content for this annotationSourceId will be available only in the identified workflow. Set to null if the annotationSourceId should be available in all workflows.
+          required: false
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+          required: false
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          required: false
+    MatterAnnotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        matter_id:
+          type: integer
+          example: 7342
+        annotation_type_id:
+          type: integer
+          example: 347
+          description: This corresponds to annotationTypeId available when calling the /annotation_types endpoint
+        content:
+          type: object
+          example:
+            timestamp: '2027-04-07T00:00:00.000Z'
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          example: active
+    AnnotationType:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-04-19T12:20:39.100Z'
+        created_by:
+          type: integer
+          example: 3
+        type:
+          type: string
+          enum:
+          - alert
+          - alias
+          - contract:state
+          - contracttype
+          - definedterm:definition
+          - definedterm:use
+          - document:bates
+          - document:cluster
+          - document:custodian
+          - document:duplicationfamily
+          - document:family
+          - document:privileged
+          - document:relation
+          - document:textinfo
+          - documenttype
+          - email:chain
+          - email:type
+          - emailaddress
+          - entity:area
+          - entity:boolean
+          - entity:custom
+          - entity:datetime
+          - entity:enum
+          - entity:identifier
+          - entity:law
+          - entity:location
+          - entity:money
+          - entity:organization
+          - entity:party
+          - entity:percent
+          - entity:person
+          - entity:signature
+          - entity:term
+          - entity:timeperiod
+          - folder
+          - fragment:clause
+          - fragment:cluster
+          - generic:boolean
+          - generic:enum
+          - generic:number
+          - generic:text
+          - language
+          - page
+          - pagecount
+          - qa:antivirus
+          - qa:blankpage
+          - qa:contentextraction
+          - qa:emptycontent
+          - qa:encrypted
+          - qa:hiddencells
+          - qa:missingmodel
+          - qa:ocr
+          - qa:paragraphing
+          - qa:partiallyindexed
+          - qa:render
+          - qa:restrictedfileformat
+          - qa:unsupportedfileformat
+          - redacted
+          - search
+          - source:referenceid
+          - source:signed
+          - structure:group
+          - structure:metadata
+          - structure:pagebreak
+          - structure:paragraph:joined
+          - structure:paragraph:split
+          - structure:section
+          - title
+          - user
+          - usertag
+          example: entity:datetime
+        key:
+          type: string
+          example: contract-effective
+        pre_built:
+          type: boolean
+          example: true
+        name:
+          type: string
+          example: Effective Date
+        options:
+          type: array
+          example: None
+    AnnotationSourceCreate:
+      type: object
+      description: Payload required to POST a new annotationSourceId
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 345
+          description: Please note only AnnotationTypeIds which have the following annotationType values are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party', 'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId populates.
+          required: true
+        project_id:
+          type: integer
+          example: Voicephone project
+          description: The content for this annotationSourceId will be available only in the identified project. Set to null if the annotationSourceId should be available in all projects.
+          required: false
+        workflow_id:
+          type: integer
+          example: NDA Workflow
+          description: The content for this annotationSourceId will be available only in the identified workflow. Set to null if the annotationSourceId should be available in all workflows.
+          required: false
+        content:
+          type: object
+          example:
+            party: VoicePhone Limited
+            raw_text: Voicephone Ltd.
+          required: true
+    MatterAnnotationPatch:
+      type: object
+      properties:
+        annotation_type_id:
+          type: integer
+          example: 400
+          required: true
+          description: See the api2/annotation_types endpoint for specifics of the annotation_type_ids enabled on your instance.
+        content:
+          type: object
+          properties:
+            value:
+              type: string
+              example: Agreement
+          required: false
+        state:
+          type: string
+          example: active
+          enum:
+          - active
+          - deleted
+          required: false
+          description: Can be used to patch the annotation to state deleted to delete the annotation from the user interface.
+    AnnotationText:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 37495390
+        text:
+          type: string
+          example: Example clause text
     Annotation:
       type: object
       properties:
@@ -1173,168 +1390,6 @@ components:
           - active
           - deleted
           example: active
-    AnnotationType:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 37495390
-        created_at:
-          type: string
-          format: date-time
-          example: '2023-04-19T12:20:39.100Z'
-        created_by:
-          type: integer
-          example: 3
-        type:
-          type: string
-          enum:
-          - alert
-          - alias
-          - contract:state
-          - contracttype
-          - definedterm:definition
-          - definedterm:use
-          - document:bates
-          - document:cluster
-          - document:custodian
-          - document:duplicationfamily
-          - document:family
-          - document:privileged
-          - document:relation
-          - document:textinfo
-          - documenttype
-          - email:chain
-          - email:type
-          - emailaddress
-          - entity:area
-          - entity:boolean
-          - entity:custom
-          - entity:datetime
-          - entity:enum
-          - entity:identifier
-          - entity:law
-          - entity:location
-          - entity:money
-          - entity:organization
-          - entity:party
-          - entity:percent
-          - entity:person
-          - entity:signature
-          - entity:term
-          - entity:timeperiod
-          - folder
-          - fragment:clause
-          - fragment:cluster
-          - generic:boolean
-          - generic:enum
-          - generic:number
-          - generic:text
-          - language
-          - page
-          - pagecount
-          - qa:antivirus
-          - qa:blankpage
-          - qa:contentextraction
-          - qa:emptycontent
-          - qa:encrypted
-          - qa:hiddencells
-          - qa:missingmodel
-          - qa:ocr
-          - qa:paragraphing
-          - qa:partiallyindexed
-          - qa:render
-          - qa:restrictedfileformat
-          - qa:unsupportedfileformat
-          - redacted
-          - search
-          - source:referenceid
-          - source:signed
-          - structure:group
-          - structure:metadata
-          - structure:pagebreak
-          - structure:paragraph:joined
-          - structure:paragraph:split
-          - structure:section
-          - title
-          - user
-          - usertag
-          example: entity:datetime
-        key:
-          type: string
-          example: contract-effective
-        pre_built:
-          type: boolean
-          example: true
-        name:
-          type: string
-          example: Effective Date
-        options:
-          type: array
-          example: None
-    AnnotationText:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 37495390
-        text:
-          type: string
-          example: Example clause text
-    AnnotationSourcePatch:
-      type: object
-      description: Payload required to PATCH an annotationSourceId
-      properties:
-        annotation_type_id:
-          type: integer
-          example: 345
-          description: Please note only AnnotationTypeIds which have the following annotationType values are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party', 'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId populates.
-          required: true
-        project_id:
-          type: integer
-          example: Voicephone project
-          description: The content for this annotationSourceId will be available only in the identified project. Set to null if the annotationSourceId should be available in all projects.
-          required: false
-        workflow_id:
-          type: integer
-          example: NDA Workflow
-          description: The content for this annotationSourceId will be available only in the identified workflow. Set to null if the annotationSourceId should be available in all workflows.
-          required: false
-        content:
-          type: object
-          example:
-            party: VoicePhone Limited
-            raw_text: Voicephone Ltd.
-          required: false
-        state:
-          type: string
-          enum:
-          - active
-          - deleted
-          required: false
-    MatterAnnotationPatch:
-      type: object
-      properties:
-        annotation_type_id:
-          type: integer
-          example: 400
-          required: true
-          description: See the api2/annotation_types endpoint for specifics of the annotation_type_ids enabled on your instance.
-        content:
-          type: object
-          properties:
-            value:
-              type: string
-              example: Agreement
-          required: false
-        state:
-          type: string
-          example: active
-          enum:
-          - active
-          - deleted
-          required: false
-          description: Can be used to patch the annotation to state deleted to delete the annotation from the user interface.
     AnnotationSource:
       type: object
       properties:
@@ -1372,61 +1427,6 @@ components:
           - active
           - deleted
           example: active
-    MatterAnnotation:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 37495390
-        created_at:
-          type: string
-          format: date-time
-          example: '2023-04-19T12:20:39.100Z'
-        created_by:
-          type: integer
-          example: 3
-        matter_id:
-          type: integer
-          example: 7342
-        annotation_type_id:
-          type: integer
-          example: 347
-          description: This corresponds to annotationTypeId available when calling the /annotation_types endpoint
-        content:
-          type: object
-          example:
-            timestamp: '2027-04-07T00:00:00.000Z'
-        state:
-          type: string
-          enum:
-          - active
-          - deleted
-          example: active
-    AnnotationSourceCreate:
-      type: object
-      description: Payload required to POST a new annotationSourceId
-      properties:
-        annotation_type_id:
-          type: integer
-          example: 345
-          description: Please note only AnnotationTypeIds which have the following annotationType values are available to populate via an AnnotationSource 'entity:identifier','entity:location', 'entity:party', 'generic:boolean', 'generic:enum'. This is the unique annotationTypeId which this annotationSourceId populates.
-          required: true
-        project_id:
-          type: integer
-          example: Voicephone project
-          description: The content for this annotationSourceId will be available only in the identified project. Set to null if the annotationSourceId should be available in all projects.
-          required: false
-        workflow_id:
-          type: integer
-          example: NDA Workflow
-          description: The content for this annotationSourceId will be available only in the identified workflow. Set to null if the annotationSourceId should be available in all workflows.
-          required: false
-        content:
-          type: object
-          example:
-            party: VoicePhone Limited
-            raw_text: Voicephone Ltd.
-          required: true
   securitySchemes:
     OAuth2:
       type: oauth2

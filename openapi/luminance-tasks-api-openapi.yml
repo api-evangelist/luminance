@@ -748,49 +748,6 @@ paths:
           description: Instance moniker (e.g. acme)
 components:
   parameters:
-    async:
-      name: async
-      in: query
-      description: Whether to make the call synchronously or wait for the precedent type task to be created asynchronously when creating a Knowledge Bank from template.
-      required: true
-      schema:
-        type: boolean
-        format: boolean
-        minimum: 0
-    taskId:
-      name: id
-      in: query
-      description: Unique Task ID(s)
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    taskDescription:
-      name: description
-      in: query
-      description: Task Description
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    auto_sync:
-      name: auto_sync
-      in: query
-      description: If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run
-      required: false
-      schema:
-        type: boolean
-        format: boolean
-        minimum: 0
-    moniker:
-      name: moniker
-      in: query
-      description: Shortened Name of Project or Workflow
-      required: false
-      schema:
-        type: string
     limit:
       name: limit
       in: query
@@ -801,15 +758,6 @@ components:
         format: int32
         minimum: 0
         default: 50
-    task-id:
-      name: task-id
-      in: path
-      description: Task ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
     TaskName:
       name: name
       in: query
@@ -819,6 +767,58 @@ components:
         type: string
         format: string
         minimum: 0
+    taskId:
+      name: id
+      in: query
+      description: Unique Task ID(s)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    async:
+      name: async
+      in: query
+      description: Whether to make the call synchronously or wait for the precedent type task to be created asynchronously when creating a Knowledge Bank from template.
+      required: true
+      schema:
+        type: boolean
+        format: boolean
+        minimum: 0
+    taskDescription:
+      name: description
+      in: query
+      description: Task Description
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    task-id:
+      name: task-id
+      in: path
+      description: Task ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project or Workflow
+      required: false
+      schema:
+        type: string
     createdBy:
       name: created_by
       in: query
@@ -829,14 +829,14 @@ components:
         format: int32
         minimum: 0
       example: 4
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
+    auto_sync:
+      name: auto_sync
+      in: query
+      description: If auto-sync is automatic (true) or staging (false). If this is set to null then no auto-sync is run
+      required: false
       schema:
-        type: integer
-        format: int32
+        type: boolean
+        format: boolean
         minimum: 0
     taskType:
       name: type
@@ -856,62 +856,30 @@ components:
       required: true
       schema:
         type: integer
-  responses:
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    knowledge_bank_from_template_202:
-      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
-      content:
-        application/json:
-          schema:
-            message:
-              type: string
-              example: Knowledge Bank created. Generating positions from provided template.
-            task_id:
-              type: integer
-              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
-          example:
-            message: Knowledge Bank created. Generating positions from provided template.
-            task_id: 130
-    '500':
-      description: Internal server error
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    task_200:
-      description: JSON array of Tasks or a single JSON task object if task ID is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Task'
-          example:
-            id: 16
-            created_at: '2018-12-21T14:49:38.113Z'
-            created_by: 7
-            moniker: tes
-            name: Test Task
-            project_id: 2
-            parent_id: null
-            description: null
-            workspace_id: null
-            settings:
-              last_synced: '2023-05-17T11:49:18.240Z'
-              completionConditions: []
-            filter:
-              op: and
-              analyze: true
-              annotation:0.type: documenttype
-              annotation:0.content.type: i:commercial-and-operations
-            full_families: false
-            auto_sync: false
-            type: task
-            tags: []
   schemas:
+    KnowledgeBankFromTemplate:
+      type: object
+      description: Payload necessary to create a knowledge bank from a specified document ID of the specified contract type
+      properties:
+        document_id:
+          type: integer
+          example: 698
+          description: The document ID to find positional information in and generate a knowledge bank from
+        contract_type:
+          type: string
+          enum:
+          - non%2Ddisclosure-agreement
+          - services-agreement
+          example: non%2Ddisclosure-agreement
+          description: Select the from the available Luminance contract type modules which can be used to generate positions from ontracts of that type
+        include_luminance_basis:
+          type: boolean
+          example: false
+          description: Whether or not to include standard Luminance position information in this knowledge bank from the selected module, or only to use position information found in the specified document ID
+        name:
+          type: string
+          example: New Knowledge Bank from for Master Services Agreement
+          description: the name for the new Knowledge Bank created
     Task:
       type: object
       properties:
@@ -981,29 +949,61 @@ components:
           example:
           - Review Level 1
           - Review Level 2
-    KnowledgeBankFromTemplate:
-      type: object
-      description: Payload necessary to create a knowledge bank from a specified document ID of the specified contract type
-      properties:
-        document_id:
-          type: integer
-          example: 698
-          description: The document ID to find positional information in and generate a knowledge bank from
-        contract_type:
-          type: string
-          enum:
-          - non%2Ddisclosure-agreement
-          - services-agreement
-          example: non%2Ddisclosure-agreement
-          description: Select the from the available Luminance contract type modules which can be used to generate positions from ontracts of that type
-        include_luminance_basis:
-          type: boolean
-          example: false
-          description: Whether or not to include standard Luminance position information in this knowledge bank from the selected module, or only to use position information found in the specified document ID
-        name:
-          type: string
-          example: New Knowledge Bank from for Master Services Agreement
-          description: the name for the new Knowledge Bank created
+  responses:
+    task_200:
+      description: JSON array of Tasks or a single JSON task object if task ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+          example:
+            id: 16
+            created_at: '2018-12-21T14:49:38.113Z'
+            created_by: 7
+            moniker: tes
+            name: Test Task
+            project_id: 2
+            parent_id: null
+            description: null
+            workspace_id: null
+            settings:
+              last_synced: '2023-05-17T11:49:18.240Z'
+              completionConditions: []
+            filter:
+              op: and
+              analyze: true
+              annotation:0.type: documenttype
+              annotation:0.content.type: i:commercial-and-operations
+            full_families: false
+            auto_sync: false
+            type: task
+            tags: []
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
+    knowledge_bank_from_template_202:
+      description: JSON object of message and resulting taskId generated to create a Knowledge Bank from template. Bear in mind that while the task may be created, positions may take longer to generate (up to 15 minutes).
+      content:
+        application/json:
+          schema:
+            message:
+              type: string
+              example: Knowledge Bank created. Generating positions from provided template.
+            task_id:
+              type: integer
+              description: taskID of the newly created 'precedent' type task created as a Knowledge Bank in the user interface
+          example:
+            message: Knowledge Bank created. Generating positions from provided template.
+            task_id: 130
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '401':
+      description: Unauthorized - the authentication provided was invalid
   securitySchemes:
     OAuth2:
       type: oauth2

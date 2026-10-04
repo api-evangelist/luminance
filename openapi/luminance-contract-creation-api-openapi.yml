@@ -147,227 +147,6 @@ paths:
       operationId: postProjectsByProjectIdDocumentTemplatesCreate
       x-operation-id-source: derived
 components:
-  parameters:
-    documentTemplateState:
-      in: query
-      name: state
-      required: false
-      type: string
-      enum: active deleted
-      example: active
-    mediaType:
-      name: media_type
-      in: query
-      description: The media type of the file in the documentTemplate object. Will always be an MS Word MIME type
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-        example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-    documentTemplateFieldParentDataFieldId:
-      name: parent_data_field_id
-      in: query
-      description: The documentTemplateFieldId of the field this field is a child of, for example in a nested loop.
-      required: false
-      schema:
-        type: string
-        minimum: 0
-    documentTemplateId:
-      name: id
-      in: query
-      description: ID of a specific document template (document template in the user interface)
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
-    document-template-id:
-      name: document-template-id
-      in: path
-      description: ID of a specific document template (document template in the user interface)
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentTemplateFieldId:
-      name: id
-      in: query
-      description: ID of a specific document template field
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentTemplateName:
-      name: name
-      in: query
-      description: Name of a specific document template
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    documentTemplateOptions:
-      name: options
-      in: query
-      description: Configuration options for the document template
-      required: false
-      schema:
-        type: object
-        example:
-          old_template: true
-    documentTemplateFieldName:
-      in: query
-      name: name
-      description: Name of a specific document template
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    createdBy:
-      name: created_by
-      in: query
-      description: User ID of Creator
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 4
-    documentTemplateFieldKey:
-      name: key
-      in: query
-      description: Name of a specific document template field. Corresponds to its name on the document template itself
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentTemplateFieldOptions:
-      name: options
-      in: query
-      description: This is where options for the field are stored.
-      required: false
-      type: object
-    documentTemplateFieldOrder:
-      name: field_order
-      in: query
-      description: Where positionally the field is on the document template, top to bottom and left to right
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    documentTemplateFieldDataType:
-      name: datatype
-      in: query
-      description: Data type accepted by that field - will usually be generic:text, which is free text
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    defaultFolderId:
-      name: default_folder_id
-      in: query
-      description: The folderId which documents created using this template will be saved to
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-  responses:
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '401':
-      description: Unauthorized - the authentication provided was invalid
-    document_template_create_200:
-      description: Success Message for a document created via the templates/create endpoint
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DocumentTemplateCreate'
-          example:
-            id: 4
-            name: New NDA
-            project_id: 5
-            folder_id: 43
-            version: 1
-            version_matter: 1654
-    document_template_fields_200:
-      description: JSON array of DocumentTemplateField objects or a single DocumentTemplateField object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DocumentTemplateFields'
-          example:
-            id: 5
-            created_at: '2023-01-17T18:10:46.532Z'
-            created_by: 4
-            name: NDA Contract templates
-            default_folder_id: 16
-            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-            project_id: 8
-            state: active
-            options:
-              old_template: true
-    '500':
-      description: Internal server error
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    document_templates_200:
-      description: JSON array of DocumentTemplates objects or a single DocumentTemplates object if documentTemplateId is used in the path of the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DocumentTemplates'
-          example:
-            id: 5
-            created_at: '2023-01-17T18:10:46.532Z'
-            created_by: 4
-            name: NDA Contract templates
-            default_folder_id: 16
-            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-            project_id: 8
-            state: active
-            options:
-              old_template: true
   schemas:
     DocumentTemplatePayload:
       type: object
@@ -417,33 +196,6 @@ components:
             value_field_parented_to_loop_2: text
           - value_field_parented_to_loop_1: text
             value_field_parented_to_loop_2: text
-    DocumentTemplateCreate:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 12411
-          description: Unique ID for the Document object created
-        name:
-          type: string
-          example: '2023-01-17T18:10:46.532Z'
-          description: Filename for the Document object created
-        project_id:
-          type: integer
-          example: 4
-          description: Unique projectId for the project the document has been created in
-        folder_id:
-          type: integer
-          example: 7342
-          description: folderId of the Folder object the document has been created in
-        version:
-          type: integer
-          example: 45
-          description: This is the documentVersion for the newly created Document object, not related to matterVersion
-        versionMatter:
-          type: integer
-          example: 45
-          description: This is the documentVersionMatter for the newly created Document object, not related to matterVersion
     DocumentTemplateFields:
       type: object
       properties:
@@ -515,6 +267,33 @@ components:
               type: string
               example: null
           description: In a 'value' type DocumentTemplateField, the parent_data_field_key will specify the DocumentTemplateFieldskey of the 'loop' type field item, if the field can accept multiple values as it is nested in a loop. Other DocumentTemplateFieldtypes will not have a parent_data_field_key and will be entered only once in the Post request DocumentTemplatePayload.
+    DocumentTemplateCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12411
+          description: Unique ID for the Document object created
+        name:
+          type: string
+          example: '2023-01-17T18:10:46.532Z'
+          description: Filename for the Document object created
+        project_id:
+          type: integer
+          example: 4
+          description: Unique projectId for the project the document has been created in
+        folder_id:
+          type: integer
+          example: 7342
+          description: folderId of the Folder object the document has been created in
+        version:
+          type: integer
+          example: 45
+          description: This is the documentVersion for the newly created Document object, not related to matterVersion
+        versionMatter:
+          type: integer
+          example: 45
+          description: This is the documentVersionMatter for the newly created Document object, not related to matterVersion
     DocumentTemplates:
       type: object
       properties:
@@ -550,6 +329,227 @@ components:
           type: object
           example:
             old_template: true
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    documentTemplateName:
+      name: name
+      in: query
+      description: Name of a specific document template
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    document-template-id:
+      name: document-template-id
+      in: path
+      description: ID of a specific document template (document template in the user interface)
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateFieldKey:
+      name: key
+      in: query
+      description: Name of a specific document template field. Corresponds to its name on the document template itself
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    mediaType:
+      name: media_type
+      in: query
+      description: The media type of the file in the documentTemplate object. Will always be an MS Word MIME type
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+        example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    documentTemplateId:
+      name: id
+      in: query
+      description: ID of a specific document template (document template in the user interface)
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    documentTemplateFieldId:
+      name: id
+      in: query
+      description: ID of a specific document template field
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateOptions:
+      name: options
+      in: query
+      description: Configuration options for the document template
+      required: false
+      schema:
+        type: object
+        example:
+          old_template: true
+    documentTemplateFieldDataType:
+      name: datatype
+      in: query
+      description: Data type accepted by that field - will usually be generic:text, which is free text
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    defaultFolderId:
+      name: default_folder_id
+      in: query
+      description: The folderId which documents created using this template will be saved to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateFieldName:
+      in: query
+      name: name
+      description: Name of a specific document template
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    documentTemplateFieldParentDataFieldId:
+      name: parent_data_field_id
+      in: query
+      description: The documentTemplateFieldId of the field this field is a child of, for example in a nested loop.
+      required: false
+      schema:
+        type: string
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    documentTemplateFieldOrder:
+      name: field_order
+      in: query
+      description: Where positionally the field is on the document template, top to bottom and left to right
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    documentTemplateState:
+      in: query
+      name: state
+      required: false
+      type: string
+      enum: active deleted
+      example: active
+    documentTemplateFieldOptions:
+      name: options
+      in: query
+      description: This is where options for the field are stored.
+      required: false
+      type: object
+  responses:
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '500':
+      description: Internal server error
+    document_templates_200:
+      description: JSON array of DocumentTemplates objects or a single DocumentTemplates object if documentTemplateId is used in the path of the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplates'
+          example:
+            id: 5
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            name: NDA Contract templates
+            default_folder_id: 16
+            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            project_id: 8
+            state: active
+            options:
+              old_template: true
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    document_template_fields_200:
+      description: JSON array of DocumentTemplateField objects or a single DocumentTemplateField object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplateFields'
+          example:
+            id: 5
+            created_at: '2023-01-17T18:10:46.532Z'
+            created_by: 4
+            name: NDA Contract templates
+            default_folder_id: 16
+            media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            project_id: 8
+            state: active
+            options:
+              old_template: true
+    document_template_create_200:
+      description: Success Message for a document created via the templates/create endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DocumentTemplateCreate'
+          example:
+            id: 4
+            name: New NDA
+            project_id: 5
+            folder_id: 43
+            version: 1
+            version_matter: 1654
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '401':
+      description: Unauthorized - the authentication provided was invalid
   securitySchemes:
     OAuth2:
       type: oauth2
