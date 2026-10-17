@@ -256,84 +256,226 @@ paths:
           default: your-instance
           description: Instance moniker (e.g. acme)
 components:
+  responses:
+    '403':
+      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
+    '422':
+      description: Unprocessable Entity - the request was well formed, but not processable
+    project_users_200:
+      description: Array of JSON objects describing user permissions assigned across your instance at a project level, or a single JSON user permissions object if user permission object ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectUsers'
+          example:
+            id: 1
+            created_at: '2021-10-25T12:35:02.385Z'
+            project_id: 1
+            user_id: 8
+            type: admin
+            roles:
+            - admin
+            - power
+    '500':
+      description: Internal server error
+    '401':
+      description: Unauthorized - the authentication provided was invalid
+    '429':
+      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
+    '405':
+      description: Method not allowed (calling api with wrong method)
+    project_200:
+      description: JSON array of Projects or a single JSON project object if project ID is referenced in the path
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Project'
+          example:
+            id: 4
+            created_at: '2022-12-01T10:21:04.589Z'
+            created_by: 1
+            moniker: voicep
+            name: VoicePhone Project
+            account_id: 2
+            state: disabled
+            permissions: native
+            settings:
+              tags:
+              - Legal Analysis
+              - Flagged for Followup
+              task_tags:
+              - Review Task Level 1
+              - Review Task Level 2
+              annotation_types:
+                bundles:
+                - Corporate
+              required_matter_tags:
+              - 311
+              concept_tags_blacklist:
+              - 20
+              - 35
+              matter_tags:
+              - 46
+              - 78
+            type: corporate
+            features:
+            - bulkredact
+  parameters:
+    projectPermissions:
+      name: permissions
+      in: query
+      description: Granted Download Permissions of Project Documents
+      required: false
+      schema:
+        type: string
+        enum:
+        - none
+        - preview
+        - native
+    project-user-id:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectUserRoles:
+      name: roles
+      in: query
+      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    accountId:
+      name: account_id
+      in: query
+      description: ID of Associated Account this User is Added to
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdBy:
+      name: created_by
+      in: query
+      description: User ID of Creator
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+      example: 4
+    projectState:
+      name: state
+      in: query
+      description: Current State of Project
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - disabled
+        - deleted
+    projectUserType:
+      name: type
+      in: query
+      description: Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'
+      required: false
+      schema:
+        type: string
+        format: string
+        minimum: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects that can be retrieved.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 50
+    projectId:
+      name: id
+      in: query
+      description: Unique Project ID
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectUserId:
+      name: id
+      in: query
+      description: ID of the user permission object
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    projectFeatures:
+      name: features
+      in: query
+      description: Additional Features Available in this Project
+      schema:
+        type: array
+        items:
+          type: string
+    ProjectName:
+      name: name
+      in: query
+      description: Name of Project
+      required: false
+      schema:
+        type: string
+    project-id:
+      name: project-id
+      in: path
+      description: Project ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+    createdAt:
+      name: created_at
+      in: query
+      description: Time of Creation
+      required: false
+      schema:
+        type: string
+        format: date-time
+        minimum: 0
+      example: '2021-10-25T11:58:31.879Z'
+    projectSettings:
+      name: settings
+      in: query
+      description: Enabled Annotation Types
+      required: false
+      schema:
+        $ref: '#/components/schemas/ProjectSettings'
+    moniker:
+      name: moniker
+      in: query
+      description: Shortened Name of Project or Workflow
+      required: false
+      schema:
+        type: string
+    projectType:
+      name: type
+      in: query
+      description: Product type
+      schema:
+        type: string
+        enum:
+        - diligence
+        - discovery
+        - corporate
   schemas:
-    ProjectUsers:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        created_at:
-          type: string
-          format: date-time
-          example: '2021-10-25T12:35:02.385Z'
-        project_id:
-          type: integer
-          example: 3
-        user_id:
-          type: integer
-          example: 8
-        type:
-          type: string
-          enum:
-          - admin
-          - standard
-        roles:
-          type: array
-          example:
-          - admin
-          - power
-    Project:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 4
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-12-01T10:21:04.589Z'
-        created_by:
-          type: integer
-          example: 1
-        moniker:
-          type: string
-          example: voicep
-        name:
-          type: string
-          example: VoicePhone Project
-        account_id:
-          type: integer
-          example: 2
-        state:
-          type: string
-          example: disabled
-          enum:
-          - active
-          - deleted
-          - disabled
-        permissions:
-          type: string
-          enum:
-          - none
-          - preview
-          - native
-          example: native
-        settings:
-          $ref: '#/components/schemas/ProjectSettings'
-        type:
-          type: string
-          example: diligence
-          enum:
-          - corporate
-          - diligence
-          - discovery
-        features:
-          type: array
-          example:
-          - bulkredact
-          items:
-            type: string
     ProjectSettings:
       type: object
       properties:
@@ -395,6 +537,83 @@ components:
           example:
           - 46
           - 78
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-12-01T10:21:04.589Z'
+        created_by:
+          type: integer
+          example: 1
+        moniker:
+          type: string
+          example: voicep
+        name:
+          type: string
+          example: VoicePhone Project
+        account_id:
+          type: integer
+          example: 2
+        state:
+          type: string
+          example: disabled
+          enum:
+          - active
+          - deleted
+          - disabled
+        permissions:
+          type: string
+          enum:
+          - none
+          - preview
+          - native
+          example: native
+        settings:
+          $ref: '#/components/schemas/ProjectSettings'
+        type:
+          type: string
+          example: diligence
+          enum:
+          - corporate
+          - diligence
+          - discovery
+        features:
+          type: array
+          example:
+          - bulkredact
+          items:
+            type: string
+    ProjectUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-10-25T12:35:02.385Z'
+        project_id:
+          type: integer
+          example: 3
+        user_id:
+          type: integer
+          example: 8
+        type:
+          type: string
+          enum:
+          - admin
+          - standard
+        roles:
+          type: array
+          example:
+          - admin
+          - power
     Project_2:
       type: object
       description: Project (division/room) object (see API2_Schema projects table)
@@ -425,225 +644,6 @@ components:
           type: array
           items:
             type: string
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects that can be retrieved.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 50
-    projectFeatures:
-      name: features
-      in: query
-      description: Additional Features Available in this Project
-      schema:
-        type: array
-        items:
-          type: string
-    projectState:
-      name: state
-      in: query
-      description: Current State of Project
-      required: false
-      schema:
-        type: string
-        enum:
-        - active
-        - disabled
-        - deleted
-    projectUserId:
-      name: id
-      in: query
-      description: ID of the user permission object
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    projectPermissions:
-      name: permissions
-      in: query
-      description: Granted Download Permissions of Project Documents
-      required: false
-      schema:
-        type: string
-        enum:
-        - none
-        - preview
-        - native
-    project-id:
-      name: project-id
-      in: path
-      description: Project ID
-      required: true
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    accountId:
-      name: account_id
-      in: query
-      description: ID of Associated Account this User is Added to
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    projectType:
-      name: type
-      in: query
-      description: Product type
-      schema:
-        type: string
-        enum:
-        - diligence
-        - discovery
-        - corporate
-    projectUserRoles:
-      name: roles
-      in: query
-      description: Array of user permissions assigned to the user in the project defined in the user permissions object. A user may have multiple permission roles in a single project.
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    ProjectName:
-      name: name
-      in: query
-      description: Name of Project
-      required: false
-      schema:
-        type: string
-    projectId:
-      name: id
-      in: query
-      description: Unique Project ID
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    createdAt:
-      name: created_at
-      in: query
-      description: Time of Creation
-      required: false
-      schema:
-        type: string
-        format: date-time
-        minimum: 0
-      example: '2021-10-25T11:58:31.879Z'
-    projectUserType:
-      name: type
-      in: query
-      description: Type of the user in the user permission object, either 'admin' (Account Administrator) or 'standard'
-      required: false
-      schema:
-        type: string
-        format: string
-        minimum: 0
-    project-user-id:
-      name: id
-      in: query
-      description: ID of the user permission object
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-    projectSettings:
-      name: settings
-      in: query
-      description: Enabled Annotation Types
-      required: false
-      schema:
-        $ref: '#/components/schemas/ProjectSettings'
-    moniker:
-      name: moniker
-      in: query
-      description: Shortened Name of Project or Workflow
-      required: false
-      schema:
-        type: string
-    createdBy:
-      name: created_by
-      in: query
-      description: User ID of Creator
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-      example: 4
-  responses:
-    '422':
-      description: Unprocessable Entity - the request was well formed, but not processable
-    '403':
-      description: Forbidden - the authenticated user does not have sufficient permissions to perform this action
-    '500':
-      description: Internal server error
-    '405':
-      description: Method not allowed (calling api with wrong method)
-    project_users_200:
-      description: Array of JSON objects describing user permissions assigned across your instance at a project level, or a single JSON user permissions object if user permission object ID is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ProjectUsers'
-          example:
-            id: 1
-            created_at: '2021-10-25T12:35:02.385Z'
-            project_id: 1
-            user_id: 8
-            type: admin
-            roles:
-            - admin
-            - power
-    project_200:
-      description: JSON array of Projects or a single JSON project object if project ID is referenced in the path
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Project'
-          example:
-            id: 4
-            created_at: '2022-12-01T10:21:04.589Z'
-            created_by: 1
-            moniker: voicep
-            name: VoicePhone Project
-            account_id: 2
-            state: disabled
-            permissions: native
-            settings:
-              tags:
-              - Legal Analysis
-              - Flagged for Followup
-              task_tags:
-              - Review Task Level 1
-              - Review Task Level 2
-              annotation_types:
-                bundles:
-                - Corporate
-              required_matter_tags:
-              - 311
-              concept_tags_blacklist:
-              - 20
-              - 35
-              matter_tags:
-              - 46
-              - 78
-            type: corporate
-            features:
-            - bulkredact
-    '429':
-      description: Too many requests have been sent to the server over a given time period. Please contact Luminance's support team.
-    '401':
-      description: Unauthorized - the authentication provided was invalid
   securitySchemes:
     OAuth2:
       type: oauth2
